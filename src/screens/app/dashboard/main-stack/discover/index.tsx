@@ -1,7 +1,8 @@
 import { Text } from '@rneui/base'
 import { View } from 'react-native'
-import AppLayout from '../../app-layout'
+
 import { NavigationProp } from '@react-navigation/native'
+import AppLayout from '../../../app-layout'
 
 interface IDiscoverScreenProps {
   navigation: NavigationProp<any>

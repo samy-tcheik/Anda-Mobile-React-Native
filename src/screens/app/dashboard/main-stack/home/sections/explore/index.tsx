@@ -1,11 +1,16 @@
 import { View } from 'react-native'
-import Typography from '../../../../../../components/text'
 import { Tab, TabView } from '@rneui/base'
 import PlacesCarousel from '../../../components/places-carousel'
 import { useState } from 'react'
-import { FakePlacesData } from '../../../../../../utils/fakeData'
+import Typography from '../../../../../../../components/text'
+import { FakePlacesData } from '../../../../../../../utils/fakeData'
+import { NavigationProp } from '@react-navigation/native'
 
-const ExploreSection: React.FC = () => {
+interface IExploreSectionProps {
+  navigation: NavigationProp<any>
+}
+
+const ExploreSection: React.FC<IExploreSectionProps> = ({ navigation }) => {
   const [index, setIndex] = useState(0)
   return (
     <View style={{ paddingHorizontal: 15 }}>
@@ -28,13 +33,13 @@ const ExploreSection: React.FC = () => {
       <View style={{ height: 300 }}>
         <TabView value={index} onChange={setIndex} animationType="spring">
           <TabView.Item style={{ width: '100%' }}>
-            <PlacesCarousel data={FakePlacesData} />
+            <PlacesCarousel data={FakePlacesData} navigation={navigation} />
           </TabView.Item>
           <TabView.Item style={{ width: '100%' }}>
-            <PlacesCarousel data={FakePlacesData} />
+            <PlacesCarousel data={FakePlacesData} navigation={navigation} />
           </TabView.Item>
           <TabView.Item style={{ width: '100%' }}>
-            <PlacesCarousel data={FakePlacesData} />
+            <PlacesCarousel data={FakePlacesData} navigation={navigation} />
           </TabView.Item>
         </TabView>
       </View>

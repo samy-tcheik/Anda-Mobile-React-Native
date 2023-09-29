@@ -1,4 +1,4 @@
-import MainScreen from './main'
+import MainScreen from './dashboard'
 import {
   DrawerContentComponentProps,
   DrawerContentScrollView,

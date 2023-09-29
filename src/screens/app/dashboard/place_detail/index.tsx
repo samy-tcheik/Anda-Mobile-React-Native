@@ -10,7 +10,7 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
   navigation,
 }) => {
   return (
-    <AppLayout navigation={navigation}>
+    <AppLayout backButton navigation={navigation}>
       <Text>place detail</Text>
     </AppLayout>
   )

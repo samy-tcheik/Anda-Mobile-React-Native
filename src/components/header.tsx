@@ -6,6 +6,7 @@ import Icon from './icon'
 interface IHeaderProps extends HeaderProps {
   onLeftClick?: () => void
   onRightClick?: () => void
+  backButton: boolean
 }
 
 const Header: React.FC<IHeaderProps> = (props) => {
@@ -19,7 +20,7 @@ const Header: React.FC<IHeaderProps> = (props) => {
           containerStyle={{ ...styles.button, marginLeft: 15 }}
           type="clear"
         >
-          <Icon name="menu" />
+          {props.backButton ? <Icon name="arrow-left" /> : <Icon name="menu" />}
         </Button>
       }
       rightComponent={

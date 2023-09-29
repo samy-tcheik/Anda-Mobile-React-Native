@@ -1,6 +1,6 @@
 import { NavigationProp } from '@react-navigation/native'
-import { Text, View } from 'react-native'
-import AppLayout from '../../app-layout'
+import { Text } from 'react-native'
+import AppLayout from '../../../app-layout'
 
 interface IProfileScreenProps {
   navigation: NavigationProp<any>

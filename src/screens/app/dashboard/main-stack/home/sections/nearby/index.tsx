@@ -1,16 +1,20 @@
-import { Card, Image, Tab, TabView } from '@rneui/base'
-import Typography from '../../../../../../components/text'
+import { Tab, TabView } from '@rneui/base'
 import { View } from 'react-native'
 import PlacesCarousel from '../../../components/places-carousel'
-import Carousel from 'react-native-reanimated-carousel'
 import { useState } from 'react'
-import AppTheme from '../../../../../../styles'
+import Typography from '../../../../../../../components/text'
 import {
   FakeCategoriesData,
   FakePlacesData,
-} from '../../../../../../utils/fakeData'
-import CategoryItem from '../../../../../../components/categoryItem'
-const NearbySection: React.FC = () => {
+} from '../../../../../../../utils/fakeData'
+import CategoryItem from '../../../../../../../components/categoryItem'
+import { NavigationProp } from '@react-navigation/native'
+
+interface INearbySectionProps {
+  navigation: NavigationProp<any>
+}
+
+const NearbySection: React.FC<INearbySectionProps> = ({ navigation }) => {
   const [index, setIndex] = useState(0)
   return (
     <View style={{ paddingHorizontal: 15, marginTop: 20 }}>
@@ -33,7 +37,7 @@ const NearbySection: React.FC = () => {
         <TabView value={index} onChange={setIndex} animationType="spring">
           {FakeCategoriesData.map(() => (
             <TabView.Item style={{ width: '100%' }}>
-              <PlacesCarousel data={FakePlacesData} />
+              <PlacesCarousel data={FakePlacesData} navigation={navigation} />
             </TabView.Item>
           ))}
         </TabView>

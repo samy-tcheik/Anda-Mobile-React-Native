@@ -1,5 +1,5 @@
 import { Text, View } from 'react-native'
-import Background from '../../../../components/background'
+import Background from '../../../../../components/background'
 
 const FavoriteScreen: React.FC = () => {
   return (

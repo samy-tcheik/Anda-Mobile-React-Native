@@ -1,16 +1,13 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { Text, View } from 'react-native'
-import PlaceDetailScreen from './place_detail'
 import HomeScreen from './home'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import ProfileScreen from './profile'
 import FavoriteScreen from './favorites'
 import DiscoverScreen from './discover'
-import Icon from '../../../components/icon'
+import Icon from '../../../../components/icon'
 
 const BottomTabs = createBottomTabNavigator()
 
-const MainScreen: React.FC = () => {
+const MainStackScreen: React.FC = () => {
   return (
     <BottomTabs.Navigator
       screenOptions={{
@@ -61,4 +58,4 @@ const MainScreen: React.FC = () => {
   )
 }
 
-export default MainScreen
+export default MainStackScreen
