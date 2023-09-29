@@ -4,7 +4,7 @@ import AppTheme from '../styles'
 
 const DisplayHeavy: React.FC<TextProps> = ({ children, ...props }) => {
   return (
-    <BaseText style={styles.displayHeavy} {...props}>
+    <BaseText style={{ ...styles.displayHeavy }} {...props}>
       {children}
     </BaseText>
   )
