@@ -2,109 +2,126 @@ import { Text as BaseText, TextProps } from '@rneui/base'
 import { StyleSheet } from 'react-native'
 import AppTheme from '../styles'
 
-const DisplayHeavy: React.FC<TextProps> = ({ children, ...props }) => {
+interface Typography extends TextProps {
+  style?: object
+}
+
+const DisplayHeavy: React.FC<Typography> = ({ children, style, ...props }) => {
   return (
-    <BaseText style={{ ...styles.displayHeavy }} {...props}>
+    <BaseText style={{ ...styles.displayHeavy, ...style }} {...props}>
       {children}
     </BaseText>
   )
 }
 
-const DisplayLight: React.FC<TextProps> = ({ children, ...props }) => {
+const DisplayLight: React.FC<Typography> = ({ children, style, ...props }) => {
   return (
-    <BaseText style={styles.displayLight} {...props}>
+    <BaseText style={{ ...styles.displayLight, ...style }} {...props}>
       {children}
     </BaseText>
   )
 }
 
-const HeadlineHeavy: React.FC<TextProps> = ({ children, ...props }) => {
+const HeadlineHeavy: React.FC<Typography> = ({ children, style, ...props }) => {
   return (
-    <BaseText style={styles.headlineHeavy} {...props}>
+    <BaseText style={{ ...styles.headlineHeavy, ...style }} {...props}>
       {children}
     </BaseText>
   )
 }
 
-const HeadlineLight: React.FC<TextProps> = ({ children, ...props }) => {
+const HeadlineLight: React.FC<Typography> = ({ children, style, ...props }) => {
   return (
-    <BaseText style={styles.headlineLight} {...props}>
+    <BaseText style={{ ...styles.headlineLight, ...style }} {...props}>
       {children}
     </BaseText>
   )
 }
 
-const TitleHeavy: React.FC<TextProps> = ({ children, ...props }) => {
+const TitleHeavy: React.FC<Typography> = ({ children, style, ...props }) => {
   return (
-    <BaseText style={styles.titleHeavy} {...props}>
+    <BaseText style={{ ...styles.titleHeavy, ...style }} {...props}>
       {children}
     </BaseText>
   )
 }
 
-const TitleLight: React.FC<TextProps> = ({ children, ...props }) => {
+const TitleLight: React.FC<Typography> = ({ children, style, ...props }) => {
   return (
-    <BaseText style={styles.titleLight} {...props}>
+    <BaseText style={{ ...styles.titleLight, ...style }} {...props}>
       {children}
     </BaseText>
   )
 }
 
-const SubheaderHeavy: React.FC<TextProps> = ({ children, ...props }) => {
+const SubheaderHeavy: React.FC<Typography> = ({
+  children,
+  style,
+  ...props
+}) => {
+  console.log(style)
   return (
-    <BaseText style={styles.subheaderHeavy} {...props}>
+    <BaseText style={{ ...styles.subheaderHeavy, ...style }} {...props}>
       {children}
     </BaseText>
   )
 }
 
-const SubheaderLight: React.FC<TextProps> = ({ children, ...props }) => {
+const SubheaderLight: React.FC<Typography> = ({
+  children,
+  style,
+  ...props
+}) => {
   return (
-    <BaseText style={styles.subheaderLight} {...props}>
+    <BaseText style={{ ...styles.subheaderLight, ...style }} {...props}>
       {children}
     </BaseText>
   )
 }
 
-const BodyHeavy: React.FC<TextProps> = ({ children, ...props }) => {
+const BodyHeavy: React.FC<Typography> = ({ children, style, ...props }) => {
   return (
-    <BaseText style={styles.bodyHeavy} {...props}>
+    <BaseText style={{ ...styles.bodyHeavy, ...style }} {...props}>
       {children}
     </BaseText>
   )
 }
 
-const BodyLight: React.FC<TextProps> = ({ children, ...props }) => {
+const BodyLight: React.FC<Typography> = ({ children, style, ...props }) => {
   return (
-    <BaseText style={styles.bodyLight} {...props}>
+    <BaseText style={{ ...styles.bodyLight, ...style }} {...props}>
       {children}
     </BaseText>
   )
 }
 
-const CaptionHeavy: React.FC<TextProps> = ({ children, ...props }) => {
-  return <BaseText style={styles.captionHeavy}>{children}</BaseText>
-}
-
-const CaptionLight: React.FC<TextProps> = ({ children, ...props }) => {
+const CaptionHeavy: React.FC<Typography> = ({ children, style, ...props }) => {
   return (
-    <BaseText style={styles.captionLight} {...props}>
+    <BaseText style={{ ...styles.captionHeavy, ...style }} {...props}>
       {children}
     </BaseText>
   )
 }
 
-const SmallHeavy: React.FC<TextProps> = ({ children, ...props }) => {
+const CaptionLight: React.FC<Typography> = ({ children, style, ...props }) => {
   return (
-    <BaseText style={styles.smallHeavy} {...props}>
+    <BaseText style={{ ...styles.captionLight, ...style }} {...props}>
       {children}
     </BaseText>
   )
 }
 
-const SmallLight: React.FC<TextProps> = ({ children, ...props }) => {
+const SmallHeavy: React.FC<Typography> = ({ children, style, ...props }) => {
   return (
-    <BaseText style={styles.smallLight} {...props}>
+    <BaseText style={{ ...styles.smallHeavy, ...style }} {...props}>
+      {children}
+    </BaseText>
+  )
+}
+
+const SmallLight: React.FC<Typography> = ({ children, style, ...props }) => {
+  return (
+    <BaseText style={{ ...styles.smallLight, ...style }} {...props}>
       {children}
     </BaseText>
   )

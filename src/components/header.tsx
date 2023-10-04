@@ -6,13 +6,14 @@ import Icon from './icon'
 interface IHeaderProps extends HeaderProps {
   onLeftClick?: () => void
   onRightClick?: () => void
-  backButton: boolean
+  backButton?: boolean
 }
 
 const Header: React.FC<IHeaderProps> = (props) => {
   return (
     <BaseHeader
       backgroundColor="transparent"
+      style={{ position: 'absolute' }}
       leftComponent={
         <Button
           onPress={props.onLeftClick}

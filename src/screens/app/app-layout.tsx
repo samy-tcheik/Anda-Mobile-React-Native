@@ -7,7 +7,7 @@ import { ScrollView } from 'react-native'
 interface IAppLayoutProps {
   navigation: any
   children: React.ReactNode
-  backButton: boolean
+  backButton?: boolean
 }
 const AppLayout: React.FC<IAppLayoutProps> = ({
   navigation,

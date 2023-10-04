@@ -31,7 +31,12 @@ const ExploreSection: React.FC<IExploreSectionProps> = ({ navigation }) => {
         <Tab.Item title="Rating" />
       </Tab>
       <View style={{ height: 300 }}>
-        <TabView value={index} onChange={setIndex} animationType="spring">
+        <TabView
+          disableSwipe
+          value={index}
+          onChange={setIndex}
+          animationType="spring"
+        >
           <TabView.Item style={{ width: '100%' }}>
             <PlacesCarousel data={FakePlacesData} navigation={navigation} />
           </TabView.Item>

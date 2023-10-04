@@ -1,10 +1,14 @@
-import { Text, View } from 'react-native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import React from 'react'
+import LoginScreen from './login'
+
+const AuthStack = createNativeStackNavigator()
 
 const AuthStackScreen: React.FC = () => {
   return (
-    <View>
-      <Text>AUTH SCREEN</Text>
-    </View>
+    <AuthStack.Navigator screenOptions={{ headerShown: false }}>
+      <AuthStack.Screen name="Login" component={LoginScreen} />
+    </AuthStack.Navigator>
   )
 }
 
