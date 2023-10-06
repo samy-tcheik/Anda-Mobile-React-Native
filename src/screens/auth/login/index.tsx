@@ -75,6 +75,7 @@ const LoginScreen: React.FC = () => {
           </Typography.BodyLight>
         </View>
         <Button
+          containerStyle={styles.loginButtonContainer}
           buttonStyle={styles.loginButton}
           loading={isLoading}
           onPress={handleSubmit(onSubmit)}
@@ -116,9 +117,12 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
   loginButton: {
-    borderRadius: 50,
     padding: 15,
     backgroundColor: AppTheme.colors.blue_b300,
+  },
+  loginButtonContainer: {
+    borderRadius: 50,
+
     shadowColor: AppTheme.colors.blue_b300,
     shadowOffset: {
       width: 0,
