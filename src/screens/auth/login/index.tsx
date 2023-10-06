@@ -1,12 +1,15 @@
 import React from 'react'
-import { showMessage } from 'react-native-flash-message'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Background from '../../../components/background'
-import TextInput from '../../../components/text-input'
+// import TextInput from '../../../components/text-input'
 import { useLogin } from '../../../providers/auth/hooks'
 import { ILoginForm } from './type'
 import { useLoginForm } from './use-form'
-
+import Typography from '../../../components/text'
+import Input from '../../../components/input'
+import Icon from '../../../components/icon'
+import { Avatar, Button, Image } from '@rneui/base'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
+import AppTheme from '../../../styles'
 const LoginScreen: React.FC = () => {
   const form = useLoginForm()
   const {
@@ -17,56 +20,133 @@ const LoginScreen: React.FC = () => {
   const { mutate: login, isLoading } = useLogin()
 
   const onSubmit = (data: ILoginForm) => {
-    login(data, {
-      onError(error) {
-        showMessage({
-          message:
-            error.response?.status === 403
-              ? 'Votre compte est désactivé'
-              : "L'utilisateur ou le mot de passe sont invalides.",
-          type: 'danger',
-          icon: (props: any) => (
-            <Icon name="alert-circle" color="white" size={20} {...props} />
-          ),
-        } as any)
-      },
-    })
+    console.log('submit', data)
+    // login(data, {
+    //   onError(error) {
+    //     showMessage({
+    //       message:
+    //         error.response?.status === 403
+    //           ? 'Votre compte est désactivé'
+    //           : "L'utilisateur ou le mot de passe sont invalides.",
+    //       type: 'danger',
+    //       icon: (props: any) => (
+    //         <Icon name="alert-circle" color="white" size={20} {...props} />
+    //       ),
+    //     } as any)
+    //   },
+    // })
   }
 
   return (
     <Background>
-      <Logo />
-      <Header>Bienvenue</Header>
-      <TextInput
-        control={control}
-        name="email"
-        label="Email"
-        errorText={errors.email?.message}
-        error={!!errors.email}
-        returnKeyType="next"
-        autoCapitalize="none"
-        textContentType="emailAddress"
-        keyboardType="email-address"
-      />
-      <TextInput
-        control={control}
-        name="password"
-        label="Mot de passe"
-        error={!!errors.password}
-        errorText={errors.password?.message}
-        returnKeyType="done"
-        secureTextEntry
-      />
-
-      <Button
-        loading={isLoading}
-        onPress={handleSubmit(onSubmit)}
-        mode="contained"
-      >
-        Connexion
-      </Button>
+      <View style={styles.container}>
+        <View style={styles.logoContainer}>
+          <Image
+            resizeMode="contain"
+            source={require('../../../assets/logo.jpg')}
+            style={{ height: 150, width: 150 }}
+          />
+        </View>
+        <Input
+          control={control}
+          name="email"
+          placeholder="Email"
+          errorMessage={errors.email?.message}
+          error={!!errors.email}
+          returnKeyType="next"
+          autoCapitalize="none"
+          textContentType="emailAddress"
+          keyboardType="email-address"
+          rightIcon={<Icon name="email-outline" />}
+          containerStyle={{ marginBottom: 5 }}
+        />
+        <Input
+          control={control}
+          name="password"
+          placeholder="Mot de passe"
+          error={!!errors.password}
+          errorMessage={errors.password?.message}
+          returnKeyType="done"
+          secureTextEntry
+        />
+        <View style={{ alignItems: 'center', marginBottom: 30 }}>
+          <Typography.BodyLight style={{ color: AppTheme.colors.blue_b300 }}>
+            Forgot password ?
+          </Typography.BodyLight>
+        </View>
+        <Button
+          buttonStyle={styles.loginButton}
+          loading={isLoading}
+          onPress={handleSubmit(onSubmit)}
+        >
+          Connexion
+        </Button>
+        <View style={styles.socialIconContainer}>
+          <Avatar size={40} containerStyle={styles.socialIcon}>
+            <Icon size={40} name="facebook" />
+          </Avatar>
+          <Avatar size={40} containerStyle={styles.socialIcon}>
+            <Icon size={40} name="google" />
+          </Avatar>
+        </View>
+        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+          <Typography.CaptionLight>
+            Don't have an account ?
+          </Typography.CaptionLight>
+          <Typography.CaptionLight style={{ color: AppTheme.colors.blue_b300 }}>
+            Register
+          </Typography.CaptionLight>
+        </View>
+      </View>
     </Background>
   )
 }
 
 export default LoginScreen
+
+const styles = StyleSheet.create({
+  container: {
+    paddingVertical: 150,
+    paddingHorizontal: 20,
+  },
+  logoContainer: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 50,
+  },
+  loginButton: {
+    borderRadius: 50,
+    padding: 15,
+    backgroundColor: AppTheme.colors.blue_b300,
+    shadowColor: AppTheme.colors.blue_b300,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+    elevation: 6,
+  },
+  socialIconContainer: {
+    padding: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '50%',
+    alignSelf: 'center',
+  },
+  socialIcon: {
+    backgroundColor: 'white',
+    height: 50,
+    width: 50,
+    borderRadius: 50,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+    elevation: 3,
+  },
+})

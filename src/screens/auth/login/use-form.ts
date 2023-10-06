@@ -6,7 +6,10 @@ import { yupResolver } from '@hookform/resolvers/yup'
 export function useLoginForm(defaultValues?: ILoginForm) {
   const schema = object().shape({
     email: string().email().required('le champ email est obligatoir'),
-    password: string().min(8).max(32).required('un mot de pass est obligatoir'),
+    password: string()
+      .min(8)
+      .max(32)
+      .required('un mot de passe est obligatoir'),
   })
 
   return useForm<ILoginForm>({
