@@ -10,7 +10,13 @@ import Icon from '../../../components/icon'
 import { Avatar, Button, Image } from '@rneui/base'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import AppTheme from '../../../styles'
-const LoginScreen: React.FC = () => {
+import { NavigationProp } from '@react-navigation/native'
+
+interface Props {
+  navigation: NavigationProp<any>
+}
+
+const LoginScreen: React.FC<Props> = ({ navigation }) => {
   const form = useLoginForm()
   const {
     handleSubmit,
@@ -70,7 +76,10 @@ const LoginScreen: React.FC = () => {
           secureTextEntry
         />
         <View style={{ alignItems: 'center', marginBottom: 30 }}>
-          <Typography.BodyLight style={{ color: AppTheme.colors.blue_b300 }}>
+          <Typography.BodyLight
+            onPress={() => navigation.navigate('forget-password')}
+            style={{ color: AppTheme.colors.blue_b300 }}
+          >
             Forgot password ?
           </Typography.BodyLight>
         </View>
@@ -94,7 +103,10 @@ const LoginScreen: React.FC = () => {
           <Typography.CaptionLight>
             Don't have an account ?
           </Typography.CaptionLight>
-          <Typography.CaptionLight style={{ color: AppTheme.colors.blue_b300 }}>
+          <Typography.CaptionLight
+            onPress={() => navigation.navigate('register')}
+            style={{ color: AppTheme.colors.blue_b300 }}
+          >
             Register
           </Typography.CaptionLight>
         </View>

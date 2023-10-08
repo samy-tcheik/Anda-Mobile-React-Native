@@ -7,9 +7,10 @@ interface IHeaderProps extends HeaderProps {
   onLeftClick?: () => void
   onRightClick?: () => void
   backButton?: boolean
+  notification?: boolean
 }
 
-const Header: React.FC<IHeaderProps> = (props) => {
+const Header: React.FC<IHeaderProps> = ({ notification = false, ...props }) => {
   return (
     <BaseHeader
       backgroundColor="transparent"
@@ -25,14 +26,16 @@ const Header: React.FC<IHeaderProps> = (props) => {
         </Button>
       }
       rightComponent={
-        <Button
-          onPress={props.onRightClick}
-          color="error"
-          containerStyle={{ ...styles.button, marginRight: 15 }}
-          type="clear"
-        >
-          <Icon name="bell-outline" />
-        </Button>
+        notification ? (
+          <Button
+            onPress={props.onRightClick}
+            color="error"
+            containerStyle={{ ...styles.button, marginRight: 15 }}
+            type="clear"
+          >
+            <Icon name="bell-outline" />
+          </Button>
+        ) : undefined
       }
       {...props}
     />
