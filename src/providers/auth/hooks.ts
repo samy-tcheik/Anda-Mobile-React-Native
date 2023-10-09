@@ -9,34 +9,12 @@ import { IUser, LoginResponse } from './type'
 import User from './user'
 import { dispatchLoggedInEvent, dispatchLoggedOutEvent } from './utils'
 
-export function useCurrentUser() {
-  const { data, isLoading } = useQuery<IUser>(
-    ['account', 'profile', { include: ['permissions', 'roles', 'accesses'] }],
-    {
-      refetchOnWindowFocus: true,
-      retry: false,
-      // eslint-disable-next-line @typescript-eslint/no-shadow
-      select: useCallback((data: any) => new User(data), []),
-      onError(error: any) {
-        // token expired
-        if (error.status === 401) {
-          dispatchLoggedOutEvent()
-        }
-      },
-    }
-  )
-  return {
-    data,
-    isLoading,
-  }
-}
-
 export function useLogin(
   config?: MutationOptions<LoginResponse, AxiosError, ILoginForm>
 ) {
   const { login }: any = useContext(AuthContext)
   return useMutation<LoginResponse, AxiosError, ILoginForm>(
-    (data: ILoginForm) => api.post('account/login', data),
+    (data: ILoginForm) => api.post('auth/login', data),
     {
       onSuccess: ({ bearer }) => {
         dispatchLoggedInEvent(bearer)
@@ -52,7 +30,7 @@ export function useLogout() {
   const { logout }: any = useContext(AuthContext)
 
   return async () => {
-    await api.post('account/logout')
+    await api.post('auth/logout')
     logout()
     dispatchLoggedOutEvent()
   }

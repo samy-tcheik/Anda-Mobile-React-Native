@@ -11,6 +11,7 @@ import { Avatar, Button, Image } from '@rneui/base'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import AppTheme from '../../../styles'
 import { NavigationProp } from '@react-navigation/native'
+import { showMessage } from 'react-native-flash-message'
 
 interface Props {
   navigation: NavigationProp<any>
@@ -27,20 +28,21 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
 
   const onSubmit = (data: ILoginForm) => {
     console.log('submit', data)
-    // login(data, {
-    //   onError(error) {
-    //     showMessage({
-    //       message:
-    //         error.response?.status === 403
-    //           ? 'Votre compte est désactivé'
-    //           : "L'utilisateur ou le mot de passe sont invalides.",
-    //       type: 'danger',
-    //       icon: (props: any) => (
-    //         <Icon name="alert-circle" color="white" size={20} {...props} />
-    //       ),
-    //     } as any)
-    //   },
-    // })
+    login(data, {
+      onError(error) {
+        console.log('error', error)
+        showMessage({
+          message:
+            error.response?.status === 403
+              ? 'Votre compte est désactivé'
+              : "L'utilisateur ou le mot de passe sont invalides.",
+          type: 'danger',
+          icon: (props: any) => (
+            <Icon name="alert-circle" color="white" size={20} {...props} />
+          ),
+        } as any)
+      },
+    })
   }
 
   return (

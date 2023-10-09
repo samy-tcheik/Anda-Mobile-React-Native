@@ -9,17 +9,19 @@ import {
 import SettingsScreen from './settings'
 import Icon from '../../components/icon'
 import HistoryScreen from './history'
+import { useLogout } from '../../providers/auth/hooks'
 
 const Drawer = createDrawerNavigator()
 
-const CustomDrawerConten: React.FC<DrawerContentComponentProps> = (props) => {
+const CustomDrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
+  const logout = useLogout()
   return (
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />
       <DrawerItem
         icon={() => <Icon name="logout" />}
         label="logout"
-        onPress={() => console.log('logout')}
+        onPress={logout}
       />
     </DrawerContentScrollView>
   )
@@ -28,7 +30,7 @@ const CustomDrawerConten: React.FC<DrawerContentComponentProps> = (props) => {
 const AppStackScreen: React.FC = () => {
   return (
     <Drawer.Navigator
-      drawerContent={CustomDrawerConten}
+      drawerContent={(props) => <CustomDrawerContent {...props} />}
       screenOptions={{
         headerShown: false,
       }}

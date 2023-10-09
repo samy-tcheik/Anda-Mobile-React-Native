@@ -9,6 +9,7 @@ import {
 } from '../../../../../../../utils/fakeData'
 import CategoryItem from '../../../../../../../components/categoryItem'
 import { NavigationProp } from '@react-navigation/native'
+import { useWilayas } from './queries'
 
 interface INearbySectionProps {
   navigation: NavigationProp<any>
@@ -16,6 +17,8 @@ interface INearbySectionProps {
 
 const NearbySection: React.FC<INearbySectionProps> = ({ navigation }) => {
   const [index, setIndex] = useState(0)
+  const { data, isLoading } = useWilayas()
+  console.log(data)
   return (
     <View style={{ paddingHorizontal: 15, marginTop: 20 }}>
       <Typography.TitleHeavy>Nearby</Typography.TitleHeavy>
