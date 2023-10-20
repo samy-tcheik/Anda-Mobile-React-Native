@@ -28,7 +28,6 @@ export function useLogin(
 
 export function useLogout() {
   const { logout }: any = useContext(AuthContext)
-
   return async () => {
     await api.post('auth/logout')
     logout()

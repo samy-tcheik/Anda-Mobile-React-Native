@@ -17,8 +17,9 @@ const PlacesCarousel: React.FC<IPlacesCarouselProps> = ({
       style={{ width: '100%' }}
       data={data}
       scrollAnimationDuration={1000}
-      renderItem={({ item }) => (
+      renderItem={({ item, index }) => (
         <PlaceItem
+          key={index}
           data={item}
           onPress={() => navigation.navigate('place_detail')}
         />

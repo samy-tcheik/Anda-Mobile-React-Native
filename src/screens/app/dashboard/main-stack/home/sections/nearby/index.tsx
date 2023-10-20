@@ -17,8 +17,8 @@ interface INearbySectionProps {
 
 const NearbySection: React.FC<INearbySectionProps> = ({ navigation }) => {
   const [index, setIndex] = useState(0)
-  const { data, isLoading } = useWilayas()
-  console.log(data)
+  // const { data, isLoading } = useWilayas()
+  // console.log(data)
   return (
     <View style={{ paddingHorizontal: 15, marginTop: 20 }}>
       <Typography.TitleHeavy>Nearby</Typography.TitleHeavy>
@@ -30,16 +30,17 @@ const NearbySection: React.FC<INearbySectionProps> = ({ navigation }) => {
         onChange={(e) => setIndex(e)}
         scrollable
       >
-        {FakeCategoriesData.map((element) => (
+        {FakeCategoriesData.map((element, index) => (
           <Tab.Item
+            key={index}
             title={<CategoryItem index={element.id} name={element.name} />}
           />
         ))}
       </Tab>
       <View style={{ height: 300 }}>
         <TabView value={index} onChange={setIndex} animationType="spring">
-          {FakeCategoriesData.map(() => (
-            <TabView.Item style={{ width: '100%' }}>
+          {FakeCategoriesData.map(({ id }) => (
+            <TabView.Item key={id} style={{ width: '100%' }}>
               <PlacesCarousel data={FakePlacesData} navigation={navigation} />
             </TabView.Item>
           ))}
