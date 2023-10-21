@@ -10,12 +10,15 @@ import Icon from '../../../components/icon'
 import AppTheme from '../../../styles'
 import { IRegisterForm } from './type'
 import { showMessage } from 'react-native-flash-message'
+import { useTranslation } from 'react-i18next'
+import LanguageChooser from '../languageChooser'
 
 interface Props {
   navigation: NavigationProp<any>
 }
 
 const RegisterScreen: React.FC<Props> = ({ navigation }) => {
+  const { t } = useTranslation()
   const form = useRegisterForm()
   const {
     handleSubmit,
@@ -38,7 +41,11 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
 
   return (
     <Background>
-      <Header backButton={true} onLeftClick={() => navigation.goBack()} />
+      <Header
+        backButton={true}
+        onLeftClick={() => navigation.goBack()}
+        rightComponent={<LanguageChooser />}
+      />
       <View style={styles.container}>
         <View style={styles.logoContainer}>
           <Image
@@ -50,7 +57,7 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
         <Input
           control={control}
           name="name"
-          placeholder="Name"
+          placeholder={t('common:name')}
           errorMessage={errors.name?.message}
           error={!!errors.name}
           returnKeyType="next"
@@ -61,7 +68,7 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
         <Input
           control={control}
           name="email"
-          placeholder="Email"
+          placeholder={t('common:email')}
           errorMessage={errors.email?.message}
           error={!!errors.email}
           returnKeyType="next"
@@ -74,7 +81,7 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
         <Input
           control={control}
           name="password"
-          placeholder="Mot de passe"
+          placeholder={t('common:password')}
           error={!!errors.password}
           errorMessage={errors.password?.message}
           returnKeyType="done"
@@ -83,7 +90,7 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
         <Input
           control={control}
           name="password_confirmation"
-          placeholder="Password confirmation"
+          placeholder={t('common:password_confirmation')}
           error={!!errors.password_confirmation}
           errorMessage={errors.password_confirmation?.message}
           returnKeyType="done"
@@ -96,7 +103,7 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
           loading={isLoading}
           onPress={handleSubmit(onSubmit)}
         >
-          Connexion
+          {t('common:register')}
         </Button>
       </View>
     </Background>
@@ -117,7 +124,7 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     padding: 15,
-    backgroundColor: AppTheme.colors.blue_b300,
+    backgroundColor: AppTheme.colors.blue_b200,
   },
   loginButtonContainer: {
     borderRadius: 50,

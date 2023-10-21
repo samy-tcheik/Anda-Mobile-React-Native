@@ -1,19 +1,16 @@
-// import React from 'react';
-import { MutationOptions, useMutation, useQuery } from '@tanstack/react-query'
-import { AxiosError } from 'axios'
-import { useCallback, useContext } from 'react'
+import { MutationOptions, useMutation } from '@tanstack/react-query'
+import { useContext } from 'react'
 import { AuthContext } from '.'
 import { ILoginForm } from '../../screens/auth/login/type'
 import api from '../../service/api'
-import { IUser, LoginResponse } from './type'
-import User from './user'
+import { LoginResponse } from './type'
 import { dispatchLoggedInEvent, dispatchLoggedOutEvent } from './utils'
 
 export function useLogin(
-  config?: MutationOptions<LoginResponse, AxiosError, ILoginForm>
+  config?: MutationOptions<LoginResponse, any, ILoginForm>
 ) {
   const { login }: any = useContext(AuthContext)
-  return useMutation<LoginResponse, AxiosError, ILoginForm>(
+  return useMutation<LoginResponse, any, ILoginForm>(
     (data: ILoginForm) => api.post('auth/login', data),
     {
       onSuccess: ({ bearer }) => {

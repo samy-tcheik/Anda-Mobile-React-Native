@@ -1,6 +1,5 @@
 import React from 'react'
 import Background from '../../../components/background'
-// import TextInput from '../../../components/text-input'
 import { useLogin } from '../../../providers/auth/hooks'
 import { ILoginForm } from './type'
 import { useLoginForm } from './use-form'
@@ -12,12 +11,16 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import AppTheme from '../../../styles'
 import { NavigationProp } from '@react-navigation/native'
 import { showMessage } from 'react-native-flash-message'
+import { useTranslation } from 'react-i18next'
+import Header from '../../../components/header'
+import LanguageChooser from '../languageChooser'
 
 interface Props {
   navigation: NavigationProp<any>
 }
 
 const LoginScreen: React.FC<Props> = ({ navigation }) => {
+  const { t } = useTranslation()
   const form = useLoginForm()
   const {
     handleSubmit,
@@ -32,10 +35,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
       onError(error) {
         console.log('error', error)
         showMessage({
-          message:
-            error.response?.status === 403
-              ? 'Votre compte est désactivé'
-              : "L'utilisateur ou le mot de passe sont invalides.",
+          message: error.response.data.message,
           type: 'danger',
           icon: (props: any) => (
             <Icon name="alert-circle" color="white" size={20} {...props} />
@@ -47,6 +47,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
 
   return (
     <Background>
+      <Header leftComponent={<></>} rightComponent={<LanguageChooser />} />
       <View style={styles.container}>
         <View style={styles.logoContainer}>
           <Image
@@ -58,9 +59,9 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
         <Input
           control={control}
           name="email"
-          placeholder="Email"
-          errorMessage={errors.email?.message}
+          placeholder={t('common:email')}
           error={!!errors.email}
+          errorMessage={errors.email?.message}
           returnKeyType="next"
           autoCapitalize="none"
           textContentType="emailAddress"
@@ -71,10 +72,12 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
         <Input
           control={control}
           name="password"
-          placeholder="Mot de passe"
+          placeholder={t('common:password')}
           error={!!errors.password}
           errorMessage={errors.password?.message}
-          returnKeyType="done"
+          returnKeyType="next"
+          autoCapitalize="none"
+          keyboardType="default"
           secureTextEntry
         />
         <View style={{ alignItems: 'center', marginBottom: 30 }}>
@@ -82,7 +85,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
             onPress={() => navigation.navigate('forget-password')}
             style={{ color: AppTheme.colors.blue_b300 }}
           >
-            Forgot password ?
+            {t('common:forgot_password')}
           </Typography.BodyLight>
         </View>
         <Button
@@ -91,7 +94,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
           loading={isLoading}
           onPress={handleSubmit(onSubmit)}
         >
-          Connexion
+          {t('common:login')}
         </Button>
         <View style={styles.socialIconContainer}>
           <Avatar size={40} containerStyle={styles.socialIcon}>
@@ -103,13 +106,13 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
         </View>
         <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
           <Typography.CaptionLight>
-            Don't have an account ?
+            {t('common:dont_have_account')}
           </Typography.CaptionLight>
           <Typography.CaptionLight
             onPress={() => navigation.navigate('register')}
             style={{ color: AppTheme.colors.blue_b300 }}
           >
-            Register
+            {t('common:register')}
           </Typography.CaptionLight>
         </View>
       </View>
@@ -121,7 +124,7 @@ export default LoginScreen
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 150,
+    paddingVertical: 50,
     paddingHorizontal: 20,
   },
   logoContainer: {
@@ -132,7 +135,7 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     padding: 15,
-    backgroundColor: AppTheme.colors.blue_b300,
+    backgroundColor: AppTheme.colors.blue_b200,
   },
   loginButtonContainer: {
     borderRadius: 50,
