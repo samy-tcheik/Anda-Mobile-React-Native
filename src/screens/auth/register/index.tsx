@@ -36,6 +36,14 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
           icon: (props) => <Icon name="alert-circle" color="white" />,
         })
       },
+      onSuccess() {
+        showMessage({
+          message: t('message:confirm_email'),
+          type: 'success',
+          autoHide: false,
+          icon: (props) => <Icon name="alert-circle" color="white" />,
+        })
+      },
     })
   }
 

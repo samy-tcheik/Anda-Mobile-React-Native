@@ -8,4 +8,9 @@ export default {
   dont_have_account: "Vous n'avez pas de compte ?",
   register: 'Inscription',
   select_language: 'Choisissez une langue',
+  home: 'Accueil',
+  profile: 'Profile',
+  history: 'Historique',
+  settings: 'Parametres',
+  logout: 'Déconnexion',
 }

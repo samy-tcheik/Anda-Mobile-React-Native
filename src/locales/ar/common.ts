@@ -8,4 +8,9 @@ export default {
   dont_have_account: 'ليس لديك حساب ؟',
   register: 'تسجيل',
   select_language: 'اختر لغة',
+  home: 'صفحة رئيسية',
+  profile: 'بروفايل',
+  history: 'سجل التصفح',
+  settings: 'بارامترات',
+  logout: 'تسجيل الخروج',
 }

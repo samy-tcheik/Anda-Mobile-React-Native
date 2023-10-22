@@ -10,6 +10,8 @@ import SettingsScreen from './settings'
 import Icon from '../../components/icon'
 import HistoryScreen from './history'
 import { useLogout } from '../../providers/auth/hooks'
+import { useTranslation } from 'react-i18next'
+import ProfileScreen from './profile'
 
 const Drawer = createDrawerNavigator()
 
@@ -28,6 +30,7 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
 }
 
 const AppStackScreen: React.FC = () => {
+  const { t } = useTranslation()
   return (
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawerContent {...props} />}
@@ -38,14 +41,25 @@ const AppStackScreen: React.FC = () => {
       <Drawer.Screen
         name="main"
         options={{
+          title: t('common:home'),
           drawerIcon: ({ focused }) =>
             focused ? <Icon name="home" /> : <Icon name="home-outline" />,
         }}
         component={MainScreen}
       />
       <Drawer.Screen
+        name="profile"
+        options={{
+          title: t('common:profile'),
+          drawerIcon: ({ focused }) =>
+            focused ? <Icon name="account" /> : <Icon name="account-outline" />,
+        }}
+        component={ProfileScreen}
+      />
+      <Drawer.Screen
         name="history"
         options={{
+          title: t('common:history'),
           drawerIcon: () => <Icon name="history" />,
         }}
         component={HistoryScreen}
@@ -53,6 +67,7 @@ const AppStackScreen: React.FC = () => {
       <Drawer.Screen
         name="settings"
         options={{
+          title: t('common:settings'),
           drawerIcon: ({ focused }) =>
             focused ? <Icon name="cog" /> : <Icon name="cog-outline" />,
         }}
