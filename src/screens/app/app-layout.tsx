@@ -1,7 +1,5 @@
-import { NavigationProp } from '@react-navigation/native'
 import Background from '../../components/background'
 import Header from '../../components/header'
-import { DrawerNavigationProp } from '@react-navigation/drawer'
 import { ScrollView } from 'react-native'
 
 interface IAppLayoutProps {
