@@ -1,0 +1,16 @@
+export default {
+  name: 'اسم',
+  email: 'بريد إلكتروني',
+  password: 'كلمة السر',
+  password_confirmation: 'تأكيد كلمةالسر',
+  login: 'دخول',
+  forgot_password: 'هل نسيت كلمة السر ؟',
+  dont_have_account: 'ليس لديك حساب ؟',
+  register: 'تسجيل',
+  select_language: 'اختر لغة',
+  home: 'صفحة رئيسية',
+  profile: 'بروفايل',
+  history: 'سجل التصفح',
+  settings: 'بارامترات',
+  logout: 'تسجيل الخروج',
+}

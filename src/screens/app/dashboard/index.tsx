@@ -7,7 +7,10 @@ const DashboardStack = createNativeStackNavigator()
 const DashboardStackScreen: React.FC = () => {
   return (
     <DashboardStack.Navigator screenOptions={{ headerShown: false }}>
-      <DashboardStack.Screen name="main" component={MainStackScreen} />
+      <DashboardStack.Screen
+        name="dashboard_main"
+        component={MainStackScreen}
+      />
       <DashboardStack.Screen
         name="place_detail"
         component={PlaceDetailScreen}
