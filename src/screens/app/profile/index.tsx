@@ -6,6 +6,12 @@ import Input from '../../../components/input'
 import { useUserForm } from './useForm'
 import { useTranslation } from 'react-i18next'
 import Icon from '../../../components/icon'
+import Typography from '../../../components/text'
+import AppTheme from '../../../styles'
+import Button from '../../../components/button'
+import * as ImagePicker from 'react-native-image-picker'
+import { showMessage } from 'react-native-flash-message'
+import { useAuthUser, useUpdateAvatar } from './queries'
 
 interface ISettingsScreenProps {
   navigation: NavigationProp<any>
@@ -13,12 +19,52 @@ interface ISettingsScreenProps {
 
 const ProfileScreen: React.FC<ISettingsScreenProps> = ({ navigation }) => {
   const { t } = useTranslation()
+  const { data } = useAuthUser()
   const form = useUserForm()
   const {
     handleSubmit,
     control,
     formState: { errors },
   } = form
+  const { mutate } = useUpdateAvatar()
+  const handleEditAvatar = () => {
+    ImagePicker.launchImageLibrary(
+      { mediaType: 'photo' },
+      ({ assets, errorCode }) => {
+        if (errorCode) {
+          showMessage({
+            message: t('message:image_picker_error'),
+            type: 'danger',
+          })
+        } else {
+          // Prepare form data
+          const formData = new FormData()
+          formData.append('avatar', {
+            uri: assets![0].uri,
+            type: assets![0].type,
+            name: assets![0].fileName,
+          })
+          // You can also append other data here, e.g., user ID or authentication token
+
+          // Send the form data to your backend
+          mutate(formData, {
+            onSuccess() {
+              showMessage({
+                message: t('message:avatar_upload_success'),
+                type: 'success',
+              })
+            },
+            onError(err) {
+              showMessage({
+                message: err.response.data.message,
+                type: 'danger',
+              })
+            },
+          })
+        }
+      }
+    )
+  }
   return (
     <AppLayout navigation={navigation}>
       <View style={styles.container}>
@@ -27,16 +73,19 @@ const ProfileScreen: React.FC<ISettingsScreenProps> = ({ navigation }) => {
             size={150}
             rounded
             source={{
-              uri: 'https://cdn.pixabay.com/photo/2014/09/17/20/03/profile-449912__340.jpg',
+              uri: data && data?.avatar,
             }}
           >
             <Avatar.Accessory
               size={40}
               name="pencil"
               type="material-community"
-              onPress={() => console.log('Accessory worked!')}
+              onPress={handleEditAvatar}
             ></Avatar.Accessory>
           </Avatar>
+
+          <Typography.BodyHeavy>Samy Tcheikman</Typography.BodyHeavy>
+          <Typography.CaptionLight>@samytcheikman</Typography.CaptionLight>
         </View>
         <Input
           control={control}
@@ -49,6 +98,14 @@ const ProfileScreen: React.FC<ISettingsScreenProps> = ({ navigation }) => {
           rightIcon={<Icon name="account-outline" />}
           containerStyle={{ marginBottom: 5 }}
         />
+        <View style={styles.buttonContainer}>
+          <Button color={AppTheme.colors.error_default}>
+            {t('common:save')}
+          </Button>
+        </View>
+        <View style={styles.buttonContainer}>
+          <Button>{t('common:delete_my_account')}</Button>
+        </View>
       </View>
     </AppLayout>
   )
@@ -64,5 +121,8 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  buttonContainer: {
+    paddingVertical: 10,
   },
 })

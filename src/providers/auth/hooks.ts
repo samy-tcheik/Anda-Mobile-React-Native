@@ -26,7 +26,10 @@ export function useLogin(
 export function useLogout() {
   const { logout }: any = useContext(AuthContext)
   return async () => {
-    await api.post('auth/logout')
+    await api.post('auth/logout').catch(() => {
+      logout()
+      dispatchLoggedOutEvent()
+    })
     logout()
     dispatchLoggedOutEvent()
   }
