@@ -1,4 +1,6 @@
 export default {
-  confirm_email:
-    'Merci de vérifier votre adresse e-mail pour confirmer votre inscription.',
+  confirm_email: 'يرجى التحقق من عنوان بريدك الإلكتروني لتأكيد تسجيلك',
+  confirm_delete_message:
+    'هل انت متأكد انك تريد حذف حسابك؟ لا يمكن التراجع عن هذا الإجراء، وستتم إزالة جميع بياناتك، بما في ذلك معلومات ملفك الشخصي ومنشوراتك وإعداداتك نهائيًا.',
+  delete_my_account: 'احذف حسابي',
 }

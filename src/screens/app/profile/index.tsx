@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import AppLayout from '../app-layout'
 import { NavigationProp } from '@react-navigation/native'
-import { Avatar } from '@rneui/base'
+import { Avatar, Dialog } from '@rneui/base'
 import Input from '../../../components/input'
 import { useUserForm } from './useForm'
 import { useTranslation } from 'react-i18next'
@@ -12,6 +12,8 @@ import Button from '../../../components/button'
 import * as ImagePicker from 'react-native-image-picker'
 import { showMessage } from 'react-native-flash-message'
 import { useAuthUser, useUpdateAvatar } from './queries'
+import { usePopup } from '../../../hooks/usePopup'
+import ConfirmDeleteDialog from './confirmDelete'
 
 interface ISettingsScreenProps {
   navigation: NavigationProp<any>
@@ -20,13 +22,16 @@ interface ISettingsScreenProps {
 const ProfileScreen: React.FC<ISettingsScreenProps> = ({ navigation }) => {
   const { t } = useTranslation()
   const { data } = useAuthUser()
+  const confirmDeleteDialog = usePopup()
   const form = useUserForm()
   const {
     handleSubmit,
     control,
     formState: { errors },
   } = form
+
   const { mutate } = useUpdateAvatar()
+
   const handleEditAvatar = () => {
     ImagePicker.launchImageLibrary(
       { mediaType: 'photo' },
@@ -87,6 +92,7 @@ const ProfileScreen: React.FC<ISettingsScreenProps> = ({ navigation }) => {
           <Typography.BodyHeavy>Samy Tcheikman</Typography.BodyHeavy>
           <Typography.CaptionLight>@samytcheikman</Typography.CaptionLight>
         </View>
+
         <Input
           control={control}
           name="name"
@@ -99,13 +105,17 @@ const ProfileScreen: React.FC<ISettingsScreenProps> = ({ navigation }) => {
           containerStyle={{ marginBottom: 5 }}
         />
         <View style={styles.buttonContainer}>
-          <Button color={AppTheme.colors.error_default}>
-            {t('common:save')}
-          </Button>
+          <Button>{t('common:save')}</Button>
         </View>
         <View style={styles.buttonContainer}>
-          <Button>{t('common:delete_my_account')}</Button>
+          <Button
+            onPress={confirmDeleteDialog.open}
+            color={AppTheme.colors.error_default}
+          >
+            {t('common:delete_my_account')}
+          </Button>
         </View>
+        <ConfirmDeleteDialog {...confirmDeleteDialog} />
       </View>
     </AppLayout>
   )

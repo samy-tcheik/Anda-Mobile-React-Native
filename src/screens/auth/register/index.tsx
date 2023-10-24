@@ -12,6 +12,7 @@ import { IRegisterForm } from './type'
 import { showMessage } from 'react-native-flash-message'
 import { useTranslation } from 'react-i18next'
 import LanguageChooser from '../languageChooser'
+import i18n from '../../../service/i18n'
 
 interface Props {
   navigation: NavigationProp<any>
@@ -26,25 +27,26 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
     formState: { errors },
   } = form
   const { mutate, isLoading } = useRegister()
-
   const onSubmit = (data: IRegisterForm) => {
-    mutate(data, {
-      onError(error: any) {
-        showMessage({
-          message: error.response.data.message,
-          type: 'danger',
-          icon: (props) => <Icon name="alert-circle" color="white" />,
-        })
-      },
-      onSuccess() {
-        showMessage({
-          message: t('message:confirm_email'),
-          type: 'success',
-          autoHide: false,
-          icon: (props) => <Icon name="alert-circle" color="white" />,
-        })
-      },
-    })
+    mutate(
+      { ...data, language: i18n.language },
+      {
+        onError(error: any) {
+          showMessage({
+            message: error.response.data.message,
+            type: 'danger',
+            icon: () => <Icon name="alert-circle" color="white" />,
+          })
+        },
+        onSuccess() {
+          showMessage({
+            message: t('message:confirm_email'),
+            type: 'success',
+            icon: () => <Icon name="alert-circle" color="white" />,
+          })
+        },
+      }
+    )
   }
 
   return (

@@ -13,4 +13,8 @@ export default {
   history: 'سجل التصفح',
   settings: 'بارامترات',
   logout: 'تسجيل الخروج',
+  save: 'حفظ',
+  delete_my_account: 'احذف حسابي',
+  confirm: 'تثبيت',
+  cancel: 'إلغاء',
 }
