@@ -13,4 +13,8 @@ export default {
   history: 'Historique',
   settings: 'Parametres',
   logout: 'Déconnexion',
+  save: 'Sauvegarder',
+  delete_my_account: 'Supprimer mon compte',
+  confirm: 'Confirmer',
+  cancel: 'Annuler',
 }

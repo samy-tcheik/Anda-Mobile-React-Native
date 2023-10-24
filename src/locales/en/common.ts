@@ -13,4 +13,8 @@ export default {
   history: 'History',
   settings: 'Settings',
   logout: 'Logout',
+  save: 'Save',
+  delete_my_account: 'Delete my account',
+  confirm: 'Confirm',
+  cancel: 'Cancel',
 }
