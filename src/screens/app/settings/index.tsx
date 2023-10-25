@@ -1,26 +1,16 @@
-import { StyleSheet, Text, View } from 'react-native'
-import AppLayout from '../app-layout'
-import { NavigationProp } from '@react-navigation/native'
-import { Avatar } from '@rneui/base'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import ProfileScreen from './profile'
+import SettingsScreen from './main'
 
-interface ISettingsScreenProps {
-  navigation: NavigationProp<any>
-}
+const SettingsStack = createNativeStackNavigator()
 
-const SettingsScreen: React.FC<ISettingsScreenProps> = ({ navigation }) => {
+const SettingsStackScreen = () => {
   return (
-    <AppLayout navigation={navigation}>
-      <View style={styles.container}>
-        <Text>Setting screen</Text>
-      </View>
-    </AppLayout>
+    <SettingsStack.Navigator screenOptions={{ headerShown: false }}>
+      <SettingsStack.Screen component={SettingsScreen} name="settings_main" />
+      <SettingsStack.Screen component={ProfileScreen} name="profle" />
+    </SettingsStack.Navigator>
   )
 }
 
-export default SettingsScreen
-
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 15,
-  },
-})
+export default SettingsStackScreen

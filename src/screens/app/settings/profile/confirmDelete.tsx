@@ -2,8 +2,8 @@ import { Dialog } from '@rneui/themed'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
 import { useDeleteUser } from './queries'
-import Typography from '../../../components/text'
-import AppTheme from '../../../styles'
+import Typography from '../../../../components/text'
+import AppTheme from '../../../../styles'
 
 interface Props {
   open: (data?: unknown) => void

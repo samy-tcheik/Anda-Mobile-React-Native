@@ -2,27 +2,38 @@ import { Button, HeaderProps } from '@rneui/base'
 import { StyleSheet, View } from 'react-native'
 import { Header as BaseHeader } from '@rneui/base'
 import Icon from './icon'
+import Typography from './text'
 
 interface IHeaderProps extends HeaderProps {
   onLeftClick?: () => void
   onRightClick?: () => void
   backButton?: boolean
   notification?: boolean
+  title?: string
 }
 
-const Header: React.FC<IHeaderProps> = ({ notification = false, ...props }) => {
+const Header: React.FC<IHeaderProps> = ({
+  notification = false,
+  title,
+  onLeftClick,
+  backButton,
+  ...props
+}) => {
   return (
     <BaseHeader
       backgroundColor="transparent"
       style={{ position: 'absolute' }}
+      centerComponent={
+        <Typography.HeadlineHeavy>{title}</Typography.HeadlineHeavy>
+      }
       leftComponent={
         <Button
-          onPress={props.onLeftClick}
+          onPress={onLeftClick}
           color="error"
           containerStyle={{ ...styles.button, marginLeft: 15 }}
           type="clear"
         >
-          {props.backButton ? <Icon name="arrow-left" /> : <Icon name="menu" />}
+          {backButton ? <Icon name="arrow-left" /> : <Icon name="menu" />}
         </Button>
       }
       rightComponent={

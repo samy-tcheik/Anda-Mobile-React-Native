@@ -17,4 +17,9 @@ export default {
   delete_my_account: 'Delete my account',
   confirm: 'Confirm',
   cancel: 'Cancel',
+  notifications: 'Notifications',
+  privecy: 'Privecy',
+  help_center: 'Help center',
+  about_us: 'About us',
+  translation: 'Translation',
 }

@@ -6,12 +6,11 @@ import {
   DrawerItemList,
   createDrawerNavigator,
 } from '@react-navigation/drawer'
-import SettingsScreen from './settings'
 import Icon from '../../components/icon'
 import HistoryScreen from './history'
 import { useLogout } from '../../providers/auth/hooks'
 import { useTranslation } from 'react-i18next'
-import ProfileScreen from './profile'
+import SettingsStackScreen from './settings'
 
 const Drawer = createDrawerNavigator()
 
@@ -48,15 +47,6 @@ const AppStackScreen: React.FC = () => {
         component={MainScreen}
       />
       <Drawer.Screen
-        name="profile"
-        options={{
-          title: t('common:profile'),
-          drawerIcon: ({ focused }) =>
-            focused ? <Icon name="account" /> : <Icon name="account-outline" />,
-        }}
-        component={ProfileScreen}
-      />
-      <Drawer.Screen
         name="history"
         options={{
           title: t('common:history'),
@@ -71,7 +61,7 @@ const AppStackScreen: React.FC = () => {
           drawerIcon: ({ focused }) =>
             focused ? <Icon name="cog" /> : <Icon name="cog-outline" />,
         }}
-        component={SettingsScreen}
+        component={SettingsStackScreen}
       />
     </Drawer.Navigator>
   )

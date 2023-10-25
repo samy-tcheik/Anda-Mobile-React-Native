@@ -1,9 +1,9 @@
 import HomeScreen from './home'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import ProfileScreen from './profile'
 import FavoriteScreen from './favorites'
 import DiscoverScreen from './discover'
 import Icon from '../../../../components/icon'
+import SettingsStackScreen from '../../settings'
 
 const BottomTabs = createBottomTabNavigator()
 
@@ -49,10 +49,10 @@ const MainStackScreen: React.FC = () => {
       <BottomTabs.Screen
         options={{
           tabBarIcon: ({ focused }) =>
-            focused ? <Icon name="account" /> : <Icon name="account-outline" />,
+            focused ? <Icon name="cog" /> : <Icon name="cog-outline" />,
         }}
-        name="profile"
-        component={ProfileScreen}
+        name="settings"
+        component={SettingsStackScreen}
       />
     </BottomTabs.Navigator>
   )

@@ -10,6 +10,21 @@ const AppTheme = {
 
     elevation: 6,
   },
+  elevation_light: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+
+    elevation: 2,
+  },
+  borderRadius: {
+    default: 13,
+    round: 50,
+  },
   colors: {
     error_light: '#FC8181',
     error_default: '#E53E3E',

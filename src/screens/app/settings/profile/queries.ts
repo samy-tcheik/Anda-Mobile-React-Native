@@ -5,11 +5,11 @@ import {
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query'
-import api from '../../../service/api'
-import { IUser } from '../../../providers/auth/type'
+import api from '../../../../service/api'
+import { IUser } from '../../../../providers/auth/type'
 import { useContext } from 'react'
-import { AuthContext } from '../../../providers/auth'
-import { dispatchLoggedOutEvent } from '../../../providers/auth/utils'
+import { AuthContext } from '../../../../providers/auth'
+import { dispatchLoggedOutEvent } from '../../../../providers/auth/utils'
 
 export function useUpdateAvatar(
   config?: UseMutationOptions<any, any, FormData>

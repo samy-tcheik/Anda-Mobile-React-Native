@@ -17,4 +17,9 @@ export default {
   delete_my_account: 'احذف حسابي',
   confirm: 'تثبيت',
   cancel: 'إلغاء',
+  notifications: 'إشعارات',
+  privecy: 'خصوصية',
+  help_center: 'مركز المساعدة',
+  about_us: 'معلومات عنا',
+  translation: 'ترجمة',
 }

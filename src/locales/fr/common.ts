@@ -17,4 +17,9 @@ export default {
   delete_my_account: 'Supprimer mon compte',
   confirm: 'Confirmer',
   cancel: 'Annuler',
+  notifications: 'Notifications',
+  privecy: 'Confidentialité',
+  help_center: "Centre d'aide",
+  about_us: 'À propos de nous',
+  translation: 'Traduction',
 }
