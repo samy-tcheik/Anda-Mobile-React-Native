@@ -1,13 +1,24 @@
-import { Card, Image } from '@rneui/base'
-import { View } from 'react-native'
+import { Card } from '@rneui/base'
+import { Image, ImageRequireSource, View } from 'react-native'
 import Typography from './text'
+
+const icons = {
+  art_and_culture: require(`../assets/icons/categories/art_and_culture.png`),
+  coastal_sites: require(`../assets/icons/categories/coastal_sites.png`),
+  recreation_and_relaxation: require(`../assets/icons/categories/recreation_and_relaxation.png`),
+  sacred_and_religious_sites: require(`../assets/icons/categories/sacred_and_religious_sites.png`),
+  historic_sites: require(`../assets/icons/categories/historic_sites.png`),
+  natural_sites: require(`../assets/icons/categories/natural_sites.png`),
+  entertainment: require(`../assets/icons/categories/entertainment.png`),
+}
 
 interface ICategory {
   index: number
   name: string
+  icon: keyof typeof icons
 }
 
-const CategoryItem: React.FC<ICategory> = ({ index, name }) => {
+const CategoryItem: React.FC<ICategory> = ({ index, name, icon }) => {
   return (
     <Card
       containerStyle={{
@@ -20,17 +31,15 @@ const CategoryItem: React.FC<ICategory> = ({ index, name }) => {
     >
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <Image
-          containerStyle={{
+          style={{
             aspectRatio: 1,
             width: 40,
             borderRadius: 6,
             marginRight: 10,
           }}
-          source={{
-            uri: `https://source.unsplash.com/random?sig=${index}`,
-          }}
+          source={icons[icon]}
         />
-        <Typography.CaptionLight>{name}</Typography.CaptionLight>
+        <Typography.CaptionHeavy>{name}</Typography.CaptionHeavy>
       </View>
     </Card>
   )

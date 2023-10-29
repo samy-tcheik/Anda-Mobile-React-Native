@@ -1,11 +1,11 @@
-import { ScrollView, StyleSheet } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 
 interface IBackgroundProps {
   children: React.ReactNode
 }
 
 const Background: React.FC<IBackgroundProps> = ({ children }) => {
-  return <ScrollView style={styles.background}>{children}</ScrollView>
+  return <View style={styles.background}>{children}</View>
 }
 
 export default Background

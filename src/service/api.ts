@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Axios from 'axios'
 import { API_URL } from '../global'
+import i18n from './i18n'
 
 const api = Axios.create({
   baseURL: API_URL,
@@ -9,6 +10,7 @@ const api = Axios.create({
     'Content-Type': 'application/json',
     'Accept-Language': 'fr',
     Accept: 'application/json',
+    language: i18n.language,
   },
   responseType: 'json',
 })
