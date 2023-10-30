@@ -11,6 +11,10 @@ import HistoryScreen from './history'
 import { useLogout } from '../../providers/auth/hooks'
 import { useTranslation } from 'react-i18next'
 import SettingsStackScreen from './settings'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import i18n from '../../service/i18n'
+import { useQueryClient } from '@tanstack/react-query'
+import { useEffect } from 'react'
 
 const Drawer = createDrawerNavigator()
 
@@ -29,6 +33,12 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
 }
 
 const AppStackScreen: React.FC = () => {
+  const queryClient = useQueryClient()
+  useEffect(() => {
+    AsyncStorage.setItem('language', i18n.language)
+    queryClient.resetQueries()
+  }, [i18n.language])
+
   const { t } = useTranslation()
   return (
     <Drawer.Navigator

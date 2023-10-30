@@ -15,9 +15,9 @@ i18n
   .init({
     compatibilityJSON: 'v3', //To make it work for Android devices, add this line.
     resources,
-    lng: 'fr',
     interpolation: {
       escapeValue: false,
     },
   })
+
 export default i18n

@@ -32,9 +32,9 @@ api.interceptors.response.use(
 api.interceptors.request.use(
   async (config) => {
     const accessToken = await AsyncStorage.getItem('user_token')
-    // console.log(accessToken)
+    const language = await AsyncStorage.getItem('language')
     config.headers = {
-      'Accept-Language': 'fr',
+      'Accept-Language': language,
       Accept: 'application/json',
       Authorization: `Bearer ${accessToken}`,
     } as any
