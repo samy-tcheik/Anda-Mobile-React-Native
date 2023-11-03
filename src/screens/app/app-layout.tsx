@@ -1,6 +1,6 @@
 import Background from '../../components/background'
 import Header from '../../components/header'
-import { ScrollView } from 'react-native'
+import { ScrollView, View } from 'react-native'
 
 interface IAppLayoutProps {
   navigation: any
@@ -21,7 +21,7 @@ const AppLayout: React.FC<IAppLayoutProps> = ({
         onLeftClick={backButton ? navigation.goBack : navigation.openDrawer}
         title={title}
       />
-      <ScrollView>{children}</ScrollView>
+      <View style={{ flex: 1 }}>{children}</View>
     </Background>
   )
 }

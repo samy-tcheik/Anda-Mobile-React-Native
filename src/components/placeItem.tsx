@@ -42,7 +42,7 @@ const PlaceItem: React.FC<IPlaceItemProps> = ({ data, onPress }) => {
             }}
           >
             <Typography.BodyHeavy>{data.name}</Typography.BodyHeavy>
-            <Text>{data.review}</Text>
+            {/* <Text>{data.review}</Text> */}
           </View>
           <View
             style={{
@@ -53,11 +53,11 @@ const PlaceItem: React.FC<IPlaceItemProps> = ({ data, onPress }) => {
           >
             <View style={{ flexDirection: 'row' }}>
               <Icon size={17} name="map-marker" />
-              <Text>{data.wilaya}</Text>
+              {/* <Text>{data.wilaya}</Text> */}
             </View>
             <View style={{ flexDirection: 'row' }}>
               <Icon size={17} name="map-marker-distance" />
-              <Text>{data.distance} km</Text>
+              {/* <Text>{data.distance} km</Text> */}
             </View>
           </View>
         </View>

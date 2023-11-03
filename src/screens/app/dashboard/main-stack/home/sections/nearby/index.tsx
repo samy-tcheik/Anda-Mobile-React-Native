@@ -1,5 +1,5 @@
 import { Tab, TabView } from '@rneui/base'
-import { View } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import PlacesCarousel from '../../../components/places-carousel'
 import { useState } from 'react'
 import Typography from '../../../../../../../components/text'
@@ -9,60 +9,66 @@ import {
 } from '../../../../../../../utils/fakeData'
 import CategoryItem from '../../../../../../../components/categoryItem'
 import { NavigationProp } from '@react-navigation/native'
-import { useCategories, useWilayas } from './queries'
+import { useCategories, usePlaces, useWilayas } from './queries'
+import CategoryCarousel from '../../../components/categories-carousel'
+import AppTheme from '../../../../../../../styles'
+import { useFilters } from '../../../../../../../hooks/useFilters'
 
 interface INearbySectionProps {
   navigation: NavigationProp<any>
 }
 
 const NearbySection: React.FC<INearbySectionProps> = ({ navigation }) => {
-  const [index, setIndex] = useState(0)
+  const { filters, setFilters } = useFilters({ filters: ['category_id'] })
+  const places = usePlaces(filters)
   const categories = useCategories()
-  const isLoading = categories.isLoading
-  // const { data, isLoading } = useWilayas()
-  // console.log(data)
   return (
-    <View style={{ paddingHorizontal: 15, marginTop: 20 }}>
-      {isLoading ? (
-        <Typography.BodyHeavy>Loading</Typography.BodyHeavy>
-      ) : (
-        <>
+    <View style={{ paddingHorizontal: 15, marginTop: 20, paddingBottom: 100 }}>
+      <>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginHorizontal: 20,
+          }}
+        >
           <Typography.TitleHeavy>Nearby</Typography.TitleHeavy>
-
-          <Tab
-            value={index}
-            dense
-            disableIndicator
-            onChange={(e) => setIndex(e)}
-            scrollable
+          <TouchableOpacity
+            style={{
+              backgroundColor: 'red',
+              padding: 10,
+            }}
           >
-            {categories.data?.map((element, index) => (
-              <Tab.Item
-                key={index}
-                title={
-                  <CategoryItem
-                    index={index}
-                    name={element.name}
-                    icon={element.key}
-                  />
-                }
-              />
-            ))}
-          </Tab>
-          <View style={{ height: 300 }}>
-            <TabView value={index} onChange={setIndex} animationType="spring">
-              {FakeCategoriesData.map(({ id }) => (
-                <TabView.Item key={id} style={{ width: '100%' }}>
-                  <PlacesCarousel
-                    data={FakePlacesData}
-                    navigation={navigation}
-                  />
-                </TabView.Item>
-              ))}
-            </TabView>
-          </View>
-        </>
-      )}
+            <Typography.BodyLight
+              onPress={() => navigation.navigate('discover')}
+              style={{ color: AppTheme.colors.neutral_n200, marginLeft: 20 }}
+            >
+              Voir plus
+            </Typography.BodyLight>
+          </TouchableOpacity>
+        </View>
+        {categories.isLoading ? (
+          <Typography.BodyHeavy>Categories is loading</Typography.BodyHeavy>
+        ) : (
+          <CategoryCarousel
+            onChange={(id) =>
+              setFilters({
+                category_id: id,
+              })
+            }
+            data={categories.data!}
+          />
+        )}
+
+        <View style={{ height: 300 }}>
+          {places.isFetching ? (
+            <Typography.BodyHeavy>Places is loading</Typography.BodyHeavy>
+          ) : (
+            <PlacesCarousel data={places.data!} navigation={navigation} />
+          )}
+        </View>
+      </>
     </View>
   )
 }
