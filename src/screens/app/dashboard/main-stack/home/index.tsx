@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import { DrawerScreenProps } from '@react-navigation/drawer'
 import ExploreSection from './sections/explore'
 import NearbySection from './sections/nearby'
@@ -11,10 +11,10 @@ const HomeScreen: React.FC<IHomeScreenProps> = ({ navigation }) => {
   return (
     <AppLayout navigation={navigation}>
       <SearchBar />
-      <View style={{ marginTop: 15 }}>
+      <ScrollView>
         <ExploreSection navigation={navigation as any} />
         <NearbySection navigation={navigation as any} />
-      </View>
+      </ScrollView>
     </AppLayout>
   )
 }

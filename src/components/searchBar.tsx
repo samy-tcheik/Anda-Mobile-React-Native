@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native'
 import { SearchBar as BaseSearchBar } from '@rneui/base'
 import Icon from './icon'
+import AppTheme from '../styles'
 const SearchBar: React.FC = () => {
   return (
     <BaseSearchBar
@@ -27,14 +28,6 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     backgroundColor: 'white',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-
-    elevation: 6,
+    ...AppTheme.elevation,
   },
 })

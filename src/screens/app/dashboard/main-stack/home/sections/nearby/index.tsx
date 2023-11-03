@@ -10,89 +10,62 @@ import {
 import CategoryItem from '../../../../../../../components/categoryItem'
 import { NavigationProp } from '@react-navigation/native'
 import { useCategories, usePlaces, useWilayas } from './queries'
+import CategoryCarousel from '../../../components/categories-carousel'
+import AppTheme from '../../../../../../../styles'
+import { useFilters } from '../../../../../../../hooks/useFilters'
 
 interface INearbySectionProps {
   navigation: NavigationProp<any>
 }
 
-interface IUseFilterProps {
-  filters: string[]
-}
-
-export type IFilter = {
-  [key: string]: string
-}
-
-const useFilters = ({ filters }: IUseFilterProps) => {
-  const [state, setState] = useState(() => {
-    const filtersObject: { [key: string]: string } = {}
-    filters.forEach((filter, i) => {
-      filtersObject[filter] = ''
-    })
-    return filtersObject
-  })
-  return {
-    setFilters: setState,
-    filters: state,
-  }
-}
-
 const NearbySection: React.FC<INearbySectionProps> = ({ navigation }) => {
-  const [index, setIndex] = useState(0)
   const { filters, setFilters } = useFilters({ filters: ['category_id'] })
   const places = usePlaces(filters)
   const categories = useCategories()
   return (
-    <View style={{ paddingHorizontal: 15, marginTop: 20 }}>
+    <View style={{ paddingHorizontal: 15, marginTop: 20, paddingBottom: 100 }}>
       <>
-        <Typography.TitleHeavy>Nearby</Typography.TitleHeavy>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginHorizontal: 20,
+          }}
+        >
+          <Typography.TitleHeavy>Nearby</Typography.TitleHeavy>
+          <TouchableOpacity
+            style={{
+              backgroundColor: 'red',
+              padding: 10,
+            }}
+          >
+            <Typography.BodyLight
+              onPress={() => navigation.navigate('discover')}
+              style={{ color: AppTheme.colors.neutral_n200, marginLeft: 20 }}
+            >
+              Voir plus
+            </Typography.BodyLight>
+          </TouchableOpacity>
+        </View>
         {categories.isLoading ? (
           <Typography.BodyHeavy>Categories is loading</Typography.BodyHeavy>
         ) : (
-          <Tab
-            value={index}
-            dense
-            disableIndicator
-            onChange={(e) => {
-              console.log(e)
-              setIndex(e)
-            }}
-            scrollable
-          >
-            {categories.data?.map((element, index) => (
-              <TouchableOpacity>
-                <Tab.Item
-                  onPress={() =>
-                    setFilters({
-                      category_id: element.id,
-                    })
-                  }
-                  key={index}
-                  title={
-                    <CategoryItem
-                      onPress={() => console.log(element.id)}
-                      index={index}
-                      name={element.name}
-                      icon={element.key}
-                    />
-                  }
-                />
-              </TouchableOpacity>
-            ))}
-          </Tab>
+          <CategoryCarousel
+            onChange={(id) =>
+              setFilters({
+                category_id: id,
+              })
+            }
+            data={categories.data!}
+          />
         )}
 
         <View style={{ height: 300 }}>
           {places.isFetching ? (
             <Typography.BodyHeavy>Places is loading</Typography.BodyHeavy>
           ) : (
-            <TabView value={index} onChange={setIndex} animationType="spring">
-              {FakeCategoriesData.map(({ id }) => (
-                <TabView.Item key={id} style={{ width: '100%' }}>
-                  <PlacesCarousel data={places.data!} navigation={navigation} />
-                </TabView.Item>
-              ))}
-            </TabView>
+            <PlacesCarousel data={places.data!} navigation={navigation} />
           )}
         </View>
       </>

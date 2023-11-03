@@ -1,5 +1,5 @@
 import { Card } from '@rneui/base'
-import { Image, ImageRequireSource, View } from 'react-native'
+import { Image, View } from 'react-native'
 import Typography from './text'
 
 const icons = {
@@ -13,19 +13,18 @@ const icons = {
 }
 
 interface ICategory {
-  index: number
   name: string
   icon: keyof typeof icons
 }
 
-const CategoryItem: React.FC<ICategory> = ({ index, name, icon }) => {
+const CategoryItem: React.FC<ICategory> = ({ name, icon }) => {
   return (
     <Card
       containerStyle={{
         height: 60,
         borderRadius: 13,
-        margin: 0,
         padding: 10,
+        margin: 15,
         flexDirection: 'row',
       }}
     >
