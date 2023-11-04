@@ -8,14 +8,25 @@ import Typography from '../../../../../components/text'
 import Icon from '../../../../../components/icon'
 import AppTheme from '../../../../../styles'
 import { usePlaces } from '../home/sections/nearby/queries'
+import { usePopup } from '../../../../../hooks/usePopup'
+import Filters from './filters'
 import { useFilters } from '../../../../../hooks/useFilters'
+import { useEffect } from 'react'
 
 interface IDiscoverScreenProps {
   navigation: NavigationProp<any>
 }
 
 const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({ navigation }) => {
-  const { data, isLoading } = usePlaces()
+  const filtersModal = usePopup()
+  const { filters, setFilters } = useFilters({
+    filters: ['category_id', 'range', 'town_id'],
+  })
+  useEffect(() => {
+    setFilters(filtersModal.data as any)
+  }, [filtersModal.data])
+  const { data, isFetching } = usePlaces(undefined, filters)
+
   return (
     <AppLayout navigation={navigation}>
       <SearchBar />
@@ -29,22 +40,31 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({ navigation }) => {
         <Typography.CaptionLight>
           Showin 12 of 200 results
         </Typography.CaptionLight>
-        <View style={{ flexDirection: 'row' }}>
+        <TouchableOpacity
+          onPress={(event) => {
+            event.persist()
+            filtersModal.open()
+          }}
+          style={{ flexDirection: 'row' }}
+        >
           <Typography.CaptionLight>Filter & sort</Typography.CaptionLight>
           <Icon name="tune" style={{ marginLeft: 10 }} />
-        </View>
+        </TouchableOpacity>
       </View>
       <View style={{ flex: 1 }}>
-        {isLoading ? (
-          <Typography.BodyHeavy>Is Loading</Typography.BodyHeavy>
+        {isFetching ? (
+          <Typography.BodyHeavy>Is Fetching</Typography.BodyHeavy>
         ) : (
           <FlatList
-            contentContainerStyle={{ paddingBottom: 100 }}
+            contentContainerStyle={{
+              paddingBottom: 100,
+            }}
             data={data}
             renderItem={({ item }) => <ListItem />}
           />
         )}
       </View>
+      <Filters {...filtersModal} />
     </AppLayout>
   )
 }

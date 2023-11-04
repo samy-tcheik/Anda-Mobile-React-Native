@@ -20,7 +20,7 @@ interface INearbySectionProps {
 
 const NearbySection: React.FC<INearbySectionProps> = ({ navigation }) => {
   const { filters, setFilters } = useFilters({ filters: ['category_id'] })
-  const places = usePlaces(filters)
+  const places = usePlaces(5, { ...filters, range: 20 })
   const categories = useCategories()
   return (
     <View style={{ paddingHorizontal: 15, marginTop: 20, paddingBottom: 100 }}>

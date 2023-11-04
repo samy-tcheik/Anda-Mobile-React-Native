@@ -14,7 +14,7 @@ function reducer<T>(state: State<T>, action: Action<T>): State<T> {
     case 'open':
       return { isOpen: true, data: action.data }
     case 'close':
-      return { isOpen: false }
+      return { isOpen: false, data: action.data }
   }
 }
 
@@ -27,7 +27,7 @@ export function usePopup<TData>(defaultOpen?: boolean, defaultData?: TData) {
   })
 
   const open = (data?: TData) => dispatch({ type: 'open', data })
-  const onClose = () => dispatch({ type: 'close' })
+  const onClose = (data?: TData) => dispatch({ type: 'close', data })
 
   return { ...state, open, onClose }
 }

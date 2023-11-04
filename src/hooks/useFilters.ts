@@ -5,7 +5,7 @@ interface IUseFilterProps {
 }
 
 export type IFilter = {
-  [key: string]: string
+  [key: string]: any
 }
 
 export const useFilters = ({ filters }: IUseFilterProps) => {
