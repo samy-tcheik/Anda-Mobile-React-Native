@@ -1,6 +1,8 @@
 import { UseQueryOptions, useQuery } from '@tanstack/react-query'
-import { ICategory, ITown, IWilaya } from './types'
+import { ICategory } from './types'
 import { IFilter } from '../../../../../../../hooks/useFilters'
+import { IPlace, ITown, IWilaya } from '../../../../../types'
+import { getLocation } from '../../../../../../../hooks/useLocation'
 
 export function useWilayas(config?: UseQueryOptions<IWilaya[]>) {
   return useQuery<IWilaya[]>(['wilayas'], config)
@@ -24,12 +26,11 @@ export function usePlaces(
     filter: {
       ...filters,
       range: {
-        range: filters?.range,
+        range: filters?.range || '',
         latitude: 36.74529209631143,
         longitude: 3.052477133545479,
       },
     },
   }
-  console.log('params', params)
   return useQuery<IPlace[]>(['places', params], config)
 }

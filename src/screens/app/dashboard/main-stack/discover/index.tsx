@@ -12,6 +12,7 @@ import { usePopup } from '../../../../../hooks/usePopup'
 import Filters from './filters'
 import { useFilters } from '../../../../../hooks/useFilters'
 import { useEffect } from 'react'
+import { IPlace } from '../../../types'
 
 interface IDiscoverScreenProps {
   navigation: NavigationProp<any>
@@ -60,7 +61,7 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({ navigation }) => {
               paddingBottom: 100,
             }}
             data={data}
-            renderItem={({ item }) => <ListItem />}
+            renderItem={({ item }) => <ListItem data={item} />}
           />
         )}
       </View>
@@ -71,7 +72,11 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({ navigation }) => {
 
 export default DiscoverScreen
 
-const ListItem = () => {
+interface ItemProps {
+  data: IPlace
+}
+
+const ListItem: React.FC<ItemProps> = ({ data }) => {
   return (
     <TouchableOpacity onPress={() => console.log('press')}>
       <Card
@@ -104,7 +109,7 @@ const ListItem = () => {
               justifyContent: 'space-between',
             }}
           >
-            <Typography.BodyHeavy>Place name</Typography.BodyHeavy>
+            <Typography.BodyHeavy>{data.name}</Typography.BodyHeavy>
             {/* <Text>{data.review}</Text> */}
           </View>
           <View
@@ -115,11 +120,15 @@ const ListItem = () => {
           >
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Icon size={17} name="map-marker" />
-              <Typography.CaptionLight>Alger</Typography.CaptionLight>
+              <Typography.CaptionLight>
+                {data.wilaya.name}
+              </Typography.CaptionLight>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Icon size={17} name="map-marker-distance" />
-              <Typography.CaptionLight>50 km</Typography.CaptionLight>
+              <Typography.CaptionLight>
+                {data.distance} km
+              </Typography.CaptionLight>
             </View>
           </View>
         </View>
