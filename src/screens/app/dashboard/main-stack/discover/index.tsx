@@ -1,5 +1,5 @@
 import { Card, Image, Text } from '@rneui/base'
-import { FlatList, TouchableOpacity, View } from 'react-native'
+import { FlatList, RefreshControl, TouchableOpacity, View } from 'react-native'
 
 import { NavigationProp } from '@react-navigation/native'
 import AppLayout from '../../../app-layout'
@@ -26,8 +26,28 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({ navigation }) => {
   useEffect(() => {
     setFilters(filtersModal.data as any)
   }, [filtersModal.data])
-  const { data, isFetching } = usePlaces(undefined, filters)
-
+  const {
+    data,
+    isFetching,
+    hasNextPage,
+    fetchNextPage,
+    isRefetching,
+    isLoading,
+    isFetchingNextPage,
+    refetch,
+  } = usePlaces(undefined, filters, {
+    getNextPageParam: (nextPage) => {
+      if (nextPage.meta.current_page !== nextPage.meta.last_page) {
+        return nextPage.meta.current_page + 1
+      }
+    },
+  })
+  const handleLoadMore = () => {
+    console.log('handle load more')
+    if (hasNextPage) {
+      fetchNextPage()
+    }
+  }
   return (
     <AppLayout navigation={navigation}>
       <SearchBar />
@@ -53,14 +73,18 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <View style={{ flex: 1 }}>
-        {isFetching ? (
-          <Typography.BodyHeavy>Is Fetching</Typography.BodyHeavy>
+        {isLoading ? (
+          <Typography.BodyHeavy>isLoading</Typography.BodyHeavy>
         ) : (
           <FlatList
             contentContainerStyle={{
               paddingBottom: 100,
             }}
-            data={data}
+            refreshControl={
+              <RefreshControl refreshing={isRefetching} onRefresh={refetch} />
+            }
+            onEndReached={handleLoadMore}
+            data={data?.pages.map((page) => page.data).flat()}
             renderItem={({ item }) => <ListItem data={item} />}
           />
         )}
