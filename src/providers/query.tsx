@@ -52,7 +52,7 @@ const queryClient = (authContext: any) =>
     }),
     defaultOptions: {
       queries: {
-        queryFn: ({ signal, queryKey }) => {
+        queryFn: ({ signal, queryKey, pageParam = 1 }) => {
           const params = queryKey
             .filter((key) => typeof key === 'object')
             .reduce((acc: any, current: any) => ({ ...acc, ...current }), {})
@@ -62,16 +62,13 @@ const queryClient = (authContext: any) =>
                 .filter(
                   (key) => typeof key === 'string' || typeof key === 'number'
                 )
-                .join('/'),
+                .join('/') + `?page=${pageParam}`,
               {
                 params,
                 signal,
               }
             )
-            .then((res) => {
-              console.log(res)
-              return res.data?.data
-            })
+            .then((res) => res.data)
         },
         retry: (failures, error: any) => {
           error.response.status === 404 && false

@@ -1,15 +1,8 @@
-import { Tab, TabView } from '@rneui/base'
 import { TouchableOpacity, View } from 'react-native'
 import PlacesCarousel from '../../../components/places-carousel'
-import { useState } from 'react'
 import Typography from '../../../../../../../components/text'
-import {
-  FakeCategoriesData,
-  FakePlacesData,
-} from '../../../../../../../utils/fakeData'
-import CategoryItem from '../../../../../../../components/categoryItem'
 import { NavigationProp } from '@react-navigation/native'
-import { useCategories, usePlaces, useWilayas } from './queries'
+import { useCategories, usePlacesNearby } from './queries'
 import CategoryCarousel from '../../../components/categories-carousel'
 import AppTheme from '../../../../../../../styles'
 import { useFilters } from '../../../../../../../hooks/useFilters'
@@ -20,8 +13,9 @@ interface INearbySectionProps {
 
 const NearbySection: React.FC<INearbySectionProps> = ({ navigation }) => {
   const { filters, setFilters } = useFilters({ filters: ['category_id'] })
-  const places = usePlaces(filters)
+  const places = usePlacesNearby(filters)
   const categories = useCategories()
+  console.log(places)
   return (
     <View style={{ paddingHorizontal: 15, marginTop: 20, paddingBottom: 100 }}>
       <>

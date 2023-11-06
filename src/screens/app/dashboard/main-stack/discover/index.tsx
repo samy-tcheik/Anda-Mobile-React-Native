@@ -1,5 +1,5 @@
 import { Card, Image, Text } from '@rneui/base'
-import { FlatList, TouchableOpacity, View } from 'react-native'
+import { FlatList, RefreshControl, TouchableOpacity, View } from 'react-native'
 
 import { NavigationProp } from '@react-navigation/native'
 import AppLayout from '../../../app-layout'
@@ -8,14 +8,46 @@ import Typography from '../../../../../components/text'
 import Icon from '../../../../../components/icon'
 import AppTheme from '../../../../../styles'
 import { usePlaces } from '../home/sections/nearby/queries'
+import { usePopup } from '../../../../../hooks/usePopup'
+import Filters from './filters'
 import { useFilters } from '../../../../../hooks/useFilters'
+import { useEffect } from 'react'
+import { IPlace } from '../../../types'
 
 interface IDiscoverScreenProps {
   navigation: NavigationProp<any>
 }
 
 const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({ navigation }) => {
-  const { data, isLoading } = usePlaces()
+  const filtersModal = usePopup()
+  const { filters, setFilters } = useFilters({
+    filters: ['category_id', 'range', 'town_id'],
+  })
+  useEffect(() => {
+    setFilters(filtersModal.data as any)
+  }, [filtersModal.data])
+  const {
+    data,
+    isFetching,
+    hasNextPage,
+    fetchNextPage,
+    isRefetching,
+    isLoading,
+    isFetchingNextPage,
+    refetch,
+  } = usePlaces(undefined, filters, {
+    getNextPageParam: (nextPage) => {
+      if (nextPage.meta.current_page !== nextPage.meta.last_page) {
+        return nextPage.meta.current_page + 1
+      }
+    },
+  })
+  const handleLoadMore = () => {
+    console.log('handle load more')
+    if (hasNextPage) {
+      fetchNextPage()
+    }
+  }
   return (
     <AppLayout navigation={navigation}>
       <SearchBar />
@@ -29,29 +61,46 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({ navigation }) => {
         <Typography.CaptionLight>
           Showin 12 of 200 results
         </Typography.CaptionLight>
-        <View style={{ flexDirection: 'row' }}>
+        <TouchableOpacity
+          onPress={(event) => {
+            event.persist()
+            filtersModal.open()
+          }}
+          style={{ flexDirection: 'row' }}
+        >
           <Typography.CaptionLight>Filter & sort</Typography.CaptionLight>
           <Icon name="tune" style={{ marginLeft: 10 }} />
-        </View>
+        </TouchableOpacity>
       </View>
       <View style={{ flex: 1 }}>
         {isLoading ? (
-          <Typography.BodyHeavy>Is Loading</Typography.BodyHeavy>
+          <Typography.BodyHeavy>isLoading</Typography.BodyHeavy>
         ) : (
           <FlatList
-            contentContainerStyle={{ paddingBottom: 100 }}
-            data={data}
-            renderItem={({ item }) => <ListItem />}
+            contentContainerStyle={{
+              paddingBottom: 100,
+            }}
+            refreshControl={
+              <RefreshControl refreshing={isRefetching} onRefresh={refetch} />
+            }
+            onEndReached={handleLoadMore}
+            data={data?.pages.map((page) => page.data).flat()}
+            renderItem={({ item }) => <ListItem data={item} />}
           />
         )}
       </View>
+      <Filters {...filtersModal} />
     </AppLayout>
   )
 }
 
 export default DiscoverScreen
 
-const ListItem = () => {
+interface ItemProps {
+  data: IPlace
+}
+
+const ListItem: React.FC<ItemProps> = ({ data }) => {
   return (
     <TouchableOpacity onPress={() => console.log('press')}>
       <Card
@@ -84,7 +133,7 @@ const ListItem = () => {
               justifyContent: 'space-between',
             }}
           >
-            <Typography.BodyHeavy>Place name</Typography.BodyHeavy>
+            <Typography.BodyHeavy>{data.name}</Typography.BodyHeavy>
             {/* <Text>{data.review}</Text> */}
           </View>
           <View
@@ -95,11 +144,15 @@ const ListItem = () => {
           >
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Icon size={17} name="map-marker" />
-              <Typography.CaptionLight>Alger</Typography.CaptionLight>
+              <Typography.CaptionLight>
+                {data.wilaya.name}
+              </Typography.CaptionLight>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Icon size={17} name="map-marker-distance" />
-              <Typography.CaptionLight>50 km</Typography.CaptionLight>
+              <Typography.CaptionLight>
+                {data.distance} km
+              </Typography.CaptionLight>
             </View>
           </View>
         </View>
