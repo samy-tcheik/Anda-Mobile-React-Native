@@ -21,7 +21,7 @@ const PlacesCarousel: React.FC<IPlacesCarouselProps> = ({
         <PlaceItem
           key={index}
           data={item}
-          onPress={() => navigation.navigate('place_detail')}
+          onPress={() => navigation.navigate('place_detail', item)}
         />
       )}
     />

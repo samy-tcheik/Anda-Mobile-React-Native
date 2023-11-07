@@ -2,10 +2,10 @@ import { TouchableOpacity, View } from 'react-native'
 import PlacesCarousel from '../../../components/places-carousel'
 import Typography from '../../../../../../../components/text'
 import { NavigationProp } from '@react-navigation/native'
-import { useCategories, usePlacesNearby } from './queries'
 import CategoryCarousel from '../../../components/categories-carousel'
 import AppTheme from '../../../../../../../styles'
 import { useFilters } from '../../../../../../../hooks/useFilters'
+import { useCategories, usePlacesNearby } from '../../../../../queries'
 
 interface INearbySectionProps {
   navigation: NavigationProp<any>

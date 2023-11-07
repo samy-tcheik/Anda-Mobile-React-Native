@@ -3,6 +3,7 @@ import AppTheme from '../styles'
 import Typography from './text'
 import { TouchableOpacity, View } from 'react-native'
 import Icon from './icon'
+import { IPlace } from '../screens/app/types'
 
 interface IPlaceItemProps extends CardProps {
   data: IPlace
