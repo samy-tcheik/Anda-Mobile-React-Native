@@ -4,9 +4,9 @@ import {
   useInfiniteQuery,
   useQuery,
 } from '@tanstack/react-query'
-import { ICategory } from './types'
-import { IFilter } from '../../../../../../../hooks/useFilters'
-import { IPlace, ITown, IWilaya } from '../../../../../types'
+import { IPlace, ITown, IWilaya } from './types'
+import { ICategory } from './dashboard/main-stack/home/sections/nearby/types'
+import { IFilter } from '../../hooks/useFilters'
 
 export function useWilayas(config?: UseQueryOptions<IWilaya[]>) {
   return useQuery<IWilaya[]>(['wilayas'], {
@@ -82,4 +82,21 @@ export function usePlaces(
     },
   }
   return useInfiniteQuery<IUsePlacesResponse>(['places', params], config)
+}
+
+export function usePlace(placeId: string, config?: UseQueryOptions<IPlace>) {
+  const params = {
+    filter: {
+      range: {
+        latitude: 36.74529209631143,
+        longitude: 3.052477133545479,
+      },
+    },
+  }
+  return useQuery<IPlace>(['places', placeId, params], {
+    ...config,
+    select(res: any) {
+      return res.data
+    },
+  })
 }

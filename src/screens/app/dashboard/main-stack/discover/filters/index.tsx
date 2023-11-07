@@ -3,15 +3,11 @@ import { StyleSheet, View } from 'react-native'
 import ReactNativeModal from 'react-native-modal'
 import Typography from '../../../../../../components/text'
 import Icon from '../../../../../../components/icon'
-import {
-  useCategories,
-  useTowns,
-  useWilayas,
-} from '../../home/sections/nearby/queries'
 import { IFiltersForm, useFiltersForm } from './useForm'
 import { Controller } from 'react-hook-form'
 import MultiSelect from 'react-native-multiple-select'
 import Button from '../../../../../../components/button'
+import { useCategories, useTowns, useWilayas } from '../../../../queries'
 
 interface Props {
   open: (data?: unknown) => void

@@ -13,4 +13,5 @@ export interface IPlace {
   distance: number
   town: ITown
   wilaya: IWilaya
+  description: string
 }

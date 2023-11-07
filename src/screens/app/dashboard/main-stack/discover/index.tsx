@@ -7,12 +7,12 @@ import SearchBar from '../../../../../components/searchBar'
 import Typography from '../../../../../components/text'
 import Icon from '../../../../../components/icon'
 import AppTheme from '../../../../../styles'
-import { usePlaces } from '../home/sections/nearby/queries'
 import { usePopup } from '../../../../../hooks/usePopup'
 import Filters from './filters'
 import { useFilters } from '../../../../../hooks/useFilters'
 import { useEffect } from 'react'
 import { IPlace } from '../../../types'
+import { usePlaces } from '../../../queries'
 
 interface IDiscoverScreenProps {
   navigation: NavigationProp<any>
@@ -85,7 +85,12 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({ navigation }) => {
             }
             onEndReached={handleLoadMore}
             data={data?.pages.map((page) => page.data).flat()}
-            renderItem={({ item }) => <ListItem data={item} />}
+            renderItem={({ item }) => (
+              <ListItem
+                data={item}
+                onPress={() => navigation.navigate('place_detail', item)}
+              />
+            )}
           />
         )}
       </View>
@@ -98,11 +103,12 @@ export default DiscoverScreen
 
 interface ItemProps {
   data: IPlace
+  onPress: () => void
 }
 
-const ListItem: React.FC<ItemProps> = ({ data }) => {
+const ListItem: React.FC<ItemProps> = ({ data, onPress }) => {
   return (
-    <TouchableOpacity onPress={() => console.log('press')}>
+    <TouchableOpacity onPress={onPress}>
       <Card
         containerStyle={{
           ...AppTheme.elevation,
