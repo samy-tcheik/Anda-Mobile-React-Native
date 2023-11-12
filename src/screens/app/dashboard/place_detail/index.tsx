@@ -1,20 +1,16 @@
-import {
-  Dimensions,
-  StyleSheet,
-  Text,
-  View,
-  useWindowDimensions,
-} from 'react-native'
+import { StyleSheet, View, useWindowDimensions } from 'react-native'
 import AppLayout from '../../app-layout'
 import { NavigationProp, RouteProp } from '@react-navigation/native'
 import Carousel from 'react-native-reanimated-carousel'
 import { Card, Image } from '@rneui/base'
 import Typography from '../../../../components/text'
 import { Divider } from '@rneui/themed'
-import CategoryItem from '../../../../components/categoryItem'
 import Icon from '../../../../components/icon'
 import AppTheme from '../../../../styles'
 import { usePlace } from '../../queries'
+import { usePopup } from '../../../../hooks/usePopup'
+import ReviewSection from './review'
+import { IPlace } from '../../types'
 
 interface IPlaceDetailScreenProps {
   route: RouteProp<any>
@@ -26,7 +22,9 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
   navigation,
 }) => {
   const { width } = useWindowDimensions()
+  const reviewSection = usePopup<IPlace>()
   const { data, isLoading } = usePlace(route.params?.id)
+
   return (
     <AppLayout backButton navigation={navigation}>
       <Card containerStyle={{ padding: 10, borderRadius: 10 }}>
@@ -57,17 +55,40 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
                 </View>
               )}
             />
+
             <View style={styles.mainContent}>
               <View style={styles.placeInfoContainer}>
                 <View>
                   <Typography.HeadlineHeavy>
                     {data?.name}
                   </Typography.HeadlineHeavy>
-                  <View style={{ flexDirection: 'row' }}>
-                    <Icon name="map-marker-outline" size={17} />
-                    <Typography.CaptionLight>
-                      {data?.wilaya.name}
-                    </Typography.CaptionLight>
+                  <View style={styles.row}>
+                    <View style={{ flexDirection: 'row' }}>
+                      <Icon name="map-marker-outline" size={17} />
+                      <Typography.CaptionLight>
+                        {data?.wilaya.name}
+                      </Typography.CaptionLight>
+                    </View>
+
+                    <View style={styles.ratingContainer}>
+                      <Icon
+                        color={AppTheme.colors.neutral_n300}
+                        size={17}
+                        name="star-outline"
+                      />
+                      {data?.rating ? (
+                        <Typography.BodyLight style={styles.rating}>
+                          {data?.rating} ({data.rating_count})
+                        </Typography.BodyLight>
+                      ) : (
+                        <Typography.CaptionHeavy
+                          onPress={() => reviewSection.open(data)}
+                          style={styles.addReview}
+                        >
+                          (Add a review)
+                        </Typography.CaptionHeavy>
+                      )}
+                    </View>
                   </View>
                   <View style={{ flexDirection: 'row' }}>
                     <Icon size={17} name="map-marker-distance" />
@@ -77,10 +98,6 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
                     </Typography.CaptionLight>
                   </View>
                 </View>
-                {/* <View style={{ padding: 10, flexDirection: 'row' }}>
-                  <Icon name="star-half-full" />
-                  <Typography.BodyLight>4.7(9k reviews)</Typography.BodyLight>
-                </View> */}
               </View>
               <Divider
                 width={3}
@@ -115,6 +132,7 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
           </>
         )}
       </Card>
+      <ReviewSection {...reviewSection} />
     </AppLayout>
   )
 }
@@ -126,9 +144,16 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   placeInfoContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     marginBottom: 10,
   },
   facilitiesContainer: { marginVertical: 10 },
+  ratingContainer: { flexDirection: 'row', alignItems: 'center' },
+  rating: {
+    color: AppTheme.colors.neutral_n300,
+  },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  addReview: { color: AppTheme.colors.blue_b400 },
 })

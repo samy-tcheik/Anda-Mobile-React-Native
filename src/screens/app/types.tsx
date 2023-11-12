@@ -8,10 +8,12 @@ export interface ITown {
   name: string
 }
 export interface IPlace {
-  id: number
+  id: string
   name: string
   distance: number
   town: ITown
   wilaya: IWilaya
   description: string
+  rating: number
+  rating_count: number
 }
