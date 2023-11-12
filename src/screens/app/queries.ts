@@ -1,12 +1,16 @@
 import {
   UseInfiniteQueryOptions,
+  UseMutationOptions,
   UseQueryOptions,
   useInfiniteQuery,
+  useMutation,
   useQuery,
+  useQueryClient,
 } from '@tanstack/react-query'
 import { IPlace, ITown, IWilaya } from './types'
 import { ICategory } from './dashboard/main-stack/home/sections/nearby/types'
 import { IFilter } from '../../hooks/useFilters'
+import api from '../../service/api'
 
 export function useWilayas(config?: UseQueryOptions<IWilaya[]>) {
   return useQuery<IWilaya[]>(['wilayas'], {
@@ -99,4 +103,20 @@ export function usePlace(placeId: string, config?: UseQueryOptions<IPlace>) {
       return res.data
     },
   })
+}
+
+export function useUpdateRating(
+  id?: string,
+  config?: UseMutationOptions<unknown, unknown, { rating: number }>
+) {
+  const queryClient = useQueryClient()
+  return useMutation<unknown, unknown, { rating: number }>(
+    (data) => api.post(`places/${id}/rating`, data),
+    {
+      ...config,
+      onSuccess() {
+        queryClient.invalidateQueries(['places'])
+      },
+    }
+  )
 }
