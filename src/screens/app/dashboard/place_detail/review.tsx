@@ -1,5 +1,5 @@
 import { BottomSheet } from '@rneui/base'
-import { StyleSheet, TextInput, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import Typography from '../../../../components/text'
 import { Rating } from 'react-native-ratings'
 import AppTheme from '../../../../styles'
@@ -21,14 +21,12 @@ const ReviewSection: React.FC<Props> = ({ onClose, isOpen, data }) => {
   const [rating, setRating] = useState<number>(0)
   const { mutate, isLoading } = useUpdateRating(data?.id)
   const onSubmit = () => {
-    console.log('mutate rating', rating)
     mutate(
       {
         rating: rating,
       },
       {
         onSuccess(data) {
-          console.log('rating response', data)
           showMessage({
             message: 'success',
             type: 'success',
@@ -36,6 +34,7 @@ const ReviewSection: React.FC<Props> = ({ onClose, isOpen, data }) => {
               <Icon name="check" color="white" size={20} {...props} />
             ),
           } as any)
+          onClose()
         },
       }
     )
@@ -54,7 +53,7 @@ const ReviewSection: React.FC<Props> = ({ onClose, isOpen, data }) => {
           fractions={1}
           jumpValue={0.5}
           imageSize={30}
-          startingValue={0}
+          startingValue={data?.rating}
           onFinishRating={setRating}
           style={{ paddingVertical: 10 }}
         />
