@@ -1,5 +1,5 @@
 import { BottomSheet } from '@rneui/base'
-import { StyleSheet, TextInput, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import Typography from '../../../../components/text'
 import { Rating } from 'react-native-ratings'
 import AppTheme from '../../../../styles'

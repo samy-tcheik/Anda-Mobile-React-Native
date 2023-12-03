@@ -84,7 +84,6 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
                         size={17}
                         name="star-outline"
                       />
-
                       {data?.rating ? (
                         <Typography.BodyLight style={styles.rating}>
                           {data?.rating} ({data.rating_count})
