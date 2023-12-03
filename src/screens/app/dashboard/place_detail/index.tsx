@@ -1,4 +1,9 @@
-import { StyleSheet, View, useWindowDimensions } from 'react-native'
+import {
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  useWindowDimensions,
+} from 'react-native'
 import AppLayout from '../../app-layout'
 import { NavigationProp, RouteProp } from '@react-navigation/native'
 import Carousel from 'react-native-reanimated-carousel'
@@ -70,25 +75,26 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
                       </Typography.CaptionLight>
                     </View>
 
-                    <View style={styles.ratingContainer}>
+                    <TouchableOpacity
+                      onPress={() => reviewSection.open(data)}
+                      style={styles.ratingContainer}
+                    >
                       <Icon
                         color={AppTheme.colors.neutral_n300}
                         size={17}
                         name="star-outline"
                       />
+
                       {data?.rating ? (
                         <Typography.BodyLight style={styles.rating}>
                           {data?.rating} ({data.rating_count})
                         </Typography.BodyLight>
                       ) : (
-                        <Typography.CaptionHeavy
-                          onPress={() => reviewSection.open(data)}
-                          style={styles.addReview}
-                        >
+                        <Typography.CaptionHeavy style={styles.addReview}>
                           (Add a review)
                         </Typography.CaptionHeavy>
                       )}
-                    </View>
+                    </TouchableOpacity>
                   </View>
                   <View style={{ flexDirection: 'row' }}>
                     <Icon size={17} name="map-marker-distance" />
