@@ -17,3 +17,7 @@ export interface IPlace {
   rating: number
   rating_count: number
 }
+
+export interface IRating {
+  rating: string
+}

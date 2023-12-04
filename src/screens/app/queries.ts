@@ -7,7 +7,7 @@ import {
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query'
-import { IPlace, ITown, IWilaya } from './types'
+import { IPlace, IRating, ITown, IWilaya } from './types'
 import { ICategory } from './dashboard/main-stack/home/sections/nearby/types'
 import { IFilter } from '../../hooks/useFilters'
 import api from '../../service/api'
@@ -105,8 +105,15 @@ export function usePlace(placeId: string, config?: UseQueryOptions<IPlace>) {
   })
 }
 
+export function useUserPlaceRating(
+  placeId: string,
+  config?: UseQueryOptions<IRating>
+) {
+  return useQuery<IRating>(['places', placeId, 'rating'], config)
+}
+
 export function useUpdateRating(
-  id?: string,
+  id: string,
   config?: UseMutationOptions<unknown, unknown, { rating: number }>
 ) {
   const queryClient = useQueryClient()

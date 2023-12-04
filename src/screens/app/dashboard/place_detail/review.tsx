@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native'
 import Typography from '../../../../components/text'
 import { Rating } from 'react-native-ratings'
 import AppTheme from '../../../../styles'
-import { useUpdateRating } from '../../queries'
+import { useUpdateRating, useUserPlaceRating } from '../../queries'
 import { IPlace } from '../../types'
 import Button from '../../../../components/button'
 import { showMessage } from 'react-native-flash-message'
@@ -19,7 +19,11 @@ interface Props {
 
 const ReviewSection: React.FC<Props> = ({ onClose, isOpen, data }) => {
   const [rating, setRating] = useState<number>(0)
-  const { mutate, isLoading } = useUpdateRating(data?.id)
+  const userPlaceRating = useUserPlaceRating(data?.id!, {
+    enabled: isOpen,
+  })
+  const { mutate, isLoading } = useUpdateRating(data?.id!)
+  console.log('user Rating', userPlaceRating)
   const onSubmit = () => {
     mutate(
       {
@@ -42,22 +46,26 @@ const ReviewSection: React.FC<Props> = ({ onClose, isOpen, data }) => {
   return (
     <BottomSheet onBackdropPress={onClose} isVisible={isOpen}>
       <View style={styles.bottomSheetContainer}>
-        <Typography.HeadlineHeavy style={{ textAlign: 'center' }}>
-          Place Review
-        </Typography.HeadlineHeavy>
-        <Typography.CaptionLight style={styles.description}>
-          Leave us a review and share your thoughts! Thank you for being a part
-          of our community.
-        </Typography.CaptionLight>
-        <Rating
-          fractions={1}
-          jumpValue={0.5}
-          imageSize={30}
-          startingValue={data?.rating}
-          onFinishRating={setRating}
-          style={{ paddingVertical: 10 }}
-        />
-        {/* <Typography.CaptionLight>
+        {userPlaceRating.isLoading ? (
+          <Typography.BodyHeavy>Is Loading</Typography.BodyHeavy>
+        ) : (
+          <>
+            <Typography.HeadlineHeavy style={{ textAlign: 'center' }}>
+              Place Review
+            </Typography.HeadlineHeavy>
+            <Typography.CaptionLight style={styles.description}>
+              Leave us a review and share your thoughts! Thank you for being a
+              part of our community.
+            </Typography.CaptionLight>
+            <Rating
+              fractions={1}
+              jumpValue={0.5}
+              imageSize={30}
+              startingValue={data?.rating}
+              onFinishRating={setRating}
+              style={{ paddingVertical: 10 }}
+            />
+            {/* <Typography.CaptionLight>
           Please leave your comment here
         </Typography.CaptionLight>
         <TextInput
@@ -66,9 +74,11 @@ const ReviewSection: React.FC<Props> = ({ onClose, isOpen, data }) => {
           multiline={true}
           placeholder="Commentaire"
         /> */}
-        <Button onPress={onSubmit} loading={isLoading}>
-          Send
-        </Button>
+            <Button onPress={onSubmit} loading={isLoading}>
+              Send
+            </Button>
+          </>
+        )}
       </View>
     </BottomSheet>
   )
