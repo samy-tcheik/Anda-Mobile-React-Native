@@ -29,7 +29,6 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
   const { width } = useWindowDimensions()
   const reviewSection = usePopup<IPlace>()
   const { data, isLoading } = usePlace(route.params?.id)
-
   return (
     <AppLayout backButton navigation={navigation}>
       <Card containerStyle={{ padding: 10, borderRadius: 10 }}>

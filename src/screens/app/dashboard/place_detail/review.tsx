@@ -23,7 +23,6 @@ const ReviewSection: React.FC<Props> = ({ onClose, isOpen, data }) => {
     enabled: isOpen,
   })
   const { mutate, isLoading } = useUpdateRating(data?.id!)
-  console.log('user Rating', userPlaceRating)
   const onSubmit = () => {
     mutate(
       {

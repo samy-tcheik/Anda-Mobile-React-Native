@@ -1,4 +1,3 @@
-import { Card, Image, Text } from '@rneui/base'
 import { FlatList, RefreshControl, TouchableOpacity, View } from 'react-native'
 
 import { NavigationProp } from '@react-navigation/native'
@@ -6,13 +5,12 @@ import AppLayout from '../../../app-layout'
 import SearchBar from '../../../../../components/searchBar'
 import Typography from '../../../../../components/text'
 import Icon from '../../../../../components/icon'
-import AppTheme from '../../../../../styles'
 import { usePopup } from '../../../../../hooks/usePopup'
 import Filters from './filters'
 import { useFilters } from '../../../../../hooks/useFilters'
 import { useEffect } from 'react'
-import { IPlace } from '../../../types'
 import { usePlaces } from '../../../queries'
+import ListItem from '../../../../../components/listItem'
 
 interface IDiscoverScreenProps {
   navigation: NavigationProp<any>
@@ -100,69 +98,3 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({ navigation }) => {
 }
 
 export default DiscoverScreen
-
-interface ItemProps {
-  data: IPlace
-  onPress: () => void
-}
-
-const ListItem: React.FC<ItemProps> = ({ data, onPress }) => {
-  return (
-    <TouchableOpacity onPress={onPress}>
-      <Card
-        containerStyle={{
-          ...AppTheme.elevation,
-          height: 145,
-          borderRadius: 13,
-        }}
-        wrapperStyle={{
-          width: '100%',
-          flexDirection: 'row',
-        }}
-      >
-        <Image
-          containerStyle={{
-            aspectRatio: 1,
-            width: 110,
-            marginRight: 10,
-            borderRadius: 13,
-            ...AppTheme.elevation,
-          }}
-          source={{
-            uri: `https://source.unsplash.com/random?sig=${1}`,
-          }}
-        />
-        <View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Typography.BodyHeavy>{data.name}</Typography.BodyHeavy>
-            {/* <Text>{data.review}</Text> */}
-          </View>
-          <View
-            style={{
-              marginTop: 7,
-              justifyContent: 'space-between',
-            }}
-          >
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Icon size={17} name="map-marker" />
-              <Typography.CaptionLight>
-                {data.wilaya.name}
-              </Typography.CaptionLight>
-            </View>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Icon size={17} name="map-marker-distance" />
-              <Typography.CaptionLight>
-                {data.distance} km
-              </Typography.CaptionLight>
-            </View>
-          </View>
-        </View>
-      </Card>
-    </TouchableOpacity>
-  )
-}
