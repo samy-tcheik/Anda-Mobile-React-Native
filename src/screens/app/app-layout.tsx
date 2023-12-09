@@ -6,6 +6,8 @@ interface IAppLayoutProps {
   navigation: any
   children: React.ReactNode
   backButton?: boolean
+  rightContent?: React.ReactNode
+  onRightContentClick?: () => void
   title?: string
 }
 const AppLayout: React.FC<IAppLayoutProps> = ({
@@ -13,12 +15,16 @@ const AppLayout: React.FC<IAppLayoutProps> = ({
   children,
   backButton,
   title,
+  rightContent,
+  onRightContentClick,
 }) => {
   return (
     <Background>
       <Header
+        rightContent={rightContent}
         backButton={backButton}
         onLeftClick={backButton ? navigation.goBack : navigation.openDrawer}
+        onRightClick={onRightContentClick}
         title={title}
       />
       <View style={{ flex: 1 }}>{children}</View>
