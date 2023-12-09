@@ -16,6 +16,7 @@ export interface IPlace {
   description: string
   rating: number
   rating_count: number
+  liked: boolean
 }
 
 export interface IRating {
