@@ -7,7 +7,7 @@ import {
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query'
-import { IPlace, IRating, ITown, IWilaya } from './types'
+import { IPlace, IRating, ITown, IWilaya, LikeType } from './types'
 import { ICategory } from './dashboard/main-stack/home/sections/nearby/types'
 import { IFilter } from '../../hooks/useFilters'
 import api from '../../service/api'
@@ -124,6 +124,23 @@ export function useUpdateRating(
       onSuccess() {
         queryClient.invalidateQueries(['places'])
       },
+    }
+  )
+}
+
+export function useAddLike(
+  type: LikeType,
+  config?: UseMutationOptions<unknown, unknown, string>
+) {
+  const queryClient = useQueryClient()
+  return useMutation<unknown, unknown, string>(
+    (id) => api.post(`likes/${type}/${id}`),
+    {
+      onSuccess() {
+        queryClient.invalidateQueries(['places'])
+        queryClient.invalidateQueries(['comments'])
+      },
+      ...config,
     }
   )
 }

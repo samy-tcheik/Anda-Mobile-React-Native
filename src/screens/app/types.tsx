@@ -22,3 +22,8 @@ export interface IPlace {
 export interface IRating {
   rating: string
 }
+
+export enum LikeType {
+  PLACE = 'PLACE',
+  COMMENT = 'COMMENT',
+}

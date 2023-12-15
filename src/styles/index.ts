@@ -47,6 +47,7 @@ const AppTheme = {
     purple_p500: '#403294',
     neutral_n0: '#F7FAFC',
     neutral_n10: '#EDF2F7',
+    neutral_n25: '#E8ECF1',
     neutral_n50: '#E2E8F0',
     neutral_n75: '#CBD5E0',
     neutral_n100: '#A0AEC0',

@@ -1,34 +1,47 @@
 import { NavigationProp, RouteProp } from '@react-navigation/native'
 import AppLayout from '../../app-layout'
 import { FlatList, RefreshControl, StyleSheet, View } from 'react-native'
-import { Avatar, Button } from '@rneui/base'
-import Input from '../../../../components/input'
-import { ICommentForm, useCommentForm } from './use-form'
-import { Controller } from 'react-hook-form'
-import Icon from '../../../../components/icon'
-import { useComments } from './queries'
-import CommentItem from '../../../../components/commentItem'
+import { ICommentForm } from './use-form'
+import { useAddComment, useComments } from './queries'
+import CommentItem from './commentItem'
+import AddCommentForm from './add-comment'
+import { showMessage } from 'react-native-flash-message'
 
 interface Props {
   route: RouteProp<any>
   navigation: NavigationProp<any>
 }
 
-const Comments: React.FC<Props> = ({ navigation, route }) => {
+const CommentsScreen: React.FC<Props> = ({ navigation, route }) => {
   const { data, isLoading, isRefetching, refetch, hasNextPage, fetchNextPage } =
-    useComments(route.params?.data.id, {
+    useComments(route.params?.data.id, route.params?.type, {
       getNextPageParam: (nextPage) => {
         if (nextPage.meta.current_page !== nextPage.meta.last_page) {
           return nextPage.meta.current_page + 1
         }
       },
     })
+
+  const addComment = useAddComment(route.params?.data.id, route.params?.type)
+
   const handleLoadMore = () => {
     console.log('handle load more')
     if (hasNextPage) {
       fetchNextPage()
     }
   }
+
+  const handleSubmit = (data: ICommentForm) => {
+    addComment.mutate(data, {
+      onSuccess() {
+        showMessage({
+          type: 'success',
+          message: 'Votre commentaire a bien etait ajouté',
+        })
+      },
+    })
+  }
+
   return (
     <AppLayout backButton navigation={navigation}>
       <FlatList
@@ -38,58 +51,13 @@ const Comments: React.FC<Props> = ({ navigation, route }) => {
         data={data?.pages.map((page) => page.data).flat()}
         renderItem={({ item }) => <CommentItem data={item} />}
       />
-      <View></View>
+      <View>
+        <AddCommentForm onSubmit={handleSubmit} />
+      </View>
     </AppLayout>
   )
 }
 
-export default Comments
+export default CommentsScreen
 
-const AddCommentForm = () => {
-  const {
-    control,
-    formState: { errors },
-    handleSubmit,
-  } = useCommentForm()
-
-  const onSubmit = (data: ICommentForm) => {
-    console.log(data)
-  }
-
-  return (
-    <View>
-      <Avatar />
-      <Input
-        control={control}
-        name="comment"
-        placeholder={'Commentaire'}
-        error={!!errors.comment}
-        errorMessage={errors.comment?.message}
-        returnKeyType="next"
-        autoCapitalize="none"
-        textContentType="emailAddress"
-        keyboardType="email-address"
-        containerStyle={{ marginBottom: 5 }}
-      />
-
-      <Button
-        onPress={handleSubmit(onSubmit)}
-        color="error"
-        containerStyle={{ ...styles.button, marginLeft: 15 }}
-        type="clear"
-      >
-        {<Icon name="arrow-left" />}
-      </Button>
-    </View>
-  )
-}
-
-const styles = StyleSheet.create({
-  button: {
-    backgroundColor: 'white',
-    borderRadius: 50,
-    justifyContent: 'center',
-    width: 50,
-    height: 50,
-  },
-})
+const styles = StyleSheet.create({})

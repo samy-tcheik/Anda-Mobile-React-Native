@@ -13,11 +13,11 @@ import Typography from '../../../../components/text'
 import { Divider } from '@rneui/themed'
 import Icon from '../../../../components/icon'
 import AppTheme from '../../../../styles'
-import { usePlace } from '../../queries'
+import { useAddLike, usePlace } from '../../queries'
 import { usePopup } from '../../../../hooks/usePopup'
 import ReviewSection from './review'
-import { IPlace } from '../../types'
-import { useAddLike } from './queries'
+import { IPlace, LikeType } from '../../types'
+import { ICommentType } from '../comments/queries'
 
 interface IPlaceDetailScreenProps {
   route: RouteProp<any>
@@ -31,7 +31,7 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
   const { width } = useWindowDimensions()
   const reviewSection = usePopup<IPlace>()
   const { data, isLoading } = usePlace(route.params?.id)
-  const addLike = useAddLike()
+  const addLike = useAddLike(LikeType.PLACE)
   const handleLikeClick = () => {
     addLike.mutate(data?.id!)
   }
@@ -96,10 +96,18 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
                         </Typography.BodyLight>
                       </View>
 
-                      <View style={{ flexDirection: 'row' }}>
+                      <TouchableOpacity
+                        onPress={() =>
+                          navigation.navigate('comments', {
+                            data: data,
+                            type: ICommentType.PLACE,
+                          })
+                        }
+                        style={{ flexDirection: 'row' }}
+                      >
                         <Icon name="comment-outline" size={17} />
                         <Typography.BodyLight>12</Typography.BodyLight>
-                      </View>
+                      </TouchableOpacity>
 
                       <TouchableOpacity
                         onPress={() => reviewSection.open(data)}
