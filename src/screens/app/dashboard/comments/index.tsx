@@ -1,11 +1,21 @@
 import { NavigationProp, RouteProp } from '@react-navigation/native'
 import AppLayout from '../../app-layout'
-import { FlatList, RefreshControl, StyleSheet, View } from 'react-native'
-import { ICommentForm } from './use-form'
+import {
+  FlatList,
+  Keyboard,
+  RefreshControl,
+  StyleSheet,
+  View,
+} from 'react-native'
+import { ICommentForm, useCommentForm } from './use-form'
 import { useAddComment, useComments } from './queries'
 import CommentItem from './commentItem'
-import AddCommentForm from './add-comment'
 import { showMessage } from 'react-native-flash-message'
+import { TouchableOpacity } from 'react-native'
+import AppTheme from '../../../../styles'
+import CommentInput from '../../../../components/comment-input'
+import { Avatar } from '@rneui/base'
+import Icon from '../../../../components/icon'
 
 interface Props {
   route: RouteProp<any>
@@ -21,8 +31,13 @@ const CommentsScreen: React.FC<Props> = ({ navigation, route }) => {
         }
       },
     })
-
   const addComment = useAddComment(route.params?.data.id, route.params?.type)
+  const {
+    control,
+    formState: { errors },
+    handleSubmit,
+    reset,
+  } = useCommentForm()
 
   const handleLoadMore = () => {
     console.log('handle load more')
@@ -31,13 +46,17 @@ const CommentsScreen: React.FC<Props> = ({ navigation, route }) => {
     }
   }
 
-  const handleSubmit = (data: ICommentForm) => {
+  const onSubmit = (data: ICommentForm) => {
     addComment.mutate(data, {
       onSuccess() {
         showMessage({
           type: 'success',
           message: 'Votre commentaire a bien etait ajouté',
         })
+
+        //clear and hide keyboard if add comment success
+        reset()
+        Keyboard.dismiss()
       },
     })
   }
@@ -52,7 +71,35 @@ const CommentsScreen: React.FC<Props> = ({ navigation, route }) => {
         renderItem={({ item }) => <CommentItem data={item} />}
       />
       <View>
-        <AddCommentForm onSubmit={handleSubmit} />
+        <View
+          style={{
+            flexDirection: 'row',
+            padding: 10,
+            backgroundColor: 'white',
+            alignItems: 'center',
+            ...AppTheme.elevation,
+          }}
+        >
+          <CommentInput
+            avatar={
+              <Avatar
+                size={40}
+                rounded
+                source={{
+                  uri: 'https://randomuser.me/api/portraits/men/36.jpg',
+                }}
+              />
+            }
+            control={control}
+            name="comment"
+            renderErrorMessage={false}
+            rightIcon={
+              <TouchableOpacity onPress={handleSubmit(onSubmit)}>
+                <Icon name="send" />
+              </TouchableOpacity>
+            }
+          />
+        </View>
       </View>
     </AppLayout>
   )

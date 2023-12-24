@@ -43,6 +43,7 @@ export function useAddComment(
       ...config,
       onSuccess() {
         queryClient.invalidateQueries(['comments', type, id])
+        queryClient.invalidateQueries(['places', id])
       },
     }
   )
