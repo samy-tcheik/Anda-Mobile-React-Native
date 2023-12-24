@@ -18,6 +18,8 @@ export interface IPlace {
   rating_count: number
   comment_count: number
   liked: boolean
+  latitude: string
+  longitude: string
 }
 
 export interface IRating {

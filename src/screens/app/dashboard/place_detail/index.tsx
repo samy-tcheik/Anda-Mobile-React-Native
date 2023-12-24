@@ -18,6 +18,9 @@ import { usePopup } from '../../../../hooks/usePopup'
 import ReviewSection from './review'
 import { IPlace, LikeType } from '../../types'
 import { ICommentType } from '../comments/queries'
+import Button from '../../../../components/button'
+import getDirections from 'react-native-google-maps-directions'
+import GetLocation from 'react-native-get-location'
 
 interface IPlaceDetailScreenProps {
   route: RouteProp<any>
@@ -35,7 +38,31 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
   const handleLikeClick = () => {
     addLike.mutate(data?.id!)
   }
-  console.log('place data', data)
+  const openMapOnLocation = () => {
+    console.log('on map open')
+    GetLocation.getCurrentPosition()
+      .then(({ latitude, longitude }) => {
+        console.log(latitude, longitude)
+        getDirections({
+          source: {
+            latitude: latitude,
+            longitude: longitude,
+          },
+          destination: {
+            latitude: parseFloat(data!.latitude),
+            longitude: parseFloat(data!.longitude),
+          },
+          params: [
+            {
+              key: 'dir_action',
+              value: 'navigate', // this instantly initializes navigation using the given travel mode
+            },
+          ],
+        })
+      })
+      .catch((error) => console.log('error', error))
+    // getDirections({})
+  }
   return (
     <AppLayout
       rightContent={
@@ -50,7 +77,7 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
       backButton
       navigation={navigation}
     >
-      <ScrollView style={{ flex: 1, padding: 20 }}>
+      <ScrollView style={{ flex: 1, paddingHorizontal: 20 }}>
         {isLoading ? (
           <Typography.BodyHeavy>isLoading</Typography.BodyHeavy>
         ) : (
@@ -170,6 +197,12 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
                 <Typography.CaptionLight>
                   {data?.description}
                 </Typography.CaptionLight>
+              </View>
+              <View style={{ marginVertical: 20 }}>
+                <Button onPress={openMapOnLocation}>
+                  <Icon name="navigation" size={30} color={'white'} />
+                  Démarrer
+                </Button>
               </View>
             </View>
           </>
