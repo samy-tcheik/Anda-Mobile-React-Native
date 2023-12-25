@@ -14,14 +14,5 @@ interface IUseLikeResponse {
 }
 
 export function useLikes(config?: UseInfiniteQueryOptions<IUseLikeResponse>) {
-  const params = {
-    filter: {
-      range: {
-        latitude: 36.74529209631143,
-        longitude: 3.052477133545479,
-      },
-    },
-  }
-
-  return useInfiniteQuery<IUseLikeResponse>(['likes', params], config)
+  return useInfiniteQuery<IUseLikeResponse>(['likes'], config)
 }

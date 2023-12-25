@@ -44,13 +44,7 @@ export function usePlacesNearby(
   config?: UseQueryOptions<IPlace[]>
 ) {
   const params = {
-    filter: {
-      ...filters,
-      range: {
-        latitude: 36.74529209631143,
-        longitude: 3.052477133545479,
-      },
-    },
+    filter: filters,
   }
   return useQuery<IPlace[]>(['places', 'nearby', params], {
     ...config,
@@ -89,15 +83,7 @@ export function usePlaces(
 }
 
 export function usePlace(placeId: string, config?: UseQueryOptions<IPlace>) {
-  const params = {
-    filter: {
-      range: {
-        latitude: 36.74529209631143,
-        longitude: 3.052477133545479,
-      },
-    },
-  }
-  return useQuery<IPlace>(['places', placeId, params], {
+  return useQuery<IPlace>(['places', placeId], {
     ...config,
     select(res: any) {
       return res.data

@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import Axios from 'axios'
 import { API_URL } from '../global'
 import i18n from './i18n'
+import GetLocation from 'react-native-get-location'
 
 const api = Axios.create({
   baseURL: API_URL,
@@ -33,10 +34,13 @@ api.interceptors.request.use(
   async (config) => {
     const accessToken = await AsyncStorage.getItem('user_token')
     const language = await AsyncStorage.getItem('language')
+    // const position = await GetLocation.getCurrentPosition()
     config.headers = {
       'Accept-Language': language,
       Accept: 'application/json',
       Authorization: `Bearer ${accessToken}`,
+      'Location-latitude': 36.74529209631143,
+      'Location-longitude': 3.052477133545479,
     } as any
     return config
   },

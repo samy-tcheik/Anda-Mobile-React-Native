@@ -16,13 +16,5 @@ interface IUseHistoryResponse {
 export function useHistory(
   config?: UseInfiniteQueryOptions<IUseHistoryResponse>
 ) {
-  const params = {
-    filter: {
-      range: {
-        latitude: 36.74529209631143,
-        longitude: 3.052477133545479,
-      },
-    },
-  }
-  return useInfiniteQuery<IUseHistoryResponse>(['history', params], config)
+  return useInfiniteQuery<IUseHistoryResponse>(['history'], config)
 }
