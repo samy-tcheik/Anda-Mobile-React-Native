@@ -15,7 +15,6 @@ const NearbySection: React.FC<INearbySectionProps> = ({ navigation }) => {
   const { filters, setFilters } = useFilters({ filters: ['category_id'] })
   const places = usePlacesNearby(filters)
   const categories = useCategories()
-  console.log(places)
   return (
     <View style={{ paddingHorizontal: 15, marginTop: 20, paddingBottom: 100 }}>
       <>
@@ -30,7 +29,6 @@ const NearbySection: React.FC<INearbySectionProps> = ({ navigation }) => {
           <Typography.TitleHeavy>Nearby</Typography.TitleHeavy>
           <TouchableOpacity
             style={{
-              backgroundColor: 'red',
               padding: 10,
             }}
           >

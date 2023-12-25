@@ -39,18 +39,16 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
     addLike.mutate(data?.id!)
   }
   const openMapOnLocation = () => {
-    console.log('on map open')
     GetLocation.getCurrentPosition()
       .then(({ latitude, longitude }) => {
-        console.log(latitude, longitude)
         getDirections({
           source: {
             latitude: latitude,
             longitude: longitude,
           },
           destination: {
-            latitude: parseFloat(data!.latitude),
-            longitude: parseFloat(data!.longitude),
+            latitude: data?.latitude,
+            longitude: data?.longitude,
           },
           params: [
             {
