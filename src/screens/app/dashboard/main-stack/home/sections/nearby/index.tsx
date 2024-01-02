@@ -4,17 +4,18 @@ import Typography from '../../../../../../../components/text'
 import { NavigationProp } from '@react-navigation/native'
 import CategoryCarousel from '../../../components/categories-carousel'
 import AppTheme from '../../../../../../../styles'
-import { useFilters } from '../../../../../../../hooks/useFilters'
-import { useCategories, usePlacesNearby } from '../../../../../queries'
+import { IHomeCategory } from '../../type'
+import { useTranslation } from 'react-i18next'
+import { useState } from 'react'
 
 interface INearbySectionProps {
   navigation: NavigationProp<any>
+  data: IHomeCategory[]
 }
 
-const NearbySection: React.FC<INearbySectionProps> = ({ navigation }) => {
-  const { filters, setFilters } = useFilters({ filters: ['category_id'] })
-  const places = usePlacesNearby(filters)
-  const categories = useCategories()
+const NearbySection: React.FC<INearbySectionProps> = ({ navigation, data }) => {
+  const { t } = useTranslation()
+  const [category, setCategory] = useState<string>('art_and_culture')
   return (
     <View style={{ paddingHorizontal: 15, marginTop: 20, paddingBottom: 100 }}>
       <>
@@ -26,7 +27,7 @@ const NearbySection: React.FC<INearbySectionProps> = ({ navigation }) => {
             marginHorizontal: 20,
           }}
         >
-          <Typography.TitleHeavy>Nearby</Typography.TitleHeavy>
+          <Typography.TitleHeavy>{t('home:nearby')}</Typography.TitleHeavy>
           <TouchableOpacity
             style={{
               padding: 10,
@@ -36,29 +37,18 @@ const NearbySection: React.FC<INearbySectionProps> = ({ navigation }) => {
               onPress={() => navigation.navigate('discover')}
               style={{ color: AppTheme.colors.neutral_n200, marginLeft: 20 }}
             >
-              Voir plus
+              {t('home:see_more')}
             </Typography.BodyLight>
           </TouchableOpacity>
         </View>
-        {categories.isLoading ? (
-          <Typography.BodyHeavy>Categories is loading</Typography.BodyHeavy>
-        ) : (
-          <CategoryCarousel
-            onChange={(id) =>
-              setFilters({
-                category_id: id,
-              })
-            }
-            data={categories.data!}
-          />
-        )}
+
+        <CategoryCarousel onChange={(key) => setCategory(key)} data={data!} />
 
         <View style={{ height: 300 }}>
-          {places.isFetching ? (
-            <Typography.BodyHeavy>Places is loading</Typography.BodyHeavy>
-          ) : (
-            <PlacesCarousel data={places.data!} navigation={navigation} />
-          )}
+          <PlacesCarousel
+            data={data.find((item) => item.key === category)?.places!}
+            navigation={navigation}
+          />
         </View>
       </>
     </View>

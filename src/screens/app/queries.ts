@@ -8,7 +8,6 @@ import {
   useQueryClient,
 } from '@tanstack/react-query'
 import { IPlace, IRating, ITown, IWilaya, LikeType } from './types'
-import { ICategory } from './dashboard/main-stack/home/sections/nearby/types'
 import { IFilter } from '../../hooks/useFilters'
 import api from '../../service/api'
 
@@ -30,29 +29,29 @@ export function useTowns(wilayaId: string, config?: UseQueryOptions<ITown[]>) {
   })
 }
 
-export function useCategories(config?: UseQueryOptions<ICategory[]>) {
-  return useQuery<ICategory[]>(['categories'], {
-    ...config,
-    select(res: any) {
-      return res.data
-    },
-  })
-}
+// export function useCategories(config?: UseQueryOptions<ICategory[]>) {
+//   return useQuery<ICategory[]>(['categories'], {
+//     ...config,
+//     select(res: any) {
+//       return res.data
+//     },
+//   })
+// }
 
-export function usePlacesNearby(
-  filters: IFilter,
-  config?: UseQueryOptions<IPlace[]>
-) {
-  const params = {
-    filter: filters,
-  }
-  return useQuery<IPlace[]>(['places', 'nearby', params], {
-    ...config,
-    select(res: any) {
-      return res.data
-    },
-  })
-}
+// export function usePlacesNearby(
+//   filters: IFilter,
+//   config?: UseQueryOptions<IPlace[]>
+// ) {
+//   const params = {
+//     filter: filters,
+//   }
+//   return useQuery<IPlace[]>(['places', 'nearby', params], {
+//     ...config,
+//     select(res: any) {
+//       return res.data
+//     },
+//   })
+// }
 
 interface IUsePlacesResponse {
   data: IPlace[]
