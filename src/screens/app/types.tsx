@@ -1,5 +1,6 @@
 export interface IWilaya {
   id: string
+  key: string
   name: string
 }
 

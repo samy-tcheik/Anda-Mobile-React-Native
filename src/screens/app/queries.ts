@@ -29,14 +29,14 @@ export function useTowns(wilayaId: string, config?: UseQueryOptions<ITown[]>) {
   })
 }
 
-// export function useCategories(config?: UseQueryOptions<ICategory[]>) {
-//   return useQuery<ICategory[]>(['categories'], {
-//     ...config,
-//     select(res: any) {
-//       return res.data
-//     },
-//   })
-// }
+export function useCategories(config?: UseQueryOptions<ICategory[]>) {
+  return useQuery<ICategory[]>(['categories'], {
+    ...config,
+    select(res: any) {
+      return res.data
+    },
+  })
+}
 
 // export function usePlacesNearby(
 //   filters: IFilter,
@@ -82,9 +82,11 @@ export function usePlaces(
 }
 
 export function usePlace(placeId: string, config?: UseQueryOptions<IPlace>) {
+  const queryClient = useQueryClient()
   return useQuery<IPlace>(['places', placeId], {
     ...config,
     select(res: any) {
+      queryClient.invalidateQueries(['history'])
       return res.data
     },
   })
@@ -124,6 +126,7 @@ export function useAddLike(
       onSuccess() {
         queryClient.invalidateQueries(['places'])
         queryClient.invalidateQueries(['comments'])
+        queryClient.invalidateQueries(['likes'])
       },
       ...config,
     }

@@ -75,7 +75,6 @@ const Filters: React.FC<Props> = ({ isOpen, onClose }) => {
               )}
             />
           )}
-
           <View style={[styles.contentView]}>
             <Typography.CaptionLight>
               Rayon de recherche (km)

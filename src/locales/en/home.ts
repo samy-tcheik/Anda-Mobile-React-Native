@@ -5,4 +5,5 @@ export default {
   most_liked: 'Most liked',
   most_rated: 'Most rated',
   nearby: 'Nearby',
+  see_more: 'See more',
 }
