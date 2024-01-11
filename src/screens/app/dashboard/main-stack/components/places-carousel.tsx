@@ -13,6 +13,9 @@ const PlacesCarousel: React.FC<IPlacesCarouselProps> = ({
     <Carousel
       width={250}
       height={310}
+      panGestureHandlerProps={{
+        activeOffsetX: [-10, 10],
+      }}
       loop={false}
       style={{ width: '100%' }}
       data={data}

@@ -12,11 +12,12 @@ interface IPlaceItemProps extends CardProps {
 
 const PlaceItem: React.FC<IPlaceItemProps> = ({ data, onPress }) => {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity activeOpacity={0.9} onPress={onPress}>
       <Card containerStyle={styles.card}>
         <Image
           containerStyle={styles.image}
           source={{
+            // uri: data.media[0]?.original_url,
             uri: `https://source.unsplash.com/random?sig=${data.id}`,
           }}
         />

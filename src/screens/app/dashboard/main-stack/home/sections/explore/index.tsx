@@ -19,21 +19,25 @@ const ExploreSection: React.FC<IExploreSectionProps> = ({
   const { t } = useTranslation()
   const [index, setIndex] = useState(0)
   return (
-    <View style={{ paddingHorizontal: 15 }}>
-      <Typography.TitleHeavy>{t('home:explore_places')}</Typography.TitleHeavy>
-      <Tab
-        value={index}
-        dense
-        onChange={(e) => setIndex(e)}
-        buttonStyle={{ height: 55 }}
-        titleStyle={{ color: 'black' }}
-        scrollable
-        indicatorStyle={{ backgroundColor: 'black' }}
-      >
-        {Object.keys(data).map((attribute) => (
-          <Tab.Item key={attribute} title={t(`home:${attribute}`)} />
-        ))}
-      </Tab>
+    <View>
+      <View style={{ paddingHorizontal: 15 }}>
+        <Typography.TitleHeavy>
+          {t('home:explore_places')}
+        </Typography.TitleHeavy>
+        <Tab
+          value={index}
+          dense
+          onChange={(e) => setIndex(e)}
+          buttonStyle={{ height: 55 }}
+          titleStyle={{ color: 'black' }}
+          scrollable
+          indicatorStyle={{ backgroundColor: 'black' }}
+        >
+          {Object.keys(data).map((attribute) => (
+            <Tab.Item key={attribute} title={t(`home:${attribute}`)} />
+          ))}
+        </Tab>
+      </View>
       <View style={{ height: 300 }}>
         <TabView
           disableSwipe

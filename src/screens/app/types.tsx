@@ -21,6 +21,11 @@ export interface IPlace {
   liked: boolean
   latitude: string
   longitude: string
+  media: IMedia[]
+}
+
+export interface IMedia {
+  original_url: string
 }
 
 export interface IRating {

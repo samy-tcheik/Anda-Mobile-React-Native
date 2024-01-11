@@ -22,6 +22,7 @@ const CategoryItem: React.FC<ICategory> = ({ name, icon }) => {
     <Card
       containerStyle={{
         height: 60,
+        minWidth: 170,
         borderRadius: 13,
         padding: 10,
         margin: 15,

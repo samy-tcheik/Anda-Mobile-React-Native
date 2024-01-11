@@ -86,7 +86,7 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
                 height={400}
                 loop={false}
                 style={{ width: '100%' }}
-                data={[...new Array(6).keys()]}
+                data={data?.media!}
                 scrollAnimationDuration={1000}
                 renderItem={({ item }) => (
                   <View
@@ -100,7 +100,7 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
                         borderRadius: 13,
                       }}
                       source={{
-                        uri: 'https://source.unsplash.com/random?sig=3',
+                        uri: item.original_url,
                       }}
                     />
                   </View>
