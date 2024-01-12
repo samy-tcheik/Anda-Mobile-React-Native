@@ -6,6 +6,7 @@ export interface IWilaya {
 
 export interface ITown {
   id: string
+  key: string
   name: string
 }
 export interface IPlace {

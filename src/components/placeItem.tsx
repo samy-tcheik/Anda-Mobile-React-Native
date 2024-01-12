@@ -17,8 +17,8 @@ const PlaceItem: React.FC<IPlaceItemProps> = ({ data, onPress }) => {
         <Image
           containerStyle={styles.image}
           source={{
-            // uri: data.media[0]?.original_url,
-            uri: `https://source.unsplash.com/random?sig=${data.id}`,
+            uri: data.media[0]?.original_url,
+            // uri: `https://source.unsplash.com/random?sig=${data.id}`,
           }}
         />
         <View style={styles.contentContainer}>

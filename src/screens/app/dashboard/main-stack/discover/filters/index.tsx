@@ -18,13 +18,16 @@ interface Props {
 
 const Filters: React.FC<Props> = ({ isOpen, onClose }) => {
   const wilayas = useWilayas()
-  const { control, watch, handleSubmit } = useFiltersForm()
+  const { control, watch, handleSubmit, resetField, reset } = useFiltersForm()
   const categories = useCategories()
   const towns = useTowns(watch('wilaya_id')!, {
     enabled: !!watch('wilaya_id'),
   })
   const onSubmit = (data: IFiltersForm) => {
-    delete data.wilaya_id
+    if (watch('range')) {
+      resetField('wilaya_id')
+      resetField('town_id')
+    }
     onClose(data)
   }
   return (
@@ -32,32 +35,43 @@ const Filters: React.FC<Props> = ({ isOpen, onClose }) => {
       <Card containerStyle={styles.card}>
         <View style={styles.head}>
           <Typography.BodyHeavy>Filters</Typography.BodyHeavy>
-          <Icon size={35} name="close" onPress={() => onClose()} />
+          <Icon
+            size={35}
+            name="close"
+            onPress={() => {
+              reset()
+              onClose()
+            }}
+          />
         </View>
         <View style={styles.container}>
-          <Controller
-            name="wilaya_id"
-            control={control}
-            render={({ field }) => (
-              <View style={{ width: '100%' }}>
-                <MultiSelect
-                  single
-                  items={wilayas.data!}
-                  selectedItems={[field.value]}
-                  uniqueKey="id"
-                  selectText="Selectionner une wilaya"
-                  searchInputPlaceholderText="Rechercher une wilaya..."
-                  onSelectedItemsChange={(selected) =>
-                    field.onChange(selected[0])
-                  }
-                />
-              </View>
-            )}
-          />
-          {towns.isFetched && (
+          {!watch('range') && (
+            <Controller
+              name="wilaya_id"
+              control={control}
+              render={({ field }) => (
+                <View style={{ width: '100%' }}>
+                  <MultiSelect
+                    single
+                    items={wilayas.data!}
+                    selectedItems={[field.value]}
+                    uniqueKey="id"
+                    selectText="Selectionner une wilaya"
+                    searchInputPlaceholderText="Rechercher une wilaya..."
+                    onSelectedItemsChange={(selected) =>
+                      field.onChange(selected[0])
+                    }
+                  />
+                </View>
+              )}
+            />
+          )}
+
+          {towns.isFetched && !watch('range') ? (
             <Controller
               name="town_id"
               control={control}
+              disabled={!!watch('range')}
               render={({ field }) => (
                 <View style={{ width: '100%' }}>
                   <MultiSelect
@@ -74,36 +88,39 @@ const Filters: React.FC<Props> = ({ isOpen, onClose }) => {
                 </View>
               )}
             />
+          ) : null}
+          {!watch('wilaya_id') && (
+            <View style={[styles.contentView]}>
+              <Typography.CaptionLight>
+                Rayon de recherche (km)
+              </Typography.CaptionLight>
+              <Controller
+                name="range"
+                control={control}
+                render={({ field }) => (
+                  <Slider
+                    value={field.value}
+                    onValueChange={field.onChange}
+                    maximumValue={300}
+                    minimumValue={5}
+                    step={5}
+                    allowTouchTrack
+                    trackStyle={{ height: 5, backgroundColor: 'transparent' }}
+                    thumbStyle={{
+                      height: 30,
+                      width: 30,
+                      backgroundColor: 'transparent',
+                    }}
+                    thumbProps={{
+                      children: <Icon name="map-marker" />,
+                    }}
+                  />
+                )}
+              />
+              <Typography.BodyHeavy>{watch('range')}</Typography.BodyHeavy>
+            </View>
           )}
-          <View style={[styles.contentView]}>
-            <Typography.CaptionLight>
-              Rayon de recherche (km)
-            </Typography.CaptionLight>
-            <Controller
-              name="range"
-              control={control}
-              render={({ field }) => (
-                <Slider
-                  value={field.value}
-                  onValueChange={field.onChange}
-                  maximumValue={300}
-                  minimumValue={5}
-                  step={5}
-                  allowTouchTrack
-                  trackStyle={{ height: 5, backgroundColor: 'transparent' }}
-                  thumbStyle={{
-                    height: 30,
-                    width: 30,
-                    backgroundColor: 'transparent',
-                  }}
-                  thumbProps={{
-                    children: <Icon name="map-marker" />,
-                  }}
-                />
-              )}
-            />
-            <Typography.BodyHeavy>{watch('range')}</Typography.BodyHeavy>
-          </View>
+
           <Controller
             name="category_id"
             control={control}

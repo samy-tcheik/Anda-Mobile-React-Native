@@ -75,17 +75,17 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
       backButton
       navigation={navigation}
     >
-      <ScrollView style={{ flex: 1, paddingHorizontal: 20 }}>
+      <ScrollView style={{ flex: 1 }}>
         {isLoading ? (
           <Typography.BodyHeavy>isLoading</Typography.BodyHeavy>
         ) : (
           <>
             <View>
               <Carousel
-                width={width - 40}
+                width={width}
                 height={400}
                 loop={false}
-                style={{ width: '100%' }}
+                // style={{ width: '100%' }}
                 data={data?.media!}
                 scrollAnimationDuration={1000}
                 renderItem={({ item }) => (
@@ -94,7 +94,7 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
                   >
                     <Image
                       containerStyle={{
-                        width: '95%',
+                        // width: '95%',
                         height: 400,
                         aspectRatio: 0.9,
                         borderRadius: 13,
@@ -216,6 +216,7 @@ export default PlaceDetailScreen
 const styles = StyleSheet.create({
   mainContent: {
     padding: 5,
+    paddingHorizontal: 20,
   },
   placeInfoContainer: {
     marginVertical: 10,

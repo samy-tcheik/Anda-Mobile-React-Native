@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import Background from '../../../components/background'
 import { Button, Image } from '@rneui/base'
 import Header from '../../../components/header'
@@ -50,73 +50,75 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
   }
 
   return (
-    <Background>
-      <Header
-        backButton={true}
-        onLeftClick={() => navigation.goBack()}
-        rightComponent={<LanguageChooser />}
-      />
-      <View style={styles.container}>
-        <View style={styles.logoContainer}>
-          <Image
-            resizeMode="contain"
-            source={require('../../../assets/logo.jpg')}
-            style={{ height: 150, width: 150 }}
+    <ScrollView>
+      <Background>
+        <Header
+          backButton={true}
+          onLeftClick={() => navigation.goBack()}
+          rightComponent={<LanguageChooser />}
+        />
+        <View style={styles.container}>
+          <View style={styles.logoContainer}>
+            <Image
+              resizeMode="contain"
+              source={require('../../../assets/logo.jpg')}
+              style={{ height: 150, width: 150 }}
+            />
+          </View>
+          <Input
+            control={control}
+            name="name"
+            placeholder={t('common:name')}
+            errorMessage={errors.name?.message}
+            error={!!errors.name}
+            returnKeyType="next"
+            autoCapitalize="none"
+            rightIcon={<Icon name="account" />}
+            containerStyle={{ marginBottom: 5 }}
           />
-        </View>
-        <Input
-          control={control}
-          name="name"
-          placeholder={t('common:name')}
-          errorMessage={errors.name?.message}
-          error={!!errors.name}
-          returnKeyType="next"
-          autoCapitalize="none"
-          rightIcon={<Icon name="account" />}
-          containerStyle={{ marginBottom: 5 }}
-        />
-        <Input
-          control={control}
-          name="email"
-          placeholder={t('common:email')}
-          errorMessage={errors.email?.message}
-          error={!!errors.email}
-          returnKeyType="next"
-          autoCapitalize="none"
-          textContentType="emailAddress"
-          keyboardType="email-address"
-          rightIcon={<Icon name="email-outline" />}
-          containerStyle={{ marginBottom: 5 }}
-        />
-        <Input
-          control={control}
-          name="password"
-          placeholder={t('common:password')}
-          error={!!errors.password}
-          errorMessage={errors.password?.message}
-          returnKeyType="done"
-          secureTextEntry
-        />
-        <Input
-          control={control}
-          name="password_confirmation"
-          placeholder={t('common:password_confirmation')}
-          error={!!errors.password_confirmation}
-          errorMessage={errors.password_confirmation?.message}
-          returnKeyType="done"
-          secureTextEntry
-        />
+          <Input
+            control={control}
+            name="email"
+            placeholder={t('common:email')}
+            errorMessage={errors.email?.message}
+            error={!!errors.email}
+            returnKeyType="next"
+            autoCapitalize="none"
+            textContentType="emailAddress"
+            keyboardType="email-address"
+            rightIcon={<Icon name="email-outline" />}
+            containerStyle={{ marginBottom: 5 }}
+          />
+          <Input
+            control={control}
+            name="password"
+            placeholder={t('common:password')}
+            error={!!errors.password}
+            errorMessage={errors.password?.message}
+            returnKeyType="done"
+            secureTextEntry
+          />
+          <Input
+            control={control}
+            name="password_confirmation"
+            placeholder={t('common:password_confirmation')}
+            error={!!errors.password_confirmation}
+            errorMessage={errors.password_confirmation?.message}
+            returnKeyType="done"
+            secureTextEntry
+          />
 
-        <Button
-          containerStyle={styles.loginButtonContainer}
-          buttonStyle={styles.loginButton}
-          loading={isLoading}
-          onPress={handleSubmit(onSubmit)}
-        >
-          {t('common:register')}
-        </Button>
-      </View>
-    </Background>
+          <Button
+            containerStyle={styles.loginButtonContainer}
+            buttonStyle={styles.loginButton}
+            loading={isLoading}
+            onPress={handleSubmit(onSubmit)}
+          >
+            {t('common:register')}
+          </Button>
+        </View>
+      </Background>
+    </ScrollView>
   )
 }
 
