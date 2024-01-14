@@ -1,4 +1,4 @@
-import { TouchableOpacity, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import PlacesCarousel from '../../../components/places-carousel'
 import Typography from '../../../../../../../components/text'
 import { NavigationProp } from '@react-navigation/native'
@@ -16,28 +16,16 @@ interface INearbySectionProps {
 
 const NearbySection: React.FC<INearbySectionProps> = ({ navigation, data }) => {
   const { t } = useTranslation()
-  const [index, setIndex] = useState(0)
+  const [categoryIndex, setCategoryIndex] = useState(0)
   return (
-    <View style={{ marginTop: 20, paddingBottom: 100 }}>
+    <View style={styles.container}>
       <>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            marginHorizontal: 20,
-            marginBottom: 20,
-          }}
-        >
+        <View style={styles.head}>
           <Typography.TitleHeavy>{t('home:nearby')}</Typography.TitleHeavy>
-          <TouchableOpacity
-            style={{
-              padding: 10,
-            }}
-          >
+          <TouchableOpacity style={styles.seeMoreContainer}>
             <Typography.BodyLight
               onPress={() => navigation.navigate('discover')}
-              style={{ color: AppTheme.colors.neutral_n200, marginLeft: 20 }}
+              style={styles.seeMore}
             >
               {t('home:see_more')}
             </Typography.BodyLight>
@@ -45,40 +33,37 @@ const NearbySection: React.FC<INearbySectionProps> = ({ navigation, data }) => {
         </View>
         <Tab
           disableIndicator={true}
-          value={index}
-          onChange={(e) => setIndex(e)}
-          buttonStyle={{
-            height: 40,
-            marginHorizontal: 20,
-          }}
+          value={categoryIndex}
+          onChange={(e) => setCategoryIndex(e)}
+          buttonStyle={styles.categoryButton}
           scrollable
         >
-          {data.map((item) => (
+          {data.map((item, index) => (
             <Tab.Item
               activeOpacity={1}
-              containerStyle={{
-                padding: 0,
-                height: 70,
-                width: 200,
-              }}
+              containerStyle={styles.tabItemContainer}
               key={item.id}
               title={t(`home:${item.key}`)}
             >
-              <CategoryItem name={item.name} icon={item.key} />
+              <CategoryItem
+                active={index === categoryIndex}
+                name={item.name}
+                icon={item.key}
+              />
             </Tab.Item>
           ))}
         </Tab>
         <View style={{ height: 300 }}>
           <TabView
             disableSwipe
-            value={index}
-            onChange={setIndex}
+            value={categoryIndex}
+            onChange={setCategoryIndex}
             animationType="spring"
           >
             {data.map((item) => (
-              <TabView.Item key={item.id} style={{ width: '100%' }}>
+              <TabView.Item key={item.id} style={styles.tabViewItem}>
                 <PlacesCarousel
-                  data={data[index]?.places!}
+                  data={data[categoryIndex]?.places!}
                   navigation={navigation}
                 />
               </TabView.Item>
@@ -91,3 +76,28 @@ const NearbySection: React.FC<INearbySectionProps> = ({ navigation, data }) => {
 }
 
 export default NearbySection
+
+const styles = StyleSheet.create({
+  container: { marginTop: 20, paddingBottom: 160 },
+  head: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginHorizontal: 20,
+    marginBottom: 20,
+  },
+  seeMoreContainer: {
+    padding: 10,
+  },
+  seeMore: { color: AppTheme.colors.neutral_n200, marginLeft: 20 },
+  categoryButton: {
+    height: 50,
+    marginHorizontal: 20,
+  },
+  tabItemContainer: {
+    padding: 0,
+    height: 70,
+    width: 200,
+  },
+  tabViewItem: { width: '100%' },
+})

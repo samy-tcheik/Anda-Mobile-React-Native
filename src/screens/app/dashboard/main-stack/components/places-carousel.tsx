@@ -11,8 +11,8 @@ const PlacesCarousel: React.FC<IPlacesCarouselProps> = ({
 }) => {
   return (
     <Carousel
-      width={250}
-      height={310}
+      width={300}
+      height={380}
       panGestureHandlerProps={{
         activeOffsetX: [-10, 10],
       }}

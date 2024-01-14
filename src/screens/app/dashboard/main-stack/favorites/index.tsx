@@ -27,7 +27,7 @@ const FavoriteScreen: React.FC<Props> = ({ navigation }) => {
     }
   }
   return (
-    <AppLayout navigation={navigation}>
+    <AppLayout backButton navigation={navigation}>
       <View style={{ flex: 1 }}>
         {isLoading ? (
           <Typography.BodyHeavy>isLoading</Typography.BodyHeavy>

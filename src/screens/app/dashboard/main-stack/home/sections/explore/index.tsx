@@ -38,7 +38,7 @@ const ExploreSection: React.FC<IExploreSectionProps> = ({
           ))}
         </Tab>
       </View>
-      <View style={{ height: 300 }}>
+      <View style={{ height: 360 }}>
         <TabView
           disableSwipe
           value={index}

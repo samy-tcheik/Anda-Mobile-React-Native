@@ -85,7 +85,6 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
                 width={width}
                 height={400}
                 loop={false}
-                // style={{ width: '100%' }}
                 data={data?.media!}
                 scrollAnimationDuration={1000}
                 renderItem={({ item }) => (
@@ -94,7 +93,6 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
                   >
                     <Image
                       containerStyle={{
-                        // width: '95%',
                         height: 400,
                         aspectRatio: 0.9,
                         borderRadius: 13,

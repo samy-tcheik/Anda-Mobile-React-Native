@@ -19,7 +19,7 @@ interface IDiscoverScreenProps {
 const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({ navigation }) => {
   const filtersModal = usePopup()
   const { filters, setFilters } = useFilters({
-    filters: ['category_id', 'range', 'town_id'],
+    filters: ['category_id', 'range', 'town_id', 'wilaya_id'],
   })
   useEffect(() => {
     setFilters(filtersModal.data as any)
@@ -47,7 +47,7 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({ navigation }) => {
     }
   }
   return (
-    <AppLayout navigation={navigation}>
+    <AppLayout backButton navigation={navigation}>
       <SearchBar />
       <View
         style={{
@@ -57,7 +57,7 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({ navigation }) => {
         }}
       >
         <Typography.CaptionLight>
-          Showin 12 of 200 results
+          Showin {data?.pages[0].meta.to} of {data?.pages[0].meta.total} results
         </Typography.CaptionLight>
         <TouchableOpacity
           onPress={(event) => {

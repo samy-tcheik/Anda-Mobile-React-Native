@@ -25,6 +25,12 @@ export interface IPlace {
   media: IMedia[]
 }
 
+export interface ICategory {
+  id: string
+  key: string
+  name: string
+}
+
 export interface IMedia {
   original_url: string
 }

@@ -1,6 +1,7 @@
 import { Card } from '@rneui/base'
-import { Image, View } from 'react-native'
+import { Image, StyleSheet, View } from 'react-native'
 import Typography from './text'
+import AppTheme from '../styles'
 
 const icons = {
   art_and_culture: require(`../assets/icons/categories/art_and_culture.png`),
@@ -12,22 +13,18 @@ const icons = {
   entertainment: require(`../assets/icons/categories/entertainment.png`),
 }
 
-interface ICategory {
+interface ICategoryProps {
   name: string
   icon: keyof typeof icons
+  active: boolean
 }
 
-const CategoryItem: React.FC<ICategory> = ({ name, icon }) => {
+const CategoryItem: React.FC<ICategoryProps> = ({ name, icon, active }) => {
   return (
     <Card
-      containerStyle={{
-        height: 60,
-        minWidth: 170,
-        borderRadius: 13,
-        padding: 10,
-        margin: 15,
-        flexDirection: 'row',
-      }}
+      containerStyle={
+        active ? { ...styles.card, ...styles.active } : styles.card
+      }
     >
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <Image
@@ -45,3 +42,26 @@ const CategoryItem: React.FC<ICategory> = ({ name, icon }) => {
   )
 }
 export default CategoryItem
+const styles = StyleSheet.create({
+  card: {
+    height: 60,
+    minWidth: 170,
+    borderRadius: AppTheme.borderRadius.default,
+    padding: 10,
+    margin: 15,
+    flexDirection: 'row',
+  },
+  active: {
+    marginTop: 10,
+    borderColor: AppTheme.colors.blue_b50,
+    borderWidth: 2,
+    shadowColor: '#0008ff',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.18,
+    shadowRadius: 4.59,
+    elevation: 5,
+  },
+})

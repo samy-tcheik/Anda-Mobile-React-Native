@@ -58,9 +58,10 @@ const Filters: React.FC<Props> = ({ isOpen, onClose }) => {
                     uniqueKey="id"
                     selectText="Selectionner une wilaya"
                     searchInputPlaceholderText="Rechercher une wilaya..."
-                    onSelectedItemsChange={(selected) =>
+                    onSelectedItemsChange={(selected) => {
+                      resetField('town_id')
                       field.onChange(selected[0])
-                    }
+                    }}
                   />
                 </View>
               )}

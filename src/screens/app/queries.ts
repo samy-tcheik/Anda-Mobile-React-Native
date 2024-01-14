@@ -7,7 +7,7 @@ import {
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query'
-import { IPlace, IRating, ITown, IWilaya, LikeType } from './types'
+import { ICategory, IPlace, IRating, ITown, IWilaya, LikeType } from './types'
 import { IFilter } from '../../hooks/useFilters'
 import api from '../../service/api'
 
@@ -59,6 +59,8 @@ interface IUsePlacesResponse {
     next_page: number
     current_page: number
     last_page: number
+    to: number
+    total: number
   }
 }
 

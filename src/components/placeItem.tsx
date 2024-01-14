@@ -16,9 +16,9 @@ const PlaceItem: React.FC<IPlaceItemProps> = ({ data, onPress }) => {
       <Card containerStyle={styles.card}>
         <Image
           containerStyle={styles.image}
+          resizeMode="cover"
           source={{
             uri: data.media[0]?.original_url,
-            // uri: `https://source.unsplash.com/random?sig=${data.id}`,
           }}
         />
         <View style={styles.contentContainer}>
@@ -30,7 +30,7 @@ const PlaceItem: React.FC<IPlaceItemProps> = ({ data, onPress }) => {
           >
             <Typography.BodyHeavy
               style={{ maxWidth: '80%' }}
-              numberOfLines={1}
+              numberOfLines={2}
               ellipsizeMode="tail"
             >
               {data.name}
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   },
   card: {
     ...AppTheme.elevation,
-    height: 280,
+    height: 350,
     borderRadius: 13,
   },
   contentContainer: {
