@@ -24,7 +24,11 @@ const NearbySection: React.FC<INearbySectionProps> = ({ navigation, data }) => {
           <Typography.TitleHeavy>{t('home:nearby')}</Typography.TitleHeavy>
           <TouchableOpacity style={styles.seeMoreContainer}>
             <Typography.BodyLight
-              onPress={() => navigation.navigate('discover')}
+              onPress={() =>
+                navigation.navigate('discover', {
+                  category_id: [data[categoryIndex].id],
+                })
+              }
               style={styles.seeMore}
             >
               {t('home:see_more')}

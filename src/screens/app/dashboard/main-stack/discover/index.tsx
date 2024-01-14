@@ -1,6 +1,10 @@
 import { FlatList, RefreshControl, TouchableOpacity, View } from 'react-native'
 
-import { NavigationProp } from '@react-navigation/native'
+import {
+  NavigationProp,
+  RouteProp,
+  useFocusEffect,
+} from '@react-navigation/native'
 import AppLayout from '../../../app-layout'
 import SearchBar from '../../../../../components/searchBar'
 import Typography from '../../../../../components/text'
@@ -8,20 +12,34 @@ import Icon from '../../../../../components/icon'
 import { usePopup } from '../../../../../hooks/usePopup'
 import Filters from './filters'
 import { useFilters } from '../../../../../hooks/useFilters'
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { usePlaces } from '../../../queries'
 import ListItem from '../../../../../components/listItem'
 import { IFiltersForm } from './filters/useForm'
+import AppTheme from '../../../../../styles'
 
 interface IDiscoverScreenProps {
-  navigation: NavigationProp<any>
+  navigation?: NavigationProp<any>
+  route?: RouteProp<{ params: IFiltersForm }>
 }
 
-const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({ navigation }) => {
+const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({
+  navigation,
+  route,
+}) => {
+  console.log('route params', route?.params)
   const filtersModal = usePopup<IFiltersForm>()
   const { filters, setFilters } = useFilters({
     filters: ['category_id', 'range', 'town_id', 'wilaya_id'],
   })
+  useFocusEffect(
+    useCallback(() => {
+      filtersModal.reset({ ...route?.params, range: 30 })
+      return () => {
+        filtersModal.reset({})
+      }
+    }, [])
+  )
   useEffect(() => {
     setFilters(filtersModal.data as any)
   }, [filtersModal.data])
@@ -68,7 +86,15 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({ navigation }) => {
           style={{ flexDirection: 'row' }}
         >
           <Typography.CaptionLight>Filter & sort</Typography.CaptionLight>
-          <Icon name="tune" style={{ marginLeft: 10 }} />
+          {filters ? (
+            <Icon
+              name="filter-check"
+              color={AppTheme.colors.blue_b400}
+              style={{ marginLeft: 10 }}
+            />
+          ) : (
+            <Icon name="filter-outline" style={{ marginLeft: 10 }} />
+          )}
         </TouchableOpacity>
       </View>
       <View style={{ flex: 1 }}>
@@ -87,7 +113,7 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({ navigation }) => {
             renderItem={({ item }) => (
               <ListItem
                 data={item}
-                onPress={() => navigation.navigate('place_detail', item)}
+                onPress={() => navigation?.navigate('place_detail', item)}
               />
             )}
           />
