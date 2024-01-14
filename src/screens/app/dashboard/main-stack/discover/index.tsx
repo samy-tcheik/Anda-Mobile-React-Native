@@ -11,13 +11,14 @@ import { useFilters } from '../../../../../hooks/useFilters'
 import { useEffect } from 'react'
 import { usePlaces } from '../../../queries'
 import ListItem from '../../../../../components/listItem'
+import { IFiltersForm } from './filters/useForm'
 
 interface IDiscoverScreenProps {
   navigation: NavigationProp<any>
 }
 
 const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({ navigation }) => {
-  const filtersModal = usePopup()
+  const filtersModal = usePopup<IFiltersForm>()
   const { filters, setFilters } = useFilters({
     filters: ['category_id', 'range', 'town_id', 'wilaya_id'],
   })
@@ -62,7 +63,7 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({ navigation }) => {
         <TouchableOpacity
           onPress={(event) => {
             event.persist()
-            filtersModal.open()
+            filtersModal.open(filters)
           }}
           style={{ flexDirection: 'row' }}
         >

@@ -25,7 +25,6 @@ export function usePopup<TData>(defaultOpen?: boolean, defaultData?: TData) {
     isOpen: !!defaultOpen,
     data: defaultData,
   })
-
   const open = (data?: TData) => dispatch({ type: 'open', data })
   const onClose = (data?: TData) => dispatch({ type: 'close', data })
 

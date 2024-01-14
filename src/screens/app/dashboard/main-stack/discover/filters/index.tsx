@@ -1,5 +1,5 @@
 import { Card, Slider } from '@rneui/base'
-import { StyleSheet, View } from 'react-native'
+import { Modal, StyleSheet, View } from 'react-native'
 import ReactNativeModal from 'react-native-modal'
 import Typography from '../../../../../../components/text'
 import Icon from '../../../../../../components/icon'
@@ -8,30 +8,28 @@ import { Controller } from 'react-hook-form'
 import MultiSelect from 'react-native-multiple-select'
 import Button from '../../../../../../components/button'
 import { useCategories, useTowns, useWilayas } from '../../../../queries'
+import AppTheme from '../../../../../../styles'
 
 interface Props {
-  open: (data?: unknown) => void
-  onClose: (data?: unknown) => void
+  open: (data?: IFiltersForm) => void
+  onClose: (data?: IFiltersForm) => void
   isOpen: boolean
-  data?: unknown
+  data?: IFiltersForm
 }
 
-const Filters: React.FC<Props> = ({ isOpen, onClose }) => {
+const Filters: React.FC<Props> = ({ isOpen, onClose, data: defaultData }) => {
   const wilayas = useWilayas()
-  const { control, watch, handleSubmit, resetField, reset } = useFiltersForm()
+  const { control, watch, handleSubmit, resetField, reset } =
+    useFiltersForm(defaultData)
   const categories = useCategories()
   const towns = useTowns(watch('wilaya_id')!, {
     enabled: !!watch('wilaya_id'),
   })
   const onSubmit = (data: IFiltersForm) => {
-    if (watch('range')) {
-      resetField('wilaya_id')
-      resetField('town_id')
-    }
     onClose(data)
   }
   return (
-    <ReactNativeModal isVisible={isOpen}>
+    <Modal visible={isOpen}>
       <Card containerStyle={styles.card}>
         <View style={styles.head}>
           <Typography.BodyHeavy>Filters</Typography.BodyHeavy>
@@ -72,7 +70,6 @@ const Filters: React.FC<Props> = ({ isOpen, onClose }) => {
             <Controller
               name="town_id"
               control={control}
-              disabled={!!watch('range')}
               render={({ field }) => (
                 <View style={{ width: '100%' }}>
                   <MultiSelect
@@ -82,9 +79,9 @@ const Filters: React.FC<Props> = ({ isOpen, onClose }) => {
                     uniqueKey="id"
                     selectText="Selectionner une commune"
                     searchInputPlaceholderText="Rechercher une commune..."
-                    onSelectedItemsChange={(selected) =>
+                    onSelectedItemsChange={(selected) => {
                       field.onChange(selected[0])
-                    }
+                    }}
                   />
                 </View>
               )}
@@ -101,7 +98,11 @@ const Filters: React.FC<Props> = ({ isOpen, onClose }) => {
                 render={({ field }) => (
                   <Slider
                     value={field.value}
-                    onValueChange={field.onChange}
+                    onValueChange={() => {
+                      resetField('wilaya_id')
+                      resetField('town_id')
+                      field.onChange
+                    }}
                     maximumValue={300}
                     minimumValue={5}
                     step={5}
@@ -138,12 +139,17 @@ const Filters: React.FC<Props> = ({ isOpen, onClose }) => {
               </View>
             )}
           />
-          <Button onPress={handleSubmit(onSubmit as any)}>
-            Appliquer les filtres
+          <View style={{ marginBottom: 15 }}>
+            <Button onPress={handleSubmit(onSubmit as any)}>
+              Appliquer les filtres
+            </Button>
+          </View>
+          <Button color={AppTheme.colors.error_default} onPress={() => reset()}>
+            Renitialiser
           </Button>
         </View>
       </Card>
-    </ReactNativeModal>
+    </Modal>
   )
 }
 
@@ -155,6 +161,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingHorizontal: 20,
     paddingVertical: 20,
+    margin: 0,
   },
   container: {
     // alignItems: 'center',

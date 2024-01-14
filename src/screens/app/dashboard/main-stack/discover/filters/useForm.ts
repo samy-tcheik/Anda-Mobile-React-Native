@@ -4,9 +4,9 @@ import { array, number, object, string } from 'yup'
 
 export interface IFiltersForm {
   wilaya_id?: string
-  town_id: string
-  range: number
-  category_id: string[]
+  town_id?: string
+  range?: number
+  category_id?: string[]
 }
 
 export function useFiltersForm(defaultValues?: IFiltersForm) {
