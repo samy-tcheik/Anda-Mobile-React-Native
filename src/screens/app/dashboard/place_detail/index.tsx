@@ -21,7 +21,7 @@ import { ICommentType } from '../comments/queries'
 import Button from '../../../../components/button'
 import getDirections from 'react-native-google-maps-directions'
 import GetLocation from 'react-native-get-location'
-
+import ImageView from 'react-native-image-viewing'
 interface IPlaceDetailScreenProps {
   route: RouteProp<any>
   navigation: NavigationProp<any>
@@ -33,6 +33,7 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
 }) => {
   const { width } = useWindowDimensions()
   const reviewSection = usePopup<IPlace>()
+  const imageView = usePopup()
   const { data, isLoading } = usePlace(route.params?.id)
   const addLike = useAddLike(LikeType.PLACE)
   const handleLikeClick = () => {
@@ -92,6 +93,7 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
                     style={{ justifyContent: 'center', alignItems: 'center' }}
                   >
                     <Image
+                      onPress={imageView.open}
                       containerStyle={{
                         height: 400,
                         aspectRatio: 0.9,
@@ -201,6 +203,12 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
                 </Button>
               </View>
             </View>
+            <ImageView
+              imageIndex={0}
+              images={data?.media.map((item) => ({ uri: item.original_url }))!}
+              visible={imageView.isOpen}
+              onRequestClose={imageView.onClose}
+            />
           </>
         )}
       </ScrollView>

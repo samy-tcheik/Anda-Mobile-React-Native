@@ -36,8 +36,7 @@ const MainStackScreen: React.FC = () => {
             focused ? <Icon name="compass" /> : <Icon name="compass-outline" />,
         }}
         name="discover"
-        //passing inline function in component attribute to destroy screen when unfocus
-        component={(props: any) => <DiscoverScreen {...props} />}
+        component={DiscoverScreen}
       />
       <BottomTabs.Screen
         options={{

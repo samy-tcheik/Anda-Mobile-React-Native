@@ -27,18 +27,17 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({
   navigation,
   route,
 }) => {
-  console.log('route params', route?.params)
   const filtersModal = usePopup<IFiltersForm>()
   const { filters, setFilters } = useFilters({
     filters: ['category_id', 'range', 'town_id', 'wilaya_id'],
   })
   useFocusEffect(
     useCallback(() => {
-      filtersModal.reset({ ...route?.params, range: 30 })
+      filtersModal.reset(route?.params)
       return () => {
         filtersModal.reset({})
       }
-    }, [])
+    }, [route?.params])
   )
   useEffect(() => {
     setFilters(filtersModal.data as any)
@@ -76,7 +75,8 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({
         }}
       >
         <Typography.CaptionLight>
-          Showin {data?.pages[0].meta.to} of {data?.pages[0].meta.total} results
+          Showin {data?.pages[data.pages?.length - 1].meta.to} of{' '}
+          {data?.pages[0].meta.total} results
         </Typography.CaptionLight>
         <TouchableOpacity
           onPress={(event) => {

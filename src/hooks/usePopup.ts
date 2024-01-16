@@ -27,7 +27,6 @@ export function usePopup<TData>(defaultOpen?: boolean, defaultData?: TData) {
     isOpen: !!defaultOpen,
     data: defaultData,
   })
-  console.log('usePopup state', state)
   const open = (data?: TData) => dispatch({ type: 'open', data })
   const onClose = (data?: TData) => dispatch({ type: 'close', data })
   const reset = (data?: TData) => dispatch({ type: 'reset', data })

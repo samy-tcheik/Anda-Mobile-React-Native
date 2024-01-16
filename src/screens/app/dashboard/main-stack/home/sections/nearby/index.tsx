@@ -27,6 +27,7 @@ const NearbySection: React.FC<INearbySectionProps> = ({ navigation, data }) => {
               onPress={() =>
                 navigation.navigate('discover', {
                   category_id: [data[categoryIndex].id],
+                  range: 30,
                 })
               }
               style={styles.seeMore}

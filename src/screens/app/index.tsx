@@ -7,7 +7,6 @@ import {
   createDrawerNavigator,
 } from '@react-navigation/drawer'
 import Icon from '../../components/icon'
-import HistoryScreen from './history'
 import { useLogout } from '../../providers/auth/hooks'
 import { useTranslation } from 'react-i18next'
 import SettingsStackScreen from './settings'
@@ -15,6 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import i18n from '../../service/i18n'
 import { useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
+import HistoryStack from './history'
 
 const Drawer = createDrawerNavigator()
 
@@ -62,7 +62,7 @@ const AppStackScreen: React.FC = () => {
           title: t('common:history'),
           drawerIcon: () => <Icon name="history" />,
         }}
-        component={HistoryScreen}
+        component={HistoryStack}
       />
       <Drawer.Screen
         name="settings"
