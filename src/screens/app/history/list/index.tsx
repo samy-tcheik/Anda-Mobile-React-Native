@@ -4,6 +4,7 @@ import { useHistory } from '../queries'
 import AppLayout from '../../app-layout'
 import Typography from '../../../../components/text'
 import ListItem from '../../../../components/listItem'
+import Loader from '../../../../components/loader'
 
 interface IHistoryScreenProps {
   navigation: DrawerNavigationProp<any>
@@ -27,10 +28,10 @@ const HistoryScreen: React.FC<IHistoryScreenProps> = ({ navigation }) => {
   }
   return (
     <AppLayout navigation={navigation}>
-      <View style={{ flex: 1 }}>
-        {isLoading ? (
-          <Typography.BodyHeavy>isLoading</Typography.BodyHeavy>
-        ) : (
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <View style={{ flex: 1 }}>
           <FlatList
             contentContainerStyle={{
               paddingBottom: 100,
@@ -49,8 +50,8 @@ const HistoryScreen: React.FC<IHistoryScreenProps> = ({ navigation }) => {
               />
             )}
           />
-        )}
-      </View>
+        </View>
+      )}
     </AppLayout>
   )
 }

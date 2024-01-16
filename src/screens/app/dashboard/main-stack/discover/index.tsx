@@ -17,6 +17,7 @@ import { usePlaces } from '../../../queries'
 import ListItem from '../../../../../components/listItem'
 import { IFiltersForm } from './filters/useForm'
 import AppTheme from '../../../../../styles'
+import Loader from '../../../../../components/loader'
 
 interface IDiscoverScreenProps {
   navigation?: NavigationProp<any>
@@ -97,10 +98,10 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({
           )}
         </TouchableOpacity>
       </View>
-      <View style={{ flex: 1 }}>
-        {isLoading ? (
-          <Typography.BodyHeavy>isLoading</Typography.BodyHeavy>
-        ) : (
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <View style={{ flex: 1 }}>
           <FlatList
             contentContainerStyle={{
               paddingBottom: 100,
@@ -117,8 +118,9 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({
               />
             )}
           />
-        )}
-      </View>
+        </View>
+      )}
+
       <Filters {...filtersModal} />
     </AppLayout>
   )

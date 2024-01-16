@@ -10,6 +10,7 @@ import Typography from '../../../../components/text'
 import Icon from '../../../../components/icon'
 import LanguageItem from '../components/languageItem'
 import AppTheme from '../../../../styles'
+import Loader from '../../../../components/loader'
 
 interface ISettingsScreenProps {
   navigation: NavigationProp<any>
@@ -21,7 +22,7 @@ const SettingsScreen: React.FC<ISettingsScreenProps> = ({ navigation }) => {
   return (
     <AppLayout title={t('common:settings')} navigation={navigation}>
       {user.isLoading ? (
-        <></>
+        <Loader />
       ) : (
         <View style={styles.container}>
           <Typography.SubheaderHeavy>

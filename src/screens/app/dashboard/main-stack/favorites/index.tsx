@@ -5,6 +5,7 @@ import { useLikes } from './queries'
 import Typography from '../../../../../components/text'
 import { RefreshControl } from 'react-native'
 import ListItem from '../../../../../components/listItem'
+import Loader from '../../../../../components/loader'
 
 interface Props {
   navigation: BottomTabNavigationProp<any>
@@ -28,10 +29,10 @@ const FavoriteScreen: React.FC<Props> = ({ navigation }) => {
   }
   return (
     <AppLayout backButton navigation={navigation}>
-      <View style={{ flex: 1 }}>
-        {isLoading ? (
-          <Typography.BodyHeavy>isLoading</Typography.BodyHeavy>
-        ) : (
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <View style={{ flex: 1 }}>
           <FlatList
             contentContainerStyle={{
               paddingBottom: 100,
@@ -48,8 +49,8 @@ const FavoriteScreen: React.FC<Props> = ({ navigation }) => {
               />
             )}
           />
-        )}
-      </View>
+        </View>
+      )}
     </AppLayout>
   )
 }

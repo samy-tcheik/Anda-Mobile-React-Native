@@ -22,6 +22,7 @@ import Button from '../../../../components/button'
 import getDirections from 'react-native-google-maps-directions'
 import GetLocation from 'react-native-get-location'
 import ImageView from 'react-native-image-viewing'
+import Loader from '../../../../components/loader'
 interface IPlaceDetailScreenProps {
   route: RouteProp<any>
   navigation: NavigationProp<any>
@@ -76,10 +77,10 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
       backButton
       navigation={navigation}
     >
-      <ScrollView style={{ flex: 1 }}>
-        {isLoading ? (
-          <Typography.BodyHeavy>isLoading</Typography.BodyHeavy>
-        ) : (
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <ScrollView style={{ flex: 1 }}>
           <>
             <View>
               <Carousel
@@ -210,8 +211,9 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
               onRequestClose={imageView.onClose}
             />
           </>
-        )}
-      </ScrollView>
+        </ScrollView>
+      )}
+
       <ReviewSection {...reviewSection} />
     </AppLayout>
   )

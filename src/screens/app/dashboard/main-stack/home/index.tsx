@@ -5,6 +5,7 @@ import NearbySection from './sections/nearby'
 import AppLayout from '../../../app-layout'
 import SearchBar from '../../../../../components/searchBar'
 import { useHome } from './queries'
+import Loader from '../../../../../components/loader'
 
 interface IHomeScreenProps extends DrawerScreenProps<any> {}
 
@@ -13,22 +14,17 @@ const HomeScreen: React.FC<IHomeScreenProps> = ({ navigation }) => {
   return (
     <AppLayout navigation={navigation}>
       <SearchBar />
-      <ScrollView>
-        {isLoading ? (
-          <Text>Is Loading</Text>
-        ) : (
-          <>
-            <ExploreSection
-              data={data?.explore!}
-              navigation={navigation as any}
-            />
-            <NearbySection
-              data={data?.nearby!}
-              navigation={navigation as any}
-            />
-          </>
-        )}
-      </ScrollView>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <ScrollView style={{ flex: 1 }}>
+          <ExploreSection
+            data={data?.explore!}
+            navigation={navigation as any}
+          />
+          <NearbySection data={data?.nearby!} navigation={navigation as any} />
+        </ScrollView>
+      )}
     </AppLayout>
   )
 }
