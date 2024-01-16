@@ -76,6 +76,9 @@ const Filters: React.FC<Props> = ({ isOpen, onClose, data: defaultData }) => {
                         resetField('town_id')
                         field.onChange(selected[0])
                       }}
+                      styleListContainer={{
+                        maxHeight: 300,
+                      }}
                     />
                   </View>
                 )
@@ -99,6 +102,9 @@ const Filters: React.FC<Props> = ({ isOpen, onClose, data: defaultData }) => {
                     searchInputPlaceholderText="Rechercher une commune..."
                     onSelectedItemsChange={(selected) => {
                       field.onChange(selected[0])
+                    }}
+                    styleListContainer={{
+                      maxHeight: 300,
                     }}
                   />
                 </View>
