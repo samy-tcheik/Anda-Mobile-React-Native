@@ -1,8 +1,14 @@
 import { StyleSheet } from 'react-native'
-import { SearchBar as BaseSearchBar } from '@rneui/base'
+import { SearchBar as BaseSearchBar, SearchBarProps } from '@rneui/base'
 import Icon from './icon'
 import AppTheme from '../styles'
-const SearchBar: React.FC = () => {
+
+const SearchBar: React.FC<SearchBarProps> = ({
+  onChangeText,
+  value,
+  onClear,
+  onSubmitEditing,
+}) => {
   return (
     <BaseSearchBar
       lightTheme
@@ -11,8 +17,11 @@ const SearchBar: React.FC = () => {
       round
       placeholder="Discover a city"
       searchIcon={<Icon name="magnify" />}
-      clearIcon={<Icon name="close" />}
+      clearIcon={<Icon name="close" onPress={onClear} />}
       showCancel={false}
+      value={value}
+      onChangeText={onChangeText}
+      onSubmitEditing={onSubmitEditing}
     />
   )
 }

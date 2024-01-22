@@ -12,12 +12,13 @@ import Icon from '../../../../../components/icon'
 import { usePopup } from '../../../../../hooks/usePopup'
 import Filters from './filters'
 import { useFilters } from '../../../../../hooks/useFilters'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { usePlaces } from '../../../queries'
 import ListItem from '../../../../../components/listItem'
 import { IFiltersForm } from './filters/useForm'
 import AppTheme from '../../../../../styles'
 import Loader from '../../../../../components/loader'
+import { useDebounce } from '../../../../../hooks/useDebounce'
 
 interface IDiscoverScreenProps {
   navigation?: NavigationProp<any>
@@ -28,20 +29,23 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({
   navigation,
   route,
 }) => {
+  const [search, setSearch] = useState<string>('')
+
   const filtersModal = usePopup<IFiltersForm>()
   const { filters, setFilters } = useFilters({
-    filters: ['category_id', 'range', 'town_id', 'wilaya_id'],
+    filters: ['category_id', 'range', 'town_id', 'wilaya_id', 'name'],
   })
   useFocusEffect(
     useCallback(() => {
       filtersModal.reset(route?.params)
+      setSearch((route?.params as any).name)
       return () => {
         filtersModal.reset({})
       }
     }, [route?.params])
   )
   useEffect(() => {
-    setFilters(filtersModal.data as any)
+    filtersModal.data && setFilters(filtersModal.data as any)
   }, [filtersModal.data])
   const {
     data,
@@ -60,14 +64,24 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({
     },
   })
   const handleLoadMore = () => {
-    console.log('handle load more')
     if (hasNextPage) {
       fetchNextPage()
     }
   }
+  const handleSearch = useDebounce<string>((term) => {
+    setFilters({ ...(filtersModal.data as any), name: term })
+  }, 500)
+  const handleSearchChange = (value: string) => {
+    setSearch(value)
+    handleSearch(value)
+  }
   return (
     <AppLayout backButton navigation={navigation}>
-      <SearchBar />
+      <SearchBar
+        onClear={() => handleSearchChange('')}
+        value={search}
+        onChangeText={handleSearchChange}
+      />
       <View
         style={{
           flexDirection: 'row',
@@ -87,7 +101,7 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({
           style={{ flexDirection: 'row' }}
         >
           <Typography.CaptionLight>Filter & sort</Typography.CaptionLight>
-          {filters ? (
+          {filtersModal.data ? (
             <Icon
               name="filter-check"
               color={AppTheme.colors.blue_b400}
