@@ -8,7 +8,7 @@ const SettingsStackScreen = () => {
   return (
     <SettingsStack.Navigator screenOptions={{ headerShown: false }}>
       <SettingsStack.Screen component={SettingsScreen} name="settings_main" />
-      <SettingsStack.Screen component={ProfileScreen} name="profle" />
+      <SettingsStack.Screen component={ProfileScreen} name="profile" />
     </SettingsStack.Navigator>
   )
 }

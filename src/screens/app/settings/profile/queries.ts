@@ -18,7 +18,9 @@ export function useUpdateAvatar(
   return useMutation<any, any, FormData>(
     (data) =>
       api.post('user/update-avatar', data, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       }),
     {
       ...config,
@@ -30,7 +32,12 @@ export function useUpdateAvatar(
 }
 
 export function useAuthUser(config?: UseQueryOptions<IUser>) {
-  return useQuery<IUser>(['user'], config)
+  return useQuery<IUser>(['user'], {
+    ...config,
+    select(data: any) {
+      return data.data
+    },
+  })
 }
 
 export function useDeleteUser(config?: UseMutationOptions) {

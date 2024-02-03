@@ -1,3 +1,5 @@
+import { IMedia } from '../../screens/app/types'
+
 export interface LoginResponse {
   bearer: string
 }
@@ -5,5 +7,5 @@ export interface LoginResponse {
 export interface IUser {
   name: string
   email: string
-  avatar?: string
+  avatar?: IMedia
 }

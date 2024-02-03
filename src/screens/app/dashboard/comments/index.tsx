@@ -16,6 +16,8 @@ import AppTheme from '../../../../styles'
 import CommentInput from '../../../../components/comment-input'
 import { Avatar } from '@rneui/base'
 import Icon from '../../../../components/icon'
+import { useAuthUser } from '../../settings/profile/queries'
+import Loader from '../../../../components/loader'
 
 interface Props {
   route: RouteProp<any>
@@ -23,6 +25,7 @@ interface Props {
 }
 
 const CommentsScreen: React.FC<Props> = ({ navigation, route }) => {
+  const user = useAuthUser()
   const { data, isLoading, isRefetching, refetch, hasNextPage, fetchNextPage } =
     useComments(route.params?.data.id, route.params?.type, {
       getNextPageParam: (nextPage) => {
@@ -63,44 +66,50 @@ const CommentsScreen: React.FC<Props> = ({ navigation, route }) => {
 
   return (
     <AppLayout backButton navigation={navigation}>
-      <FlatList
-        refreshControl={
-          <RefreshControl refreshing={isRefetching} onRefresh={refetch} />
-        }
-        data={data?.pages.map((page) => page.data).flat()}
-        renderItem={({ item }) => <CommentItem data={item} />}
-      />
-      <View>
-        <View
-          style={{
-            flexDirection: 'row',
-            padding: 10,
-            backgroundColor: 'white',
-            alignItems: 'center',
-            ...AppTheme.elevation,
-          }}
-        >
-          <CommentInput
-            avatar={
-              <Avatar
-                size={40}
-                rounded
-                source={{
-                  uri: 'https://randomuser.me/api/portraits/men/36.jpg',
-                }}
-              />
+      {isLoading || user.isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <FlatList
+            refreshControl={
+              <RefreshControl refreshing={isRefetching} onRefresh={refetch} />
             }
-            control={control}
-            name="comment"
-            renderErrorMessage={false}
-            rightIcon={
-              <TouchableOpacity onPress={handleSubmit(onSubmit)}>
-                <Icon name="send" />
-              </TouchableOpacity>
-            }
+            data={data?.pages.map((page) => page.data).flat()}
+            renderItem={({ item }) => <CommentItem data={item} />}
           />
-        </View>
-      </View>
+          <View>
+            <View
+              style={{
+                flexDirection: 'row',
+                padding: 10,
+                backgroundColor: 'white',
+                alignItems: 'center',
+                ...AppTheme.elevation,
+              }}
+            >
+              <CommentInput
+                avatar={
+                  <Avatar
+                    size={40}
+                    rounded
+                    source={{
+                      uri: user.data?.avatar?.original_url,
+                    }}
+                  />
+                }
+                control={control}
+                name="comment"
+                renderErrorMessage={false}
+                rightIcon={
+                  <TouchableOpacity onPress={handleSubmit(onSubmit)}>
+                    <Icon name="send" />
+                  </TouchableOpacity>
+                }
+              />
+            </View>
+          </View>
+        </>
+      )}
     </AppLayout>
   )
 }

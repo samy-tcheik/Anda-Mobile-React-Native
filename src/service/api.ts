@@ -36,8 +36,8 @@ api.interceptors.request.use(
     const language = await AsyncStorage.getItem('language')
     // const position = await GetLocation.getCurrentPosition()
     config.headers = {
+      ...config.headers,
       'Accept-Language': language,
-      Accept: 'application/json',
       Authorization: `Bearer ${accessToken}`,
       'Location-latitude': 36.74529209631143,
       'Location-longitude': 3.052477133545479,

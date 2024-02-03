@@ -33,7 +33,7 @@ const CommentItem: React.FC<Props> = ({ data }) => {
         <Avatar
           size={40}
           rounded
-          source={{ uri: 'https://randomuser.me/api/portraits/men/36.jpg' }}
+          source={{ uri: data.user.avatar?.original_url }}
         />
         <View style={styles.content}>
           <View style={styles.headerContainer}>

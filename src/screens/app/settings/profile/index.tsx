@@ -14,6 +14,7 @@ import { showMessage } from 'react-native-flash-message'
 import { useAuthUser, useUpdateAvatar } from './queries'
 import { usePopup } from '../../../../hooks/usePopup'
 import ConfirmDeleteDialog from './confirmDelete'
+import Loader from '../../../../components/loader'
 
 interface ISettingsScreenProps {
   navigation: NavigationProp<any>
@@ -21,9 +22,9 @@ interface ISettingsScreenProps {
 
 const ProfileScreen: React.FC<ISettingsScreenProps> = ({ navigation }) => {
   const { t } = useTranslation()
-  const { data } = useAuthUser()
+  const { data, isLoading } = useAuthUser()
   const confirmDeleteDialog = usePopup()
-  const form = useUserForm()
+  const form = useUserForm(data)
   const {
     handleSubmit,
     control,
@@ -31,11 +32,14 @@ const ProfileScreen: React.FC<ISettingsScreenProps> = ({ navigation }) => {
   } = form
 
   const { mutate } = useUpdateAvatar()
-
   const handleEditAvatar = () => {
     ImagePicker.launchImageLibrary(
-      { mediaType: 'photo' },
+      { mediaType: 'photo', includeBase64: true },
       ({ assets, errorCode }) => {
+        if (!assets) {
+          // handle cancel ImageLibrary selection
+          return null
+        }
         if (errorCode) {
           showMessage({
             message: t('message:image_picker_error'),
@@ -49,8 +53,6 @@ const ProfileScreen: React.FC<ISettingsScreenProps> = ({ navigation }) => {
             type: assets![0].type,
             name: assets![0].fileName,
           })
-          // You can also append other data here, e.g., user ID or authentication token
-
           // Send the form data to your backend
           mutate(formData, {
             onSuccess() {
@@ -60,6 +62,7 @@ const ProfileScreen: React.FC<ISettingsScreenProps> = ({ navigation }) => {
               })
             },
             onError(err) {
+              console.log('err', err)
               showMessage({
                 message: err.response.data.message,
                 type: 'danger',
@@ -71,52 +74,56 @@ const ProfileScreen: React.FC<ISettingsScreenProps> = ({ navigation }) => {
     )
   }
   return (
-    <AppLayout navigation={navigation}>
-      <View style={styles.container}>
-        <View style={styles.avatarContainer}>
-          <Avatar
-            size={150}
-            rounded
-            source={{
-              uri: data && data?.avatar,
-            }}
-          >
-            <Avatar.Accessory
-              size={40}
-              name="pencil"
-              type="material-community"
-              onPress={handleEditAvatar}
-            ></Avatar.Accessory>
-          </Avatar>
+    <AppLayout backButton={true} navigation={navigation}>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <View style={styles.container}>
+          <View style={styles.avatarContainer}>
+            <Avatar
+              size={150}
+              rounded
+              source={{
+                uri: data?.avatar?.original_url,
+              }}
+            >
+              <Avatar.Accessory
+                size={40}
+                name="pencil"
+                type="material-community"
+                onPress={handleEditAvatar}
+              ></Avatar.Accessory>
+            </Avatar>
 
-          <Typography.BodyHeavy>Samy Tcheikman</Typography.BodyHeavy>
-          <Typography.CaptionLight>@samytcheikman</Typography.CaptionLight>
-        </View>
+            <Typography.BodyHeavy>{data?.name}</Typography.BodyHeavy>
+            <Typography.CaptionLight>{`@${data?.name}`}</Typography.CaptionLight>
+          </View>
 
-        <Input
-          control={control}
-          name="name"
-          placeholder={t('common:name')}
-          error={!!errors.name}
-          errorMessage={errors.name?.message}
-          returnKeyType="next"
-          autoCapitalize="none"
-          rightIcon={<Icon name="account-outline" />}
-          containerStyle={{ marginBottom: 5 }}
-        />
-        <View style={styles.buttonContainer}>
-          <Button>{t('common:save')}</Button>
+          <Input
+            control={control}
+            name="name"
+            placeholder={t('common:name')}
+            error={!!errors.name}
+            errorMessage={errors.name?.message}
+            returnKeyType="next"
+            autoCapitalize="none"
+            rightIcon={<Icon name="account-outline" />}
+            containerStyle={{ marginBottom: 5 }}
+          />
+          <View style={styles.buttonContainer}>
+            <Button>{t('common:save')}</Button>
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              onPress={confirmDeleteDialog.open}
+              color={AppTheme.colors.error_default}
+            >
+              {t('common:delete_my_account')}
+            </Button>
+          </View>
+          <ConfirmDeleteDialog {...confirmDeleteDialog} />
         </View>
-        <View style={styles.buttonContainer}>
-          <Button
-            onPress={confirmDeleteDialog.open}
-            color={AppTheme.colors.error_default}
-          >
-            {t('common:delete_my_account')}
-          </Button>
-        </View>
-        <ConfirmDeleteDialog {...confirmDeleteDialog} />
-      </View>
+      )}
     </AppLayout>
   )
 }

@@ -35,7 +35,7 @@ const SettingsScreen: React.FC<ISettingsScreenProps> = ({ navigation }) => {
             <Avatar
               rounded
               size={80}
-              source={{ uri: 'https://randomuser.me/api/portraits/men/33.jpg' }}
+              source={{ uri: user.data?.avatar?.original_url }}
             />
             <ListItem.Content>
               <ListItem.Title style={{ fontWeight: 'bold' }}>
