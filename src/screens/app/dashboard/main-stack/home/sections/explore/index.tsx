@@ -16,6 +16,7 @@ const ExploreSection: React.FC<IExploreSectionProps> = ({
   navigation,
   data,
 }) => {
+  console.log('data', data)
   const { t } = useTranslation()
   const [index, setIndex] = useState(0)
   return (

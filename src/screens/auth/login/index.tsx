@@ -1,6 +1,6 @@
 import React from 'react'
 import Background from '../../../components/background'
-import { useLogin } from '../../../providers/auth/hooks'
+import { useGoogleLogin, useLogin } from '../../../providers/auth/hooks'
 import { ILoginForm } from './type'
 import { useLoginForm } from './use-form'
 import Typography from '../../../components/text'
@@ -14,6 +14,8 @@ import { showMessage } from 'react-native-flash-message'
 import { useTranslation } from 'react-i18next'
 import Header from '../../../components/header'
 import LanguageChooser from '../languageChooser'
+import { LoginManager } from 'react-native-fbsdk-next'
+import { GoogleSignin } from '@react-native-google-signin/google-signin'
 
 interface Props {
   navigation: NavigationProp<any>
@@ -28,9 +30,10 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
     formState: { errors },
   } = form
   const { mutate: login, isLoading } = useLogin()
+  const googleLogin = useGoogleLogin()
+  // const facebookLogin = useFacebookLogin()
 
   const onSubmit = (data: ILoginForm) => {
-    console.log('submit', data)
     login(data, {
       onError(error) {
         console.log('error', error)
@@ -43,6 +46,41 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
         } as any)
       },
     })
+  }
+
+  const onFacebookLogin = () => {
+    LoginManager.logInWithPermissions(['public_profile', 'email']).then(
+      (result) => {
+        if (result.isCancelled) {
+          console.log('login canceled')
+        } else {
+          console.log(result.grantedPermissions?.toString())
+        }
+      }
+    )
+    // facebookLogin.mutate(data, {
+    //   onError(error) {
+    //     console.log('error', error)
+    //     showMessage({
+    //       message: error.response.data.message,
+    //       type: 'danger',
+    //       icon: (props: any) => (
+    //         <Icon name="alert-circle" color="white" size={20} {...props} />
+    //       ),
+    //     } as any)
+    //   },
+    // })
+  }
+
+  const onGoogleSignin = async () => {
+    try {
+      await GoogleSignin.hasPlayServices()
+      const { idToken } = await GoogleSignin.signIn()
+      console.log('TOKEN ==============>', idToken)
+      googleLogin.mutate({ token: idToken! })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -98,10 +136,18 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
             {t('common:login')}
           </Button>
           <View style={styles.socialIconContainer}>
-            <Avatar size={40} containerStyle={styles.socialIcon}>
+            <Avatar
+              onPress={onFacebookLogin}
+              size={40}
+              containerStyle={styles.socialIcon}
+            >
               <Icon size={40} name="facebook" />
             </Avatar>
-            <Avatar size={40} containerStyle={styles.socialIcon}>
+            <Avatar
+              onPress={onGoogleSignin}
+              size={40}
+              containerStyle={styles.socialIcon}
+            >
               <Icon size={40} name="google" />
             </Avatar>
           </View>
