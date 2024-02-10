@@ -14,9 +14,6 @@ import i18n from './src/service/i18n'
 import { getLocales } from 'react-native-localize'
 import { focusManager } from '@tanstack/react-query'
 import { AppState, AppStateStatus } from 'react-native'
-import { GoogleSignin } from '@react-native-google-signin/google-signin'
-
-// GoogleSignin.configure()
 
 const App: React.FC = () => {
   //refetch on app focus

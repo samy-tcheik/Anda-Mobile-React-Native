@@ -22,4 +22,6 @@ export default {
   help_center: 'Help center',
   about_us: 'About us',
   translation: 'Translation',
+  continue_with_google: 'Continue with Google',
+  continue_with_facebook: 'Continue with Facebook',
 }

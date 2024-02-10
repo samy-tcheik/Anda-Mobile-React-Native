@@ -1,4 +1,4 @@
-package com.win_mobile_app;
+package com.anda.app;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

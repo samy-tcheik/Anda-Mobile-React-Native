@@ -72,9 +72,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.win_mobile_app"
+    namespace "com.anda.app"
     defaultConfig {
-        applicationId "com.win_mobile_app"
+        applicationId "com.anda.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

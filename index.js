@@ -7,10 +7,10 @@ import App from './App'
 import { name as appName } from './app.json'
 import './src/service/i18n'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
+import { GOOGLE_CLIENT_ID } from './src/global'
 
 GoogleSignin.configure({
-  webClientId:
-    '854684032677-tfe57u3aqchosfejdf8mctcaa5shf9l6.apps.googleusercontent.com',
+  webClientId: GOOGLE_CLIENT_ID,
 })
 
 AppRegistry.registerComponent(appName, () => App)
