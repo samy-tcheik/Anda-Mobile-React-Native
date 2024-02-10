@@ -1,10 +1,15 @@
 import { MutationOptions, useMutation } from '@tanstack/react-query'
 import { useContext } from 'react'
 import { AuthContext } from '.'
-import { ILoginForm } from '../../screens/auth/login/type'
+import {
+  IFacebookLoginRequest,
+  IGoogleLoginRequest,
+  ILoginForm,
+} from '../../screens/auth/login/type'
 import api from '../../service/api'
-import { LoginResponse } from './type'
+import { AuthDriver, LoginResponse } from './type'
 import { dispatchLoggedInEvent, dispatchLoggedOutEvent } from './utils'
+import { GoogleSignin } from '@react-native-google-signin/google-signin'
 
 export function useLogin(
   config?: MutationOptions<LoginResponse, any, ILoginForm>
@@ -13,9 +18,43 @@ export function useLogin(
   return useMutation<LoginResponse, any, ILoginForm>(
     (data: ILoginForm) => api.post('auth/login', data),
     {
-      onSuccess: ({ bearer }) => {
-        dispatchLoggedInEvent(bearer)
-        login(bearer)
+      onSuccess: (res) => {
+        dispatchLoggedInEvent(res.bearer)
+        login(res)
+      },
+      meta: { handleError: false },
+      ...config,
+    }
+  )
+}
+
+export function useFacebookLogin(
+  config?: MutationOptions<LoginResponse, any, IFacebookLoginRequest>
+) {
+  const { login }: any = useContext(AuthContext)
+  return useMutation<LoginResponse, any, IFacebookLoginRequest>(
+    (data) => api.post('auth/facebook/login', data),
+    {
+      onSuccess: (res) => {
+        dispatchLoggedInEvent(res.bearer)
+        login(res)
+      },
+      meta: { handleError: false },
+      ...config,
+    }
+  )
+}
+
+export function useGoogleLogin(
+  config?: MutationOptions<LoginResponse, any, IGoogleLoginRequest>
+) {
+  const { login }: any = useContext(AuthContext)
+  return useMutation<LoginResponse, any, IGoogleLoginRequest>(
+    (data) => api.post('auth/google/login', data),
+    {
+      onSuccess: (res) => {
+        dispatchLoggedInEvent(res.bearer)
+        login(res)
       },
       meta: { handleError: false },
       ...config,
@@ -24,12 +63,16 @@ export function useLogin(
 }
 
 export function useLogout() {
-  const { logout }: any = useContext(AuthContext)
+  const { logout, state }: any = useContext(AuthContext)
+  console.log('state', state)
   return async () => {
     await api.post('auth/logout').catch(() => {
       logout()
       dispatchLoggedOutEvent()
     })
+    if (state.user.auth_driver === AuthDriver.GOOGLE) {
+      await GoogleSignin.signOut()
+    }
     logout()
     dispatchLoggedOutEvent()
   }

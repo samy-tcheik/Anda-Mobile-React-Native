@@ -85,6 +85,9 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
             <View>
               <Carousel
                 width={width}
+                panGestureHandlerProps={{
+                  activeOffsetX: [-10, 10],
+                }}
                 height={400}
                 loop={false}
                 data={data?.media!}
