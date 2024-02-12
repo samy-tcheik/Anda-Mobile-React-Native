@@ -1,34 +1,26 @@
 import { StyleSheet, View } from 'react-native'
 import Background from '../../../components/background'
-import { Image } from '@rneui/base'
 import Header from '../../../components/header'
+import { Image } from '@rneui/base'
 import { NavigationProp } from '@react-navigation/native'
-import Input from '../../../components/input'
-import { IForgetPasswordForm, useForgetPasswordForm } from './use-form'
-import Icon from '../../../components/icon'
 import Button from '../../../components/button'
 import { useTranslation } from 'react-i18next'
-import { useForgetPassword } from './query'
+import { useCodeCheck } from './query'
+import { ICodeCheckForm, useCodeCheckForm } from './use-form'
 import AppTheme from '../../../styles'
 
 interface Props {
   navigation: NavigationProp<any>
 }
 
-const ForgetPasswordScreen: React.FC<Props> = ({ navigation }) => {
+const CodeCheckScreen: React.FC<Props> = ({ navigation }) => {
   const { t } = useTranslation()
-  const {
-    control,
-    formState: { errors },
-    handleSubmit,
-  } = useForgetPasswordForm()
-
-  const { mutate, isLoading } = useForgetPassword()
-
-  const onSubmit = (data: IForgetPasswordForm) => {
+  const { mutate, isLoading } = useCodeCheck()
+  const { handleSubmit } = useCodeCheckForm()
+  const onSubmit = (data: ICodeCheckForm) => {
     mutate(data, {
       onSuccess() {
-        navigation.navigate('code-check')
+        navigation.navigate('reset-password', { code: data.code })
       },
     })
   }
@@ -44,19 +36,6 @@ const ForgetPasswordScreen: React.FC<Props> = ({ navigation }) => {
             style={{ height: 150, width: 150 }}
           />
         </View>
-        <Input
-          control={control}
-          name="email"
-          placeholder={t('common:email')}
-          error={!!errors.email}
-          errorMessage={errors.email?.message}
-          returnKeyType="next"
-          autoCapitalize="none"
-          textContentType="emailAddress"
-          keyboardType="email-address"
-          rightIcon={<Icon name="email-outline" />}
-          containerStyle={{ marginBottom: 5 }}
-        />
         <Button
           containerStyle={styles.loginButtonContainer}
           buttonStyle={styles.loginButton}
@@ -70,7 +49,7 @@ const ForgetPasswordScreen: React.FC<Props> = ({ navigation }) => {
   )
 }
 
-export default ForgetPasswordScreen
+export default CodeCheckScreen
 
 const styles = StyleSheet.create({
   container: {

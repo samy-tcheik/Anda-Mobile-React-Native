@@ -1,3 +1,0 @@
-interface IForgetPasswordForm {
-  email: string
-}

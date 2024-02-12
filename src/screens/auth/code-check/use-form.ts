@@ -3,19 +3,21 @@ import { object, string } from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useTranslation } from 'react-i18next'
 
-export interface IForgetPasswordForm {
-  email: string
+export interface ICodeCheckForm {
+  code: string
 }
 
-export function useForgetPasswordForm(defaultValues?: IForgetPasswordForm) {
+export function useCodeCheckForm(defaultValues?: ICodeCheckForm) {
   const { t } = useTranslation()
   const schema = object().shape({
-    email: string()
+    code: string()
       .required(t('validation:email_required'))
-      .email(t('validation:valid_email')),
+      .matches(/^[0-9]+$/, t('validation:only_digits'))
+      .min(5, t('validation:exactly_6'))
+      .max(5, t('validation:exactly_6')),
   })
 
-  return useForm<IForgetPasswordForm>({
+  return useForm<ICodeCheckForm>({
     resolver: yupResolver(schema),
     defaultValues,
   })

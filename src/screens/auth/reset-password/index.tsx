@@ -1,36 +1,30 @@
 import { StyleSheet, View } from 'react-native'
 import Background from '../../../components/background'
-import { Image } from '@rneui/base'
 import Header from '../../../components/header'
-import { NavigationProp } from '@react-navigation/native'
+import { Image } from '@rneui/base'
+import { NavigationProp, RouteProp } from '@react-navigation/native'
+import AppTheme from '../../../styles'
 import Input from '../../../components/input'
-import { IForgetPasswordForm, useForgetPasswordForm } from './use-form'
-import Icon from '../../../components/icon'
 import Button from '../../../components/button'
 import { useTranslation } from 'react-i18next'
-import { useForgetPassword } from './query'
-import AppTheme from '../../../styles'
+import { useResetPassword } from './query'
+import { IResetPasswordForm, useResetPasswordForm } from './use-form'
 
 interface Props {
   navigation: NavigationProp<any>
+  route: RouteProp<any>
 }
 
-const ForgetPasswordScreen: React.FC<Props> = ({ navigation }) => {
+const ResetPasswordScreen: React.FC<Props> = ({ navigation, route }) => {
   const { t } = useTranslation()
+  const { mutate, isLoading } = useResetPassword()
   const {
+    handleSubmit,
     control,
     formState: { errors },
-    handleSubmit,
-  } = useForgetPasswordForm()
-
-  const { mutate, isLoading } = useForgetPassword()
-
-  const onSubmit = (data: IForgetPasswordForm) => {
-    mutate(data, {
-      onSuccess() {
-        navigation.navigate('code-check')
-      },
-    })
+  } = useResetPasswordForm()
+  const onSubmit = (data: IResetPasswordForm) => {
+    mutate({ ...data, code: route.params?.code })
   }
   return (
     <Background>
@@ -46,16 +40,21 @@ const ForgetPasswordScreen: React.FC<Props> = ({ navigation }) => {
         </View>
         <Input
           control={control}
-          name="email"
-          placeholder={t('common:email')}
-          error={!!errors.email}
-          errorMessage={errors.email?.message}
-          returnKeyType="next"
-          autoCapitalize="none"
-          textContentType="emailAddress"
-          keyboardType="email-address"
-          rightIcon={<Icon name="email-outline" />}
-          containerStyle={{ marginBottom: 5 }}
+          name="password"
+          placeholder={t('common:password')}
+          error={!!errors.password}
+          errorMessage={errors.password?.message}
+          returnKeyType="done"
+          secureTextEntry
+        />
+        <Input
+          control={control}
+          name="password_confirmation"
+          placeholder={t('common:password_confirmation')}
+          error={!!errors.password_confirmation}
+          errorMessage={errors.password_confirmation?.message}
+          returnKeyType="done"
+          secureTextEntry
         />
         <Button
           containerStyle={styles.loginButtonContainer}
@@ -63,14 +62,14 @@ const ForgetPasswordScreen: React.FC<Props> = ({ navigation }) => {
           loading={isLoading}
           onPress={handleSubmit(onSubmit)}
         >
-          {t('common:send')}
+          {t('common:register')}
         </Button>
       </View>
     </Background>
   )
 }
 
-export default ForgetPasswordScreen
+export default ResetPasswordScreen
 
 const styles = StyleSheet.create({
   container: {

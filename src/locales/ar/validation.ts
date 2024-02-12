@@ -7,4 +7,6 @@ export default {
   password_confirmation_not_match: 'كلمة المرور غير مطابقة',
   password_min_8: 'يجب أن تتكون كلمة المرور من 8 أحرف على الأقل',
   password_max_32: 'يجب أن تتكون كلمة المرور من 32 حرفًا على الأكثر',
+  exactly_6: 'يجب أن يكون بالضبط 6 أرقام',
+  only_digits: 'يجب أن تكون أرقامًا فقط',
 }
