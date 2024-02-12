@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">Win_mobile_app</string>
+    <string name="app_name">anda_mobile_app</string>
+    <string name="facebook_app_id">3629691407286861</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">6b3bb00091e8a05dd4bbee3b8d2d5e44</string>
 </resources>

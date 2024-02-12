@@ -22,4 +22,6 @@ export default {
   help_center: 'مركز المساعدة',
   about_us: 'معلومات عنا',
   translation: 'ترجمة',
+  continue_with_google: 'واصل بجوجل',
+  continue_with_facebook: 'واصل بالفيسبوك',
 }

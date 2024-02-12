@@ -1,4 +1,4 @@
-package com.win_mobile_app;
+package com.anda.app;
 
 //React native navigation
 import android.os.Bundle;
@@ -15,7 +15,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "Win_mobile_app";
+    return "anda_mobile_app";
   }
 
   /**

@@ -7,10 +7,17 @@ import AppStackScreen from '../../screens/app'
 import AuthStackScreen from '../../screens/auth'
 import QueryProvider from '../query'
 import { dispatchLoggedInEvent, dispatchLoggedOutEvent } from './utils'
+import { IUser, LoginResponse } from './type'
 
 interface AuthContextProps {
-  login: (token: string) => void
+  login: (data: LoginResponse) => void
   logout: () => void
+  state: AuthState
+}
+
+interface AuthState {
+  bearer: string
+  user: IUser
 }
 
 export const AuthContext = createContext<AuthContextProps | undefined>(
@@ -22,7 +29,7 @@ const RootStack = createNativeStackNavigator()
 const AuthProvider: React.FC = () => {
   const initialLoginState = {
     isLoading: true,
-    token: null,
+    bearer: null,
     user: null,
   }
 
@@ -31,20 +38,22 @@ const AuthProvider: React.FC = () => {
       case 'LOGIN':
         return {
           ...prevState,
-          token: action.token,
+          bearer: action.data.bearer,
+          user: action.data.user,
           isLoading: false,
         }
       case 'LOGOUT':
         return {
           ...prevState,
-          token: null,
+          bearer: null,
           user: null,
           isLoading: false,
         }
       case 'RESTORE_TOKEN':
         return {
           ...prevState,
-          token: action.token,
+          bearer: action.bearer,
+          user: action.user,
           isLoading: false,
         }
     }
@@ -52,13 +61,13 @@ const AuthProvider: React.FC = () => {
 
   useEffect(() => {
     const retrieveToken = async () => {
-      let token
+      let bearer
       try {
-        token = await AsyncStorage.getItem('user_token')
+        bearer = await AsyncStorage.getItem('user_token')
       } catch (e) {
         console.warn('restore token failed')
       }
-      dispatch({ type: 'RESTORE_TOKEN', token: token })
+      dispatch({ type: 'RESTORE_TOKEN', bearer: bearer })
     }
     retrieveToken()
   }, [])
@@ -70,9 +79,9 @@ const AuthProvider: React.FC = () => {
 
   const authContext = useMemo(
     () => ({
-      login: (token: string) => {
-        dispatchLoggedInEvent(token)
-        dispatch({ type: 'LOGIN', token: token })
+      login: (data: LoginResponse) => {
+        dispatchLoggedInEvent(data.bearer)
+        dispatch({ type: 'LOGIN', data })
       },
       logout: () => {
         dispatchLoggedOutEvent()
@@ -82,11 +91,11 @@ const AuthProvider: React.FC = () => {
     []
   )
   return (
-    <AuthContext.Provider value={authContext}>
+    <AuthContext.Provider value={{ ...authContext, state: loginState }}>
       <QueryProvider authContext={authContext}>
         <NavigationContainer>
           <RootStack.Navigator screenOptions={{ headerShown: false }}>
-            {loginState.token ? (
+            {loginState.bearer ? (
               <RootStack.Screen name="App" component={AppStackScreen} />
             ) : (
               <RootStack.Screen name="Auth" component={AuthStackScreen} />
