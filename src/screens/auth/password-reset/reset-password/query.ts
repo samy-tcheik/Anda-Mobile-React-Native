@@ -1,5 +1,5 @@
 import { UseMutationOptions, useMutation } from '@tanstack/react-query'
-import api from '../../../service/api'
+import api from '../../../../service/api'
 import { IResetPasswordForm } from './use-form'
 
 export interface IResetPasswordRequest extends IResetPasswordForm {

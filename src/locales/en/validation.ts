@@ -7,6 +7,6 @@ export default {
   password_confirmation_not_match: 'Passwords do not match',
   password_min_8: 'Password must be at least 8 charachters',
   password_max_32: 'Password must be at most 32 charachters',
-  exactly_6: 'Must be exactly 6 digits',
+  exactly_4: 'Must be exactly 4 digits',
   only_digits: 'Must be only digits',
 }

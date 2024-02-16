@@ -1,5 +1,5 @@
 import { UseMutationOptions, useMutation } from '@tanstack/react-query'
-import api from '../../../service/api'
+import api from '../../../../service/api'
 import { IForgetPasswordForm } from './use-form'
 
 export function useForgetPassword(

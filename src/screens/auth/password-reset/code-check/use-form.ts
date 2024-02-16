@@ -13,8 +13,8 @@ export function useCodeCheckForm(defaultValues?: ICodeCheckForm) {
     code: string()
       .required(t('validation:email_required'))
       .matches(/^[0-9]+$/, t('validation:only_digits'))
-      .min(5, t('validation:exactly_6'))
-      .max(5, t('validation:exactly_6')),
+      .min(4, t('validation:exactly_4'))
+      .max(4, t('validation:exactly_4')),
   })
 
   return useForm<ICodeCheckForm>({

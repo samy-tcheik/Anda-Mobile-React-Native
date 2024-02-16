@@ -24,4 +24,9 @@ export default {
   translation: 'Translation',
   continue_with_google: 'Continue with Google',
   continue_with_facebook: 'Continue with Facebook',
+  send: 'Send',
+  resend: 'Resend',
+  continue: 'Continue',
+  error: 'Error',
+  try_again: 'Try again',
 }

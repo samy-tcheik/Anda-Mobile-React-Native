@@ -8,6 +8,6 @@ export default {
   password_confirmation_not_match: 'Le mot de passe ne correspond pas ',
   password_min_8: 'Le mot de passe doit contenir au moins 8 caractères',
   password_max_32: 'Le mot de passe doit contenir au maximum 32 caractères',
-  exactly_6: 'Doit contenir exactement 6 chiffres',
+  exactly_4: 'Doit contenir exactement 4 chiffres',
   only_digits: 'Il ne doit y avoir que des chiffres',
 }

@@ -14,6 +14,8 @@ export default {
   settings: 'بارامترات',
   logout: 'تسجيل الخروج',
   save: 'حفظ',
+  send: 'أرسل',
+  resend: 'إعادة إرسال',
   delete_my_account: 'احذف حسابي',
   confirm: 'تثبيت',
   cancel: 'إلغاء',
@@ -24,4 +26,7 @@ export default {
   translation: 'ترجمة',
   continue_with_google: 'واصل بجوجل',
   continue_with_facebook: 'واصل بالفيسبوك',
+  continue: 'واصل',
+  error: 'خطأ',
+  try_again: 'إعادة المحاولة',
 }

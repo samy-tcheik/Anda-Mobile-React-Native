@@ -120,7 +120,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
           />
           <View style={{ alignItems: 'center', marginBottom: 30 }}>
             <Typography.BodyLight
-              onPress={() => navigation.navigate('forget-password')}
+              onPress={() => navigation.navigate('forget-password-stack')}
               style={{ color: AppTheme.colors.blue_b300 }}
             >
               {t('common:forgot_password')}

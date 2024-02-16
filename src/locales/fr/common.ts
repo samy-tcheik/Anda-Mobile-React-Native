@@ -14,6 +14,8 @@ export default {
   settings: 'Parametres',
   logout: 'Déconnexion',
   save: 'Sauvegarder',
+  send: 'Envoyer',
+  resend: 'Renvoyer',
   delete_my_account: 'Supprimer mon compte',
   confirm: 'Confirmer',
   cancel: 'Annuler',
@@ -24,4 +26,7 @@ export default {
   translation: 'Traduction',
   continue_with_google: 'Continuer avec Google',
   continue_with_facebook: 'Continuer avec Facebook',
+  continue: 'Continuer',
+  error: 'Erreur',
+  try_again: 'Réessayer',
 }
