@@ -8,5 +8,5 @@ const CustomeScrollView: React.FC<ScrollViewProps> = ({ children }) => {
 export default CustomeScrollView
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: AppTheme.colors.neutral_n0 },
+  container: { flex: 1, backgroundColor: 'white' },
 })

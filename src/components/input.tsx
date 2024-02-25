@@ -11,7 +11,7 @@ interface IInputProps extends InputProps {
   control: Control<any>
   description?: string
   errorText?: string
-  error: boolean
+  error?: boolean
 }
 
 const Input: React.FC<IInputProps> = ({
@@ -21,6 +21,7 @@ const Input: React.FC<IInputProps> = ({
   description,
   errorText,
   control,
+  inputContainerStyle,
   ...props
 }) => {
   const [hiddenPassword, setHiddenPassword] = useState<boolean | undefined>(
@@ -42,7 +43,10 @@ const Input: React.FC<IInputProps> = ({
       <BaseInput
         {...field}
         containerStyle={styles.containerStyle}
-        inputContainerStyle={styles.inputContainerStyle}
+        inputContainerStyle={{
+          ...styles.inputContainerStyle,
+          ...(inputContainerStyle as object),
+        }}
         onChangeText={(value) => field.onChange(value)}
         rightIcon={
           secureTextEntry ? (

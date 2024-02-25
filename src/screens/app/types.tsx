@@ -1,3 +1,5 @@
+import { IUser } from '../../providers/auth/type'
+
 export interface IWilaya {
   id: string
   key: string
@@ -9,6 +11,19 @@ export interface ITown {
   key: string
   name: string
 }
+
+interface ITotalReviewItem {
+  avg: number
+  count: number
+}
+
+export interface ITotalReviews {
+  excellent: ITotalReviewItem
+  good: ITotalReviewItem
+  average: ITotalReviewItem
+  bad: ITotalReviewItem
+  very_bad: ITotalReviewItem
+}
 export interface IPlace {
   id: string
   name: string
@@ -17,12 +32,24 @@ export interface IPlace {
   wilaya: IWilaya
   description: string
   rating: number
-  rating_count: number
-  comment_count: number
+  review_count: number
+  total_reviews: ITotalReviews
+  reviews: IReview[]
+  reviewed: boolean
   liked: boolean
   latitude: string
   longitude: string
-  media: IMedia[]
+  media: string[]
+}
+
+export interface IReview {
+  id: string
+  rating: number
+  comment: string
+  user: IUser
+  created_at: string
+  likes_count: string
+  liked: boolean
 }
 
 export interface ICategory {
@@ -31,15 +58,11 @@ export interface ICategory {
   name: string
 }
 
-export interface IMedia {
-  original_url: string
-}
-
 export interface IRating {
   rating: string
 }
 
 export enum LikeType {
   PLACE = 'PLACE',
-  COMMENT = 'COMMENT',
+  REVIEW = 'REVIEW',
 }

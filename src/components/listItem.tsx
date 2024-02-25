@@ -33,7 +33,7 @@ const ListItem: React.FC<ItemProps> = ({ data, onPress }) => {
             ...AppTheme.elevation,
           }}
           source={{
-            uri: data.media[0]?.original_url,
+            uri: data.media[0],
             // uri: `https://source.unsplash.com/random?sig=${1}`,
           }}
         />

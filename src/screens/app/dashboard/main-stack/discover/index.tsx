@@ -38,7 +38,7 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({
   useFocusEffect(
     useCallback(() => {
       filtersModal.reset(route?.params)
-      setSearch((route?.params as any).name)
+      setSearch((route?.params as any)?.name)
       return () => {
         filtersModal.reset({})
       }
