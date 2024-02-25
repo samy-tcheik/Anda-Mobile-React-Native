@@ -17,4 +17,14 @@ export default {
   password_reset_success_title: 'Mot de passe rénitialisé',
   password_reset_success_message:
     'Votre mot de passe a été réinitialisé avec succès. Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.',
+  create_review_title: 'Ecrire un avis',
+  create_review_message:
+    "Laissez-nous un avis et partagez vos réflexions ! Merci d'avoir fait partie de notre communauté.",
+  create_review_warning_message:
+    "l'espace commentaires a été conçue de manière a apporter des informations supplémentaires sur le lieux, nous nous réservons ainsi le droit de supprimer tout commentaires hors sujet voire de bannir tout utilisateurs publiant un commentaires déplacé ou insultant",
+  rating_input_label: 'Comment noteriez-vous votre expérience ?',
+  comment_input_label: 'Avez-vous des commentaires ou des retours ?',
+  review_success_title: 'Merci de partager votre expérience!',
+  review_success_message:
+    "Votre avis a été soumis avec succès. Merci d'avoir pris le temps de partager vos réflexions avec nous. Vos commentaires nous aident à améliorer nos services pour les futurs voyageurs. Au plaisir de vous accueillir à nouveau lors de votre prochaine aventure !",
 }

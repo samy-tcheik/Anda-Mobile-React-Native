@@ -12,15 +12,20 @@ interface ButtonProps extends BaseButtonProps {
 const Button: React.FC<ButtonProps> = ({
   children,
   color = AppTheme.colors.blue_b200,
+  containerStyle,
   ...props
 }) => {
   return (
     <BaseButton
+      color={AppTheme.colors.blue_b200}
       buttonStyle={{
         ...styles.button,
-        backgroundColor: color,
       }}
-      containerStyle={{ ...styles.buttonContainer, shadowColor: color }}
+      containerStyle={{
+        ...(containerStyle as object),
+        ...styles.buttonContainer,
+        borderColor: color,
+      }}
       {...props}
     >
       {children}
@@ -33,15 +38,10 @@ export default Button
 const styles = StyleSheet.create({
   button: {
     padding: 15,
+    borderRadius: AppTheme.borderRadius.round,
   },
   buttonContainer: {
-    borderRadius: 50,
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-    elevation: 6,
+    borderWidth: 1,
+    borderRadius: AppTheme.borderRadius.round,
   },
 })

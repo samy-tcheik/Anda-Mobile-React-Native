@@ -95,6 +95,30 @@ const BodyLight: React.FC<Typography> = ({ children, style, ...props }) => {
   )
 }
 
+const DescriptionHeavy: React.FC<Typography> = ({
+  children,
+  style,
+  ...props
+}) => {
+  return (
+    <BaseText style={{ ...styles.descriptionHeavy, ...style }} {...props}>
+      {children}
+    </BaseText>
+  )
+}
+
+const DescriptionLight: React.FC<Typography> = ({
+  children,
+  style,
+  ...props
+}) => {
+  return (
+    <BaseText style={{ ...styles.descriptionLight, ...style }} {...props}>
+      {children}
+    </BaseText>
+  )
+}
+
 const CaptionHeavy: React.FC<Typography> = ({ children, style, ...props }) => {
   return (
     <BaseText style={{ ...styles.captionHeavy, ...style }} {...props}>
@@ -158,6 +182,12 @@ const styles = StyleSheet.create({
     color: AppTheme.colors.neutral_n400,
   },
   bodyLight: { fontSize: 18, color: AppTheme.colors.neutral_n400 },
+  descriptionHeavy: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: AppTheme.colors.neutral_n400,
+  },
+  descriptionLight: { fontSize: 16, color: AppTheme.colors.neutral_n400 },
   captionHeavy: {
     fontSize: 14,
     fontWeight: 'bold',
@@ -183,6 +213,8 @@ const Typography = {
   SubheaderLight,
   BodyHeavy,
   BodyLight,
+  DescriptionHeavy,
+  DescriptionLight,
   CaptionHeavy,
   CaptionLight,
   SmallHeavy,

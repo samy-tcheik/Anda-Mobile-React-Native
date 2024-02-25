@@ -127,7 +127,7 @@ export function useAddLike(
     {
       onSuccess() {
         queryClient.invalidateQueries(['places'])
-        queryClient.invalidateQueries(['comments'])
+        queryClient.invalidateQueries(['reviews'])
         queryClient.invalidateQueries(['likes'])
       },
       ...config,

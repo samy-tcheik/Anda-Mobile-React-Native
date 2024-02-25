@@ -18,7 +18,7 @@ const PlaceItem: React.FC<IPlaceItemProps> = ({ data, onPress }) => {
           containerStyle={styles.image}
           resizeMode="cover"
           source={{
-            uri: data.media[0]?.original_url,
+            uri: data.media[0],
           }}
         />
         <View style={styles.contentContainer}>

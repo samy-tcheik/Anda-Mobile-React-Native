@@ -84,7 +84,7 @@ const ProfileScreen: React.FC<ISettingsScreenProps> = ({ navigation }) => {
               size={150}
               rounded
               source={{
-                uri: data?.avatar?.original_url,
+                uri: data?.avatar,
               }}
             >
               <Avatar.Accessory
