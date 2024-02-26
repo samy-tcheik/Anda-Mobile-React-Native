@@ -37,7 +37,7 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({
   })
   useFocusEffect(
     useCallback(() => {
-      filtersModal.reset(route?.params)
+      filtersModal.reset({ ...route?.params, active: !!route?.params })
       setSearch((route?.params as any)?.name)
       return () => {
         filtersModal.reset({})
@@ -47,22 +47,14 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({
   useEffect(() => {
     filtersModal.data && setFilters(filtersModal.data as any)
   }, [filtersModal.data])
-  const {
-    data,
-    isFetching,
-    hasNextPage,
-    fetchNextPage,
-    isRefetching,
-    isLoading,
-    isFetchingNextPage,
-    refetch,
-  } = usePlaces(undefined, filters, {
-    getNextPageParam: (nextPage) => {
-      if (nextPage.meta.current_page !== nextPage.meta.last_page) {
-        return nextPage.meta.current_page + 1
-      }
-    },
-  })
+  const { data, hasNextPage, fetchNextPage, isRefetching, isLoading, refetch } =
+    usePlaces(undefined, filters, {
+      getNextPageParam: (nextPage) => {
+        if (nextPage.meta.current_page !== nextPage.meta.last_page) {
+          return nextPage.meta.current_page + 1
+        }
+      },
+    })
   const handleLoadMore = () => {
     if (hasNextPage) {
       fetchNextPage()
@@ -101,7 +93,7 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({
           style={{ flexDirection: 'row' }}
         >
           <Typography.CaptionLight>Filter & sort</Typography.CaptionLight>
-          {filtersModal.data ? (
+          {filtersModal.data?.active ? (
             <Icon
               name="filter-check"
               color={AppTheme.colors.blue_b400}
