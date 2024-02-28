@@ -26,4 +26,13 @@ export default {
   review_success_title: 'Thank You for Sharing Your Experience!',
   review_success_message:
     'Your review has been submitted successfully. Thank you for taking the time to share your thoughts with us. Your feedback helps us improve our services for future travelers. We look forward to welcoming you again on your next adventure!',
+  intro_slider_1_title: 'Welcome to\nAlgeria',
+  intro_slider_1_text:
+    'Discover the vibrant culture, breathtaking landscapes, and rich history of Algeria. Let us guide you through an unforgettable journey across this diverse and beautiful country.',
+  intro_slider_2_title: 'Explore\nAncient\nTreasures',
+  intro_slider_2_text:
+    "Step back in time and explore Algeria's ancient wonders. From the majestic ruins of Timgad to the awe-inspiring desert landscapes of the Sahara, uncover the secrets of civilizations past.",
+  intro_slider_3_title: 'Experience\nNatural\nBeauty',
+  intro_slider_3_text:
+    "Immerse yourself in Algeria's natural splendor. From the rugged cliffs of the Mediterranean coastline to the tranquil oases of the Sahara, experience the breathtaking beauty of Algeria's diverse landscapes.",
 }

@@ -40,4 +40,7 @@ export default {
   average: 'Average',
   good: 'Good',
   excellent: 'Excellent',
+  next: 'Next',
+  skip: 'Skip',
+  get_started: 'Get started',
 }

@@ -6,7 +6,6 @@
  */
 
 import React, { useEffect } from 'react'
-import AuthProvider from './src/providers/auth'
 import FlashMessage from 'react-native-flash-message'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -14,6 +13,7 @@ import i18n from './src/service/i18n'
 import { getLocales } from 'react-native-localize'
 import { focusManager } from '@tanstack/react-query'
 import { AppState, AppStateStatus } from 'react-native'
+import MainAppStack from './src/screens'
 
 const App: React.FC = () => {
   //refetch on app focus
@@ -39,7 +39,7 @@ const App: React.FC = () => {
   i18n.on('languageChanged', (lang) => {})
   return (
     <SafeAreaProvider>
-      <AuthProvider />
+      <MainAppStack />
       <FlashMessage position="bottom" />
     </SafeAreaProvider>
   )

@@ -27,4 +27,13 @@ export default {
   review_success_title: 'Merci de partager votre expérience!',
   review_success_message:
     "Votre avis a été soumis avec succès. Merci d'avoir pris le temps de partager vos réflexions avec nous. Vos commentaires nous aident à améliorer nos services pour les futurs voyageurs. Au plaisir de vous accueillir à nouveau lors de votre prochaine aventure !",
+  intro_slider_1_title: 'Bienvenue en\nAlgérie',
+  intro_slider_1_text:
+    "Découvrez la culture vibrante, les paysages à couper le souffle et la riche histoire de l'Algérie. Laissez-nous vous guider à travers un voyage inoubliable à travers ce pays diversifié et magnifique.",
+  intro_slider_2_title: 'Explorez des trésors\nanciens\n',
+  intro_slider_2_text:
+    "Remontez le temps et explorez les merveilles anciennes de l'Algérie. Des ruines majestueuses de Timgad aux impressionnants paysages désertiques du Sahara, découvrez les secrets des civilisations passées.",
+  intro_slider_3_title: 'Expérience\nNaturel\nBeauté',
+  intro_slider_3_text:
+    "Plongez dans la splendeur naturelle de l'Algérie. Des falaises escarpées de la côte méditerranéenne aux oasis tranquilles du Sahara, découvrez la beauté à couper le souffle des divers paysages algériens.",
 }
