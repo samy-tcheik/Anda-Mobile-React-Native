@@ -1,5 +1,4 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React, { useContext, useEffect } from 'react'
 import { createContext, useMemo } from 'react'
@@ -93,15 +92,13 @@ const AuthProvider: React.FC = () => {
   return (
     <AuthContext.Provider value={{ ...authContext, state: loginState }}>
       <QueryProvider authContext={authContext}>
-        <NavigationContainer>
-          <RootStack.Navigator screenOptions={{ headerShown: false }}>
-            {loginState.bearer ? (
-              <RootStack.Screen name="App" component={AppStackScreen} />
-            ) : (
-              <RootStack.Screen name="Auth" component={AuthStackScreen} />
-            )}
-          </RootStack.Navigator>
-        </NavigationContainer>
+        <RootStack.Navigator screenOptions={{ headerShown: false }}>
+          {loginState.bearer ? (
+            <RootStack.Screen name="App" component={AppStackScreen} />
+          ) : (
+            <RootStack.Screen name="Auth" component={AuthStackScreen} />
+          )}
+        </RootStack.Navigator>
       </QueryProvider>
     </AuthContext.Provider>
   )

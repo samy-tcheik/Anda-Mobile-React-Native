@@ -64,7 +64,6 @@ export function useGoogleLogin(
 
 export function useLogout() {
   const { logout, state }: any = useContext(AuthContext)
-  console.log('state', state)
   return async () => {
     await api.post('auth/logout').catch(() => {
       logout()

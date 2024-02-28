@@ -40,4 +40,7 @@ export default {
   average: 'متوسط',
   good: 'جيد',
   excellent: 'ممتاز',
+  next: 'تالي',
+  skip: 'تخطى',
+  get_started: 'أبدأ',
 }

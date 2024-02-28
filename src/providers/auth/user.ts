@@ -1,17 +1,15 @@
-import { IUser } from './type'
+import { AuthDriver, IUser } from './type'
 
 export default class User implements IUser {
   readonly name: string
   readonly email: string
-  readonly username: string
   readonly avatar?: string
-  readonly avatarThumb?: string
+  readonly auth_driver?: AuthDriver
 
   constructor(data: any) {
     this.name = data.name
     this.email = data.email
-    this.username = data.username
     this.avatar = data.avatar
-    this.avatarThumb = data.avatar_thumb
+    this.auth_driver = data.avatar_driver
   }
 }

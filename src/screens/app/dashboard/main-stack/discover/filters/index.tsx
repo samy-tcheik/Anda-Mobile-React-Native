@@ -15,6 +15,7 @@ const formInitializedData = {
   wilaya_id: '',
   town_id: '',
   range: 0,
+  active: false,
 }
 
 interface Props {
@@ -27,21 +28,25 @@ interface Props {
 const Filters: React.FC<Props> = ({ isOpen, onClose, data: defaultData }) => {
   const [key, setKey] = useState(0)
   const wilayas = useWilayas()
-  const { control, watch, handleSubmit, resetField, reset } = useFiltersForm({
-    category_id: [],
-    wilaya_id: '',
-    town_id: '',
-    range: undefined,
-  })
+  const {
+    control,
+    watch,
+    handleSubmit,
+    resetField,
+    formState: { isDirty },
+    reset,
+  } = useFiltersForm(formInitializedData)
   const categories = useCategories()
   const towns = useTowns(watch('wilaya_id')!, {
     enabled: !!watch('wilaya_id'),
   })
   const onSubmit = (data: IFiltersForm) => {
-    onClose(data)
+    onClose({ ...data, active: isDirty })
   }
   useEffect(() => {
-    reset(defaultData)
+    if (defaultData) {
+      reset(defaultData)
+    }
   }, [defaultData])
   return (
     <Modal onRequestClose={() => setKey(key + 1)} visible={isOpen}>
@@ -52,7 +57,7 @@ const Filters: React.FC<Props> = ({ isOpen, onClose, data: defaultData }) => {
             size={35}
             name="close"
             onPress={() => {
-              onClose()
+              onClose({ ...formInitializedData })
             }}
           />
         </View>
@@ -65,7 +70,6 @@ const Filters: React.FC<Props> = ({ isOpen, onClose, data: defaultData }) => {
                 return (
                   <View style={{ width: '100%' }}>
                     <MultiSelect
-                      {...field}
                       single
                       items={wilayas.data!}
                       selectedItems={[field.value]}
@@ -93,7 +97,6 @@ const Filters: React.FC<Props> = ({ isOpen, onClose, data: defaultData }) => {
               render={({ field }) => (
                 <View style={{ width: '100%' }}>
                   <MultiSelect
-                    {...field}
                     single
                     items={towns.data!}
                     selectedItems={[field.value]}
@@ -123,10 +126,10 @@ const Filters: React.FC<Props> = ({ isOpen, onClose, data: defaultData }) => {
                   return (
                     <Slider
                       value={field.value}
-                      onValueChange={() => {
+                      onValueChange={(range) => {
                         resetField('wilaya_id')
                         resetField('town_id')
-                        field.onChange
+                        field.onChange(range)
                       }}
                       maximumValue={300}
                       minimumValue={5}
@@ -153,12 +156,15 @@ const Filters: React.FC<Props> = ({ isOpen, onClose, data: defaultData }) => {
             name="category_id"
             control={control}
             render={({ field }) => {
+              // react form hook set field value to string if value null
+              // this behavior caused a type checking problem with Multiselect
+              const value = typeof field.value === 'string' ? [] : field.value
               return (
                 <View style={{ width: '100%' }}>
                   <MultiSelect
-                    {...field}
+                    single={false}
                     items={categories.data!}
-                    selectedItems={field.value}
+                    selectedItems={value}
                     uniqueKey="id"
                     selectText="Selectionner une categorie"
                     searchInputPlaceholderText="Rechercher une category..."
