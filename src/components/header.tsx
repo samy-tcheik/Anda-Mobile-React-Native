@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native'
 import { Header as BaseHeader } from '@rneui/base'
 import Icon from './icon'
 import Typography from './text'
+import AppTheme from '../styles'
 
 interface IHeaderProps extends HeaderProps {
   onLeftClick?: () => void
@@ -24,8 +25,8 @@ const Header: React.FC<IHeaderProps> = ({
 }) => {
   return (
     <BaseHeader
-      backgroundColor="transparent"
-      style={{ position: 'absolute' }}
+      backgroundColor="white"
+      containerStyle={styles.header}
       centerComponent={
         <Typography.HeadlineHeavy>{title}</Typography.HeadlineHeavy>
       }
@@ -33,10 +34,14 @@ const Header: React.FC<IHeaderProps> = ({
         <Button
           onPress={onLeftClick}
           color="error"
-          containerStyle={{ ...styles.button, marginLeft: 15 }}
+          containerStyle={{ ...styles.button }}
           type="clear"
         >
-          {backButton ? <Icon name="arrow-left" /> : <Icon name="menu" />}
+          {backButton ? (
+            <Icon name="chevron-left" size={30} />
+          ) : (
+            <Icon name="menu" />
+          )}
         </Button>
       }
       rightComponent={
@@ -53,7 +58,7 @@ const Header: React.FC<IHeaderProps> = ({
           <Button
             onPress={onRightClick}
             color="error"
-            containerStyle={{ ...styles.button, marginRight: 15 }}
+            containerStyle={{ ...styles.button }}
             type="clear"
           >
             {rightContent}
@@ -69,18 +74,24 @@ export default Header
 const styles = StyleSheet.create({
   button: {
     backgroundColor: 'white',
-    borderRadius: 50,
     justifyContent: 'center',
-    width: 50,
-    height: 50,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
+    // width: 50,
+    // height: 50,
+    // shadowColor: '#000',
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 3,
+    // },
+    // shadowOpacity: 0.27,
+    // shadowRadius: 4.65,
 
-    elevation: 6,
+    // elevation: 6,
+  },
+  header: {
+    border: 0,
+    // backgroundColor: 'red',
+    paddingHorizontal: 5,
+    borderColor: 'transparent',
+    marginBottom: 10,
   },
 })

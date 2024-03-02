@@ -4,6 +4,9 @@ import Typography from './text'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import Icon from './icon'
 import { IPlace } from '../screens/app/types'
+import { Rating } from 'react-native-ratings'
+import { memo } from 'react'
+import Loader from './loader'
 
 interface IPlaceItemProps extends CardProps {
   data: IPlace
@@ -13,42 +16,38 @@ interface IPlaceItemProps extends CardProps {
 const PlaceItem: React.FC<IPlaceItemProps> = ({ data, onPress }) => {
   return (
     <TouchableOpacity activeOpacity={0.9} onPress={onPress}>
-      <Card containerStyle={styles.card}>
+      <View style={styles.card}>
         <Image
           containerStyle={styles.image}
           resizeMode="cover"
+          placeholderStyle={{ flex: 1 }}
+          PlaceholderContent={<Loader />}
           source={{
-            uri: data.media[0],
+            uri: data.media,
           }}
         />
         <View style={styles.contentContainer}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Typography.BodyHeavy
-              style={{ maxWidth: '80%' }}
-              numberOfLines={2}
-              ellipsizeMode="tail"
-            >
-              {data.name}
-            </Typography.BodyHeavy>
-            {data.rating ? (
-              <View style={styles.ratingContainer}>
-                <Icon
-                  color={AppTheme.colors.neutral_n300}
-                  size={17}
-                  name="star-outline"
-                />
-                <Text style={styles.rating}>{data.rating}</Text>
-              </View>
-            ) : null}
+          <Typography.DescriptionHeavy ellipsizeMode="tail">
+            {data.name}
+          </Typography.DescriptionHeavy>
+
+          <View style={styles.ratingContainer}>
+            <Rating
+              readonly
+              imageSize={15}
+              startingValue={data?.rating}
+              style={{
+                width: 70,
+                marginVertical: 4,
+                marginRight: 10,
+              }}
+            />
+            {data.rating !== 0 && (
+              <Text style={styles.rating}>{data.review_count}</Text>
+            )}
           </View>
           <View
             style={{
-              marginTop: 7,
               flexDirection: 'row',
               justifyContent: 'space-between',
             }}
@@ -59,19 +58,20 @@ const PlaceItem: React.FC<IPlaceItemProps> = ({ data, onPress }) => {
                 size={17}
                 name="map-marker-outline"
               />
-              <Text style={styles.wilaya}>{data.wilaya.name}</Text>
+              <Typography.SmallLight style={styles.wilaya}>
+                {data.wilaya.name},
+              </Typography.SmallLight>
+              <Typography.SmallLight style={styles.wilaya}>
+                {' '}
+                {data.town.name}
+              </Typography.SmallLight>
             </View>
-            <View style={{ flexDirection: 'row' }}>
-              <Icon
-                color={AppTheme.colors.neutral_n300}
-                size={17}
-                name="map-marker-distance"
-              />
-              <Text style={styles.distance}>{data.distance} km</Text>
-            </View>
+            <Typography.SmallLight style={styles.distance}>
+              {data.distance} km
+            </Typography.SmallLight>
           </View>
         </View>
-      </Card>
+      </View>
     </TouchableOpacity>
   )
 }
@@ -82,11 +82,13 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     width: '100%',
     borderRadius: 13,
-    ...AppTheme.elevation,
+    // ...AppTheme.elevation,
   },
   card: {
-    ...AppTheme.elevation,
-    height: 350,
+    // ...AppTheme.elevation_light,
+    height: 310,
+    padding: 20,
+    width: 250,
     borderRadius: 13,
   },
   contentContainer: {
@@ -103,4 +105,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default PlaceItem
+export default memo(PlaceItem)

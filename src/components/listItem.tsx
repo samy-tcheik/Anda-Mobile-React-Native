@@ -4,6 +4,8 @@ import { Card, Image } from '@rneui/base'
 import AppTheme from '../styles'
 import Typography from './text'
 import Icon from './icon'
+import { memo } from 'react'
+import { Rating } from 'react-native-ratings'
 
 interface ItemProps {
   data: IPlace
@@ -12,10 +14,10 @@ interface ItemProps {
 
 const ListItem: React.FC<ItemProps> = ({ data, onPress }) => {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity activeOpacity={0.9} onPress={onPress}>
       <Card
         containerStyle={{
-          ...AppTheme.elevation,
+          ...AppTheme.elevation_light,
           height: 145,
           borderRadius: 13,
         }}
@@ -30,23 +32,23 @@ const ListItem: React.FC<ItemProps> = ({ data, onPress }) => {
             width: 110,
             marginRight: 10,
             borderRadius: 13,
-            ...AppTheme.elevation,
           }}
           source={{
-            uri: data.media[0],
-            // uri: `https://source.unsplash.com/random?sig=${1}`,
+            uri: data.media,
           }}
         />
-        <View>
-          <View
+        <View style={{ flex: 1 }}>
+          <Typography.BodyHeavy>{data.name}</Typography.BodyHeavy>
+          <Rating
+            readonly
+            imageSize={15}
+            startingValue={data?.rating}
             style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
+              width: 70,
+              marginVertical: 4,
+              marginRight: 10,
             }}
-          >
-            <Typography.BodyHeavy>{data.name}</Typography.BodyHeavy>
-            {/* <Text>{data.review}</Text> */}
-          </View>
+          />
           <View
             style={{
               marginTop: 7,
@@ -72,4 +74,4 @@ const ListItem: React.FC<ItemProps> = ({ data, onPress }) => {
   )
 }
 
-export default ListItem
+export default memo(ListItem)

@@ -43,4 +43,9 @@ export default {
   next: 'تالي',
   skip: 'تخطى',
   get_started: 'أبدأ',
+  search: 'بحث',
+  km: 'كم',
+  results: 'نتيجة',
+  filters: 'فلتر',
+  view_itinerary: 'انظر مسار',
 }

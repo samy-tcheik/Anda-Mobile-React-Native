@@ -16,15 +16,14 @@ const ExploreSection: React.FC<IExploreSectionProps> = ({
   navigation,
   data,
 }) => {
-  console.log('data', data)
   const { t } = useTranslation()
   const [index, setIndex] = useState(0)
   return (
     <View>
       <View style={{ paddingHorizontal: 15 }}>
-        <Typography.TitleHeavy>
+        <Typography.SubheaderHeavy>
           {t('home:explore_places')}
-        </Typography.TitleHeavy>
+        </Typography.SubheaderHeavy>
         <Tab
           value={index}
           dense
@@ -39,13 +38,8 @@ const ExploreSection: React.FC<IExploreSectionProps> = ({
           ))}
         </Tab>
       </View>
-      <View style={{ height: 360 }}>
-        <TabView
-          disableSwipe
-          value={index}
-          onChange={setIndex}
-          animationType="spring"
-        >
+      <View style={{ height: 330 }}>
+        <TabView disableSwipe value={index} onChange={setIndex}>
           {Object.keys(data).map((attribute) => (
             <TabView.Item key={attribute} style={{ width: '100%' }}>
               <PlacesCarousel

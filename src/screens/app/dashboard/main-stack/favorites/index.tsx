@@ -44,7 +44,12 @@ const FavoriteScreen: React.FC<Props> = ({ navigation }) => {
             renderItem={({ item }) => (
               <ListItem
                 data={item.place}
-                onPress={() => navigation.navigate('place_detail', item.place)}
+                onPress={() =>
+                  navigation.navigate('place_detail', {
+                    screen: 'show_place',
+                    params: item.place,
+                  })
+                }
               />
             )}
           />

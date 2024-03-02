@@ -218,14 +218,7 @@ const styles = StyleSheet.create({
   loginButtonContainer: {
     borderRadius: 50,
     marginVertical: 5,
-    shadowColor: AppTheme.colors.blue_b300,
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-    elevation: 6,
+    ...AppTheme.elevation_light,
   },
 
   socialLoginButton: {
@@ -236,14 +229,6 @@ const styles = StyleSheet.create({
   socialLoginButtonContainer: {
     borderRadius: 50,
     marginVertical: 5,
-
-    shadowColor: AppTheme.colors.neutral_n500,
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-    elevation: 6,
+    ...AppTheme.elevation_light,
   },
 })

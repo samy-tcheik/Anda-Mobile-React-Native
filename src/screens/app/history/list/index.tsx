@@ -45,7 +45,10 @@ const HistoryScreen: React.FC<IHistoryScreenProps> = ({ navigation }) => {
               <ListItem
                 data={item.place}
                 onPress={() =>
-                  navigation.navigate('history_detail', item.place)
+                  navigation.navigate('place_detail', {
+                    screen: 'show_place',
+                    params: item.place,
+                  })
                 }
               />
             )}

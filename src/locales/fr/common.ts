@@ -43,4 +43,9 @@ export default {
   next: 'Suivant',
   skip: 'Passer',
   get_started: 'Commencer',
+  search: 'Recherche',
+  km: 'Km',
+  results: 'Résultats',
+  filters: 'Filtres',
+  view_itinerary: "Voir l'itinéraire",
 }

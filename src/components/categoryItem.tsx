@@ -2,6 +2,7 @@ import { Card } from '@rneui/base'
 import { Image, StyleSheet, View } from 'react-native'
 import Typography from './text'
 import AppTheme from '../styles'
+import { memo } from 'react'
 
 const icons = {
   art_and_culture: require(`../assets/icons/categories/art_and_culture.png`),
@@ -41,7 +42,7 @@ const CategoryItem: React.FC<ICategoryProps> = ({ name, icon, active }) => {
     </Card>
   )
 }
-export default CategoryItem
+export default memo(CategoryItem)
 const styles = StyleSheet.create({
   card: {
     height: 60,
@@ -53,15 +54,8 @@ const styles = StyleSheet.create({
   },
   active: {
     marginTop: 10,
-    borderColor: AppTheme.colors.blue_b50,
+    backgroundColor: AppTheme.colors.blue_b50,
     borderWidth: 2,
-    shadowColor: '#0008ff',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.18,
-    shadowRadius: 4.59,
-    elevation: 5,
+    ...AppTheme.elevation_light,
   },
 })

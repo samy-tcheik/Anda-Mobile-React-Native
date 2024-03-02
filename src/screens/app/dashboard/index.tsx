@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import PlaceDetailScreen from './place_detail'
 import MainStackScreen from './main-stack'
 import ReviewStackScreen from '../shared/review'
+import PlaceDetailStackScreen from './place_detail'
 
 const DashboardStack = createNativeStackNavigator()
 
@@ -14,7 +14,7 @@ const DashboardStackScreen: React.FC = () => {
       />
       <DashboardStack.Screen
         name="place_detail"
-        component={PlaceDetailScreen}
+        component={PlaceDetailStackScreen}
       />
       <DashboardStack.Screen name="review" component={ReviewStackScreen} />
     </DashboardStack.Navigator>

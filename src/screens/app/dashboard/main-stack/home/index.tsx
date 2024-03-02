@@ -6,7 +6,6 @@ import AppLayout from '../../../app-layout'
 import SearchBar from '../../../../../components/searchBar'
 import { useHome } from './queries'
 import Loader from '../../../../../components/loader'
-import { useDebounce } from '../../../../../hooks/useDebounce'
 import { useState } from 'react'
 
 interface IHomeScreenProps extends DrawerScreenProps<any> {}
@@ -16,16 +15,16 @@ const HomeScreen: React.FC<IHomeScreenProps> = ({ navigation }) => {
   const [search, setSearch] = useState<string>('')
   return (
     <AppLayout navigation={navigation}>
-      <SearchBar
-        onChangeText={setSearch}
-        onSubmitEditing={() =>
-          navigation.navigate('discover', { name: search })
-        }
-      />
       {isLoading ? (
         <Loader />
       ) : (
         <ScrollView style={{ flex: 1 }}>
+          <SearchBar
+            onChangeText={setSearch}
+            onSubmitEditing={() =>
+              navigation.navigate('discover', { name: search })
+            }
+          />
           <ExploreSection
             data={data?.explore!}
             navigation={navigation as any}

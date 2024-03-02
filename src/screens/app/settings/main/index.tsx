@@ -32,7 +32,22 @@ const SettingsScreen: React.FC<ISettingsScreenProps> = ({ navigation }) => {
             onPress={() => navigation.navigate('profile')}
             containerStyle={styles.profileItemContainer}
           >
-            <Avatar rounded size={80} source={{ uri: user.data?.avatar }} />
+            <Avatar
+              rounded
+              size={80}
+              title={user.data?.name.charAt(0)}
+              containerStyle={
+                !user.data!.avatar
+                  ? {
+                      backgroundColor: '#3d4db7',
+                      borderRadius: 150,
+                    }
+                  : undefined
+              }
+              source={
+                user.data!.avatar ? { uri: user.data!.avatar } : undefined
+              }
+            />
             <ListItem.Content>
               <ListItem.Title style={{ fontWeight: 'bold' }}>
                 {user.data?.name}

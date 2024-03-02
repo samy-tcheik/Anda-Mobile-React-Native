@@ -83,9 +83,16 @@ const ProfileScreen: React.FC<ISettingsScreenProps> = ({ navigation }) => {
             <Avatar
               size={150}
               rounded
-              source={{
-                uri: data?.avatar,
-              }}
+              title={data?.name.charAt(0)}
+              containerStyle={
+                !data!.avatar
+                  ? {
+                      backgroundColor: '#3d4db7',
+                      borderRadius: 150,
+                    }
+                  : undefined
+              }
+              source={data!.avatar ? { uri: data!.avatar } : undefined}
             >
               <Avatar.Accessory
                 size={40}

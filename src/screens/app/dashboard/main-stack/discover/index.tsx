@@ -19,6 +19,7 @@ import { IFiltersForm } from './filters/useForm'
 import AppTheme from '../../../../../styles'
 import Loader from '../../../../../components/loader'
 import { useDebounce } from '../../../../../hooks/useDebounce'
+import { t } from 'i18next'
 
 interface IDiscoverScreenProps {
   navigation?: NavigationProp<any>
@@ -82,8 +83,8 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({
         }}
       >
         <Typography.CaptionLight>
-          Showin {data?.pages[data.pages?.length - 1].meta.to} of{' '}
-          {data?.pages[0].meta.total} results
+          {data?.pages[data.pages?.length - 1].meta.to} /
+          {data?.pages[0].meta.total} {t('common:results')}
         </Typography.CaptionLight>
         <TouchableOpacity
           onPress={(event) => {
@@ -92,7 +93,9 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({
           }}
           style={{ flexDirection: 'row' }}
         >
-          <Typography.CaptionLight>Filter & sort</Typography.CaptionLight>
+          <Typography.CaptionLight>
+            {t('common:filters')}
+          </Typography.CaptionLight>
           {filtersModal.data?.active ? (
             <Icon
               name="filter-check"
@@ -120,7 +123,12 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({
             renderItem={({ item }) => (
               <ListItem
                 data={item}
-                onPress={() => navigation?.navigate('place_detail', item)}
+                onPress={() =>
+                  navigation?.navigate('place_detail', {
+                    screen: 'show_place',
+                    params: item,
+                  })
+                }
               />
             )}
           />

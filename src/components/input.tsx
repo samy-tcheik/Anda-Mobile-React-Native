@@ -69,14 +69,9 @@ export default Input
 const styles = StyleSheet.create({
   inputContainerStyle: {
     backgroundColor: 'white',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-    elevation: 6,
+    ...AppTheme.elevation_light,
+    borderBottomWidth: 0,
+    borderWidth: 0,
     borderRadius: 50,
     paddingHorizontal: 20,
     paddingVertical: 5,

@@ -7,12 +7,20 @@ import {
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query'
-import { ICategory, IPlace, IRating, ITown, IWilaya, LikeType } from './types'
+import {
+  ICategory,
+  IPlace,
+  IPlaceDetail,
+  ITown,
+  IWilaya,
+  LikeType,
+} from './types'
 import { IFilter } from '../../hooks/useFilters'
 import api from '../../service/api'
 
 export function useWilayas(config?: UseQueryOptions<IWilaya[]>) {
-  return useQuery<IWilaya[]>(['wilayas'], {
+  return useQuery<IWilaya[]>({
+    queryKey: ['wilayas'],
     ...config,
     select(res: any) {
       return res.data
@@ -21,7 +29,8 @@ export function useWilayas(config?: UseQueryOptions<IWilaya[]>) {
 }
 
 export function useTowns(wilayaId: string, config?: UseQueryOptions<ITown[]>) {
-  return useQuery<ITown[]>(['towns', wilayaId], {
+  return useQuery<ITown[]>({
+    queryKey: ['towns', wilayaId],
     ...config,
     select(res: any) {
       return res.data
@@ -30,7 +39,8 @@ export function useTowns(wilayaId: string, config?: UseQueryOptions<ITown[]>) {
 }
 
 export function useCategories(config?: UseQueryOptions<ICategory[]>) {
-  return useQuery<ICategory[]>(['categories'], {
+  return useQuery<ICategory[]>({
+    queryKey: ['categories'],
     ...config,
     select(res: any) {
       return res.data
@@ -80,41 +90,25 @@ export function usePlaces(
       },
     },
   }
-  return useInfiniteQuery<IUsePlacesResponse>(['places', params], config)
-}
-
-export function usePlace(placeId: string, config?: UseQueryOptions<IPlace>) {
-  const queryClient = useQueryClient()
-  return useQuery<IPlace>(['places', placeId], {
+  return useInfiniteQuery<IUsePlacesResponse>({
+    queryKey: ['places', params],
     ...config,
-    select(res: any) {
-      queryClient.invalidateQueries(['history'])
-      return res.data
-    },
   })
 }
 
-export function useUserPlaceRating(
+export function usePlace(
   placeId: string,
-  config?: UseQueryOptions<IRating>
-) {
-  return useQuery<IRating>(['places', placeId, 'rating'], config)
-}
-
-export function useUpdateRating(
-  id: string,
-  config?: UseMutationOptions<unknown, unknown, { rating: number }>
+  config?: UseQueryOptions<IPlaceDetail>
 ) {
   const queryClient = useQueryClient()
-  return useMutation<unknown, unknown, { rating: number }>(
-    (data) => api.post(`places/${id}/rating`, data),
-    {
-      ...config,
-      onSuccess() {
-        queryClient.invalidateQueries(['places'])
-      },
-    }
-  )
+  return useQuery<IPlaceDetail>({
+    queryKey: ['places', placeId],
+    ...config,
+    select(res: any) {
+      queryClient.invalidateQueries({ queryKey: ['history'] })
+      return res.data
+    },
+  })
 }
 
 export function useAddLike(
@@ -122,15 +116,13 @@ export function useAddLike(
   config?: UseMutationOptions<unknown, unknown, string>
 ) {
   const queryClient = useQueryClient()
-  return useMutation<unknown, unknown, string>(
-    (id) => api.post(`likes/${type}/${id}`),
-    {
-      onSuccess() {
-        queryClient.invalidateQueries(['places'])
-        queryClient.invalidateQueries(['reviews'])
-        queryClient.invalidateQueries(['likes'])
-      },
-      ...config,
-    }
-  )
+  return useMutation<unknown, unknown, string>({
+    mutationFn: (id) => api.post(`likes/${type}/${id}`),
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: ['places'] })
+      queryClient.invalidateQueries({ queryKey: ['reviews'] })
+      queryClient.invalidateQueries({ queryKey: ['likes'] })
+    },
+    ...config,
+  })
 }

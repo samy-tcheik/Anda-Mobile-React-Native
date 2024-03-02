@@ -9,6 +9,7 @@ import Button from '../../../../../../components/button'
 import { useCategories, useTowns, useWilayas } from '../../../../queries'
 import AppTheme from '../../../../../../styles'
 import { useEffect, useState } from 'react'
+import { t } from 'i18next'
 
 const formInitializedData = {
   category_id: [],
@@ -51,134 +52,146 @@ const Filters: React.FC<Props> = ({ isOpen, onClose, data: defaultData }) => {
   return (
     <Modal onRequestClose={() => setKey(key + 1)} visible={isOpen}>
       <Card key={key} containerStyle={styles.card}>
-        <View style={styles.head}>
-          <Typography.BodyHeavy>Filters</Typography.BodyHeavy>
-          <Icon
-            size={35}
-            name="close"
-            onPress={() => {
-              onClose({ ...formInitializedData })
-            }}
-          />
-        </View>
-        <View style={styles.container}>
-          {!watch('range') && (
-            <Controller
-              name="wilaya_id"
-              control={control}
-              render={({ field }) => {
-                return (
-                  <View style={{ width: '100%' }}>
-                    <MultiSelect
-                      single
-                      items={wilayas.data!}
-                      selectedItems={[field.value]}
-                      uniqueKey="id"
-                      selectText="Selectionner une wilaya"
-                      searchInputPlaceholderText="Rechercher une wilaya..."
-                      onSelectedItemsChange={(selected) => {
-                        resetField('town_id')
-                        field.onChange(selected[0])
-                      }}
-                      styleListContainer={{
-                        maxHeight: 300,
-                      }}
-                    />
-                  </View>
-                )
+        <View>
+          <View style={styles.head}>
+            <Typography.BodyHeavy>{t('common:filters')}</Typography.BodyHeavy>
+            <Icon
+              size={35}
+              name="close"
+              onPress={() => {
+                onClose({ ...formInitializedData })
               }}
             />
-          )}
+          </View>
+          <View style={styles.container}>
+            <View>
+              {!watch('range') && (
+                <Controller
+                  name="wilaya_id"
+                  control={control}
+                  render={({ field }) => {
+                    return (
+                      <View style={{ width: '100%' }}>
+                        <MultiSelect
+                          single
+                          items={wilayas.data!}
+                          selectedItems={[field.value]}
+                          uniqueKey="id"
+                          selectText="Selectionner une wilaya"
+                          searchInputPlaceholderText="Rechercher une wilaya..."
+                          onSelectedItemsChange={(selected) => {
+                            resetField('town_id')
+                            field.onChange(selected[0])
+                          }}
+                          styleListContainer={{
+                            maxHeight: 300,
+                          }}
+                        />
+                      </View>
+                    )
+                  }}
+                />
+              )}
 
-          {towns.isFetched && !watch('range') ? (
-            <Controller
-              name="town_id"
-              control={control}
-              render={({ field }) => (
-                <View style={{ width: '100%' }}>
-                  <MultiSelect
-                    single
-                    items={towns.data!}
-                    selectedItems={[field.value]}
-                    uniqueKey="id"
-                    selectText="Selectionner une commune"
-                    searchInputPlaceholderText="Rechercher une commune..."
-                    onSelectedItemsChange={(selected) => {
-                      field.onChange(selected[0])
-                    }}
-                    styleListContainer={{
-                      maxHeight: 300,
+              {towns.isFetched && !watch('range') ? (
+                <Controller
+                  name="town_id"
+                  control={control}
+                  render={({ field }) => (
+                    <View style={{ width: '100%' }}>
+                      <MultiSelect
+                        single
+                        items={towns.data!}
+                        selectedItems={[field.value]}
+                        uniqueKey="id"
+                        selectText="Selectionner une commune"
+                        searchInputPlaceholderText="Rechercher une commune..."
+                        onSelectedItemsChange={(selected) => {
+                          field.onChange(selected[0])
+                        }}
+                        styleListContainer={{
+                          maxHeight: 300,
+                        }}
+                      />
+                    </View>
+                  )}
+                />
+              ) : null}
+              {!watch('wilaya_id') && (
+                <View style={[styles.contentView]}>
+                  <Typography.CaptionLight>
+                    Rayon de recherche (km)
+                  </Typography.CaptionLight>
+                  <Controller
+                    name="range"
+                    control={control}
+                    render={({ field }) => {
+                      return (
+                        <Slider
+                          value={field.value}
+                          onValueChange={(range) => {
+                            resetField('wilaya_id')
+                            resetField('town_id')
+                            field.onChange(range)
+                          }}
+                          maximumValue={300}
+                          minimumValue={5}
+                          step={5}
+                          allowTouchTrack
+                          trackStyle={{
+                            height: 5,
+                            backgroundColor: 'transparent',
+                          }}
+                          thumbStyle={{
+                            height: 30,
+                            width: 30,
+                            backgroundColor: 'transparent',
+                          }}
+                          thumbProps={{
+                            children: <Icon name="map-marker" />,
+                          }}
+                        />
+                      )
                     }}
                   />
+                  <Typography.BodyHeavy>{watch('range')}</Typography.BodyHeavy>
                 </View>
               )}
-            />
-          ) : null}
-          {!watch('wilaya_id') && (
-            <View style={[styles.contentView]}>
-              <Typography.CaptionLight>
-                Rayon de recherche (km)
-              </Typography.CaptionLight>
+
               <Controller
-                name="range"
+                name="category_id"
                 control={control}
                 render={({ field }) => {
+                  // react form hook set field value to string if value null
+                  // this behavior caused a type checking problem with Multiselect
+                  const value =
+                    typeof field.value === 'string' ? [] : field.value
                   return (
-                    <Slider
-                      value={field.value}
-                      onValueChange={(range) => {
-                        resetField('wilaya_id')
-                        resetField('town_id')
-                        field.onChange(range)
-                      }}
-                      maximumValue={300}
-                      minimumValue={5}
-                      step={5}
-                      allowTouchTrack
-                      trackStyle={{ height: 5, backgroundColor: 'transparent' }}
-                      thumbStyle={{
-                        height: 30,
-                        width: 30,
-                        backgroundColor: 'transparent',
-                      }}
-                      thumbProps={{
-                        children: <Icon name="map-marker" />,
-                      }}
-                    />
+                    <View style={{ width: '100%' }}>
+                      <MultiSelect
+                        single={false}
+                        items={categories.data!}
+                        selectedItems={value}
+                        uniqueKey="id"
+                        selectText="Selectionner une categorie"
+                        searchInputPlaceholderText="Rechercher une category..."
+                        onSelectedItemsChange={field.onChange}
+                      />
+                    </View>
                   )
                 }}
               />
-              <Typography.BodyHeavy>{watch('range')}</Typography.BodyHeavy>
             </View>
-          )}
-
-          <Controller
-            name="category_id"
-            control={control}
-            render={({ field }) => {
-              // react form hook set field value to string if value null
-              // this behavior caused a type checking problem with Multiselect
-              const value = typeof field.value === 'string' ? [] : field.value
-              return (
-                <View style={{ width: '100%' }}>
-                  <MultiSelect
-                    single={false}
-                    items={categories.data!}
-                    selectedItems={value}
-                    uniqueKey="id"
-                    selectText="Selectionner une categorie"
-                    searchInputPlaceholderText="Rechercher une category..."
-                    onSelectedItemsChange={field.onChange}
-                  />
-                </View>
-              )
-            }}
-          />
-          <View style={{ marginBottom: 15 }}>
-            <Button onPress={handleSubmit(onSubmit as any)}>
-              Appliquer les filtres
-            </Button>
           </View>
+        </View>
+
+        <View style={styles.buttonsContainer}>
+          <Button
+            containerStyle={{ marginBottom: 15 }}
+            onPress={handleSubmit(onSubmit as any)}
+          >
+            Appliquer les filtres
+          </Button>
           <Button
             color={AppTheme.colors.error_default}
             onPress={() => reset(formInitializedData)}
@@ -196,10 +209,12 @@ export default Filters
 const styles = StyleSheet.create({
   card: {
     flex: 1,
-    backgroundColor: 'white',
     paddingHorizontal: 20,
     paddingVertical: 20,
     margin: 0,
+  },
+  buttonsContainer: {
+    marginTop: 30,
   },
   container: {
     // alignItems: 'center',

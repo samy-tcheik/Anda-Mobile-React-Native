@@ -11,23 +11,10 @@ import { Rating } from 'react-native-ratings'
 
 interface Props {
   data: IReview
-  likable?: boolean
+  onLike: (id: string) => void
 }
 
-const ReviewItem: React.FC<Props> = ({ data, likable = false }) => {
-  const addLike = useAddLike(LikeType.REVIEW)
-
-  const handleLikeClick = () => {
-    addLike.mutate(data.id, {
-      onSuccess() {
-        showMessage({
-          message: 'Vous avez liké un commentaire',
-          type: 'success',
-        })
-      },
-    })
-  }
-
+const ReviewItem: React.FC<Props> = ({ data, onLike }) => {
   return (
     <View style={styles.commentContainer}>
       <Divider />
@@ -35,7 +22,22 @@ const ReviewItem: React.FC<Props> = ({ data, likable = false }) => {
         <View style={styles.content}>
           <View style={styles.headerContainer}>
             <View style={styles.authorContainer}>
-              <Avatar size={40} rounded source={{ uri: data.user.avatar }} />
+              <Avatar
+                size={40}
+                rounded
+                title={data.user.name.charAt(0)}
+                containerStyle={
+                  !data.user.avatar
+                    ? {
+                        backgroundColor: '#3d4db7',
+                        borderRadius: 50,
+                      }
+                    : undefined
+                }
+                source={
+                  data.user.avatar ? { uri: data.user.avatar } : undefined
+                }
+              />
               <View style={styles.author}>
                 <Typography.BodyHeavy>{data.user.name}</Typography.BodyHeavy>
                 <Typography.CaptionLight>
@@ -45,7 +47,7 @@ const ReviewItem: React.FC<Props> = ({ data, likable = false }) => {
             </View>
             {/* <Icon name="dots-horizontal" /> */}
             <TouchableOpacity
-              onPress={handleLikeClick}
+              onPress={() => onLike(data.id)}
               style={styles.likeContainer}
             >
               {data.liked ? (
@@ -71,7 +73,7 @@ const ReviewItem: React.FC<Props> = ({ data, likable = false }) => {
               width: 80,
             }}
           />
-          <Text>{data.comment}</Text>
+          <Typography.CaptionLight>{data.comment}</Typography.CaptionLight>
         </View>
       </View>
     </View>
