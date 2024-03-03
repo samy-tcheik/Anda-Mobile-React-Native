@@ -1,11 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useEffect, useState } from 'react'
-import Typography from '../../components/text'
+import Typography from '../../../components/text'
 import { ImageBackground, View } from 'react-native'
 import { NavigationProp } from '@react-navigation/native'
 import AppIntroSlider from 'react-native-app-intro-slider'
 import { useTranslation } from 'react-i18next'
-import AppTheme from '../../styles'
+import AppTheme from '../../../styles'
 
 interface Props {
   navigation: NavigationProp<any>
@@ -14,19 +14,19 @@ interface Props {
 const slides = [
   {
     key: 1,
-    image: require('../../assets/images/desert.jpg'),
+    image: require('../../../assets/images/desert.jpg'),
     title: 'message:intro_slider_1_title',
     text: 'message:intro_slider_1_text',
   },
   {
     key: 2,
-    image: require('../../assets/images/santa-cruz.jpg'),
+    image: require('../../../assets/images/santa-cruz.jpg'),
     title: 'message:intro_slider_2_title',
     text: 'message:intro_slider_2_text',
   },
   {
     key: 3,
-    image: require('../../assets/images/forest.jpg'),
+    image: require('../../../assets/images/forest.jpg'),
     title: 'message:intro_slider_3_title',
     text: 'message:intro_slider_3_text',
   },
@@ -45,7 +45,7 @@ const IntroSlider: React.FC<Props> = ({ navigation }) => {
   }, [])
 
   const navigateToLogin = () => {
-    navigation.navigate('auth-provider')
+    navigation.navigate('Login')
   }
 
   const handleFinish = async () => {

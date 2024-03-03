@@ -13,7 +13,7 @@ import i18n from './src/service/i18n'
 import { getLocales } from 'react-native-localize'
 import { focusManager } from '@tanstack/react-query'
 import { AppState, AppStateStatus } from 'react-native'
-import MainAppStack from './src/screens'
+import AuthProvider from './src/providers/auth'
 
 const App: React.FC = () => {
   //refetch on app focus
@@ -39,7 +39,7 @@ const App: React.FC = () => {
   i18n.on('languageChanged', (lang) => {})
   return (
     <SafeAreaProvider>
-      <MainAppStack />
+      <AuthProvider />
       <FlashMessage position="bottom" />
     </SafeAreaProvider>
   )

@@ -32,21 +32,10 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
   const { t } = useTranslation()
   const { width } = useWindowDimensions()
   const imageView = usePopup()
-  const { data, isLoading, refetch } = usePlace(route.params?.id)
-  const addPlaceLike = useAddLike(LikeType.PLACE, {
-    onSuccess() {
-      //force refetch cause qurey package broken
-      refetch()
-    },
-  })
-  const addReviewLIke = useAddLike(LikeType.REVIEW, {
-    onSuccess() {
-      //force refetch cause qurey package broken
-      refetch()
-    },
-  })
-  //force refetch on screen focus
-  useRefetchOnFocus(refetch)
+  const { data, isLoading } = usePlace(route.params?.id)
+  const addPlaceLike = useAddLike(LikeType.PLACE)
+  const addReviewLIke = useAddLike(LikeType.REVIEW)
+
   const handleLikeClick = () => {
     addPlaceLike.mutate(data?.id!)
   }

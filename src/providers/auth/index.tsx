@@ -7,6 +7,7 @@ import AuthStackScreen from '../../screens/auth'
 import QueryProvider from '../query'
 import { dispatchLoggedInEvent, dispatchLoggedOutEvent } from './utils'
 import { IUser, LoginResponse } from './type'
+import { NavigationContainer } from '@react-navigation/native'
 
 interface AuthContextProps {
   login: (data: LoginResponse) => void
@@ -92,13 +93,15 @@ const AuthProvider: React.FC = () => {
   return (
     <AuthContext.Provider value={{ ...authContext, state: loginState }}>
       <QueryProvider authContext={authContext}>
-        <RootStack.Navigator screenOptions={{ headerShown: false }}>
-          {loginState.bearer ? (
-            <RootStack.Screen name="App" component={AppStackScreen} />
-          ) : (
-            <RootStack.Screen name="Auth" component={AuthStackScreen} />
-          )}
-        </RootStack.Navigator>
+        <NavigationContainer>
+          <RootStack.Navigator screenOptions={{ headerShown: false }}>
+            {loginState.bearer ? (
+              <RootStack.Screen name="App" component={AppStackScreen} />
+            ) : (
+              <RootStack.Screen name="Auth" component={AuthStackScreen} />
+            )}
+          </RootStack.Navigator>
+        </NavigationContainer>
       </QueryProvider>
     </AuthContext.Provider>
   )
