@@ -25,7 +25,7 @@ const ReviewItem: React.FC<Props> = ({ data, onLike }) => {
               <Avatar
                 size={40}
                 rounded
-                title={data.user.name.charAt(0)}
+                title={!data.user.avatar ? data.user.name.charAt(0) : undefined}
                 containerStyle={
                   !data.user.avatar
                     ? {

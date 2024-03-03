@@ -11,29 +11,31 @@ interface Props {
   navigation: NavigationProp<any>
 }
 
+const slides = [
+  {
+    key: 1,
+    image: require('../../assets/images/desert.jpg'),
+    title: 'message:intro_slider_1_title',
+    text: 'message:intro_slider_1_text',
+  },
+  {
+    key: 2,
+    image: require('../../assets/images/santa-cruz.jpg'),
+    title: 'message:intro_slider_2_title',
+    text: 'message:intro_slider_2_text',
+  },
+  {
+    key: 3,
+    image: require('../../assets/images/forest.jpg'),
+    title: 'message:intro_slider_3_title',
+    text: 'message:intro_slider_3_text',
+  },
+]
+
 const IntroSlider: React.FC<Props> = ({ navigation }) => {
   const [isFirstLaunch, setIsFirstLaunch] = useState(true)
   const { t } = useTranslation()
-  const slides = [
-    {
-      key: 1,
-      image: require('../../assets/images/desert.jpg'),
-      title: t('message:intro_slider_1_title'),
-      text: t('message:intro_slider_1_text'),
-    },
-    {
-      key: 2,
-      image: require('../../assets/images/santa-cruz.jpg'),
-      title: t('message:intro_slider_2_title'),
-      text: t('message:intro_slider_2_text'),
-    },
-    {
-      key: 3,
-      image: require('../../assets/images/forest.jpg'),
-      title: t('message:intro_slider_3_title'),
-      text: t('message:intro_slider_3_text'),
-    },
-  ]
+
   const checkFirstLaunch = async () => {
     const hasLaunchedBefore = await AsyncStorage.getItem('hasLaunched')
     setIsFirstLaunch(!hasLaunchedBefore)
@@ -71,10 +73,10 @@ const IntroSlider: React.FC<Props> = ({ navigation }) => {
         }}
       >
         <Typography.DisplayHeavy style={{ color: 'white' }}>
-          {item.title}
+          {t(item.title)}
         </Typography.DisplayHeavy>
         <Typography.BodyLight style={{ color: 'white' }}>
-          {item.text}
+          {t(item.text)}
         </Typography.BodyLight>
       </View>
     </ImageBackground>

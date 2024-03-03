@@ -21,6 +21,7 @@ const HomeScreen: React.FC<IHomeScreenProps> = ({ navigation }) => {
         <ScrollView style={{ flex: 1 }}>
           <SearchBar
             onChangeText={setSearch}
+            value={search}
             onSubmitEditing={() =>
               navigation.navigate('discover', { name: search })
             }

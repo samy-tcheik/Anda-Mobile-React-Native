@@ -35,7 +35,7 @@ const SettingsScreen: React.FC<ISettingsScreenProps> = ({ navigation }) => {
             <Avatar
               rounded
               size={80}
-              title={user.data?.name.charAt(0)}
+              title={!user.data!.avatar ? user.data?.name.charAt(0) : undefined}
               containerStyle={
                 !user.data!.avatar
                   ? {
