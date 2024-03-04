@@ -16,10 +16,11 @@ interface INearbySectionProps {
 
 const NearbySection: React.FC<INearbySectionProps> = ({ navigation, data }) => {
   const { t } = useTranslation()
-  const [categoryIndex, setCategoryIndex] = useState(0)
+  // const [categoryIndex, setCategoryIndex] = useState(0)
+
   return (
     <View style={styles.container}>
-      <>
+      {/* <View>
         <View style={styles.head}>
           <Typography.SubheaderHeavy>
             {t('home:nearby')}
@@ -28,7 +29,7 @@ const NearbySection: React.FC<INearbySectionProps> = ({ navigation, data }) => {
             <Typography.BodyLight
               onPress={() =>
                 navigation.navigate('discover', {
-                  category_id: [data[categoryIndex].id],
+                  // category_id: [data[categoryIndex].id],
                   range: 30,
                 })
               }
@@ -38,7 +39,7 @@ const NearbySection: React.FC<INearbySectionProps> = ({ navigation, data }) => {
             </Typography.BodyLight>
           </TouchableOpacity>
         </View>
-        <Tab
+         <Tab
           disableIndicator={true}
           value={categoryIndex}
           onChange={(e) => setCategoryIndex(e)}
@@ -58,8 +59,8 @@ const NearbySection: React.FC<INearbySectionProps> = ({ navigation, data }) => {
               />
             </Tab.Item>
           ))}
-        </Tab>
-        <View style={{ height: 300 }}>
+        </Tab> 
+         <View style={{ height: 300 }}>
           <TabView
             disableSwipe
             value={categoryIndex}
@@ -72,8 +73,31 @@ const NearbySection: React.FC<INearbySectionProps> = ({ navigation, data }) => {
               </TabView.Item>
             ))}
           </TabView>
+        </View> 
+      </View> */}
+      {data.map((item) => (
+        <View key={item.id} style={styles.sectionContainer}>
+          <View style={styles.head}>
+            <Typography.SubheaderHeavy>{item.name}</Typography.SubheaderHeavy>
+            <TouchableOpacity style={styles.seeMoreContainer}>
+              <Typography.BodyLight
+                onPress={() =>
+                  navigation.navigate('discover', {
+                    category_id: [item.id],
+                    range: 30,
+                  })
+                }
+                style={styles.seeMore}
+              >
+                {t('home:see_more')}
+              </Typography.BodyLight>
+            </TouchableOpacity>
+          </View>
+          <View style={{ height: 300 }}>
+            <PlacesCarousel data={item.places!} navigation={navigation} />
+          </View>
         </View>
-      </>
+      ))}
     </View>
   )
 }
@@ -82,12 +106,12 @@ export default NearbySection
 
 const styles = StyleSheet.create({
   container: { paddingBottom: 100 },
+  sectionContainer: { marginBottom: 20 },
   head: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     marginHorizontal: 20,
-    marginBottom: 20,
   },
   seeMoreContainer: {
     padding: 10,

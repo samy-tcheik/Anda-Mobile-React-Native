@@ -52,6 +52,8 @@ const MainStackScreen: React.FC = () => {
             focused ? <Icon name="cog" /> : <Icon name="cog-outline" />,
         }}
         name="settings"
+        //passign params to handle settings screen goBack button
+        initialParams={{ goback: true }}
         component={SettingsStackScreen}
       />
     </BottomTabs.Navigator>

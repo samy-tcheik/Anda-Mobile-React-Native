@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native'
-import { NavigationProp } from '@react-navigation/native'
+import { NavigationProp, RouteProp } from '@react-navigation/native'
 import { Avatar, Divider, ListItem } from '@rneui/base'
 import { useTransitionProgress } from 'react-native-screens'
 import { useTranslation } from 'react-i18next'
@@ -14,13 +14,21 @@ import Loader from '../../../../components/loader'
 
 interface ISettingsScreenProps {
   navigation: NavigationProp<any>
+  route: RouteProp<any>
 }
 
-const SettingsScreen: React.FC<ISettingsScreenProps> = ({ navigation }) => {
+const SettingsScreen: React.FC<ISettingsScreenProps> = ({
+  navigation,
+  route,
+}) => {
   const { t } = useTranslation()
   const user = useAuthUser()
   return (
-    <AppLayout title={t('common:settings')} navigation={navigation}>
+    <AppLayout
+      backButton={route.params?.goback}
+      title={t('common:settings')}
+      navigation={navigation}
+    >
       {user.isLoading ? (
         <Loader />
       ) : (

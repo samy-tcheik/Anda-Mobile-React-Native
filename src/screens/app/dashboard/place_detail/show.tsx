@@ -19,7 +19,6 @@ import ReadMoreWrapper from '../../../../components/description'
 import { useTranslation } from 'react-i18next'
 import ReviewItem from '../../shared/review/review-item'
 import ReviewsViewer from '../../../../components/reviews-viewer'
-import { useRefetchOnFocus } from '../../../../hooks/useRefetchOnFocus'
 interface IPlaceDetailScreenProps {
   route: RouteProp<any>
   navigation: NavigationProp<any>
