@@ -77,8 +77,10 @@ const Filters: React.FC<Props> = ({ isOpen, onClose, data: defaultData }) => {
                           items={wilayas.data!}
                           selectedItems={[field.value]}
                           uniqueKey="id"
-                          selectText="Selectionner une wilaya"
-                          searchInputPlaceholderText="Rechercher une wilaya..."
+                          selectText={t('common:select_a_wilaya')}
+                          searchInputPlaceholderText={`${t(
+                            'common:search_a_wilaya'
+                          )}...`}
                           onSelectedItemsChange={(selected) => {
                             resetField('town_id')
                             field.onChange(selected[0])
@@ -104,8 +106,10 @@ const Filters: React.FC<Props> = ({ isOpen, onClose, data: defaultData }) => {
                         items={towns.data!}
                         selectedItems={[field.value]}
                         uniqueKey="id"
-                        selectText="Selectionner une commune"
-                        searchInputPlaceholderText="Rechercher une commune..."
+                        selectText={t('common:select_a_town')}
+                        searchInputPlaceholderText={`${t(
+                          'common:search_a_town'
+                        )}...`}
                         onSelectedItemsChange={(selected) => {
                           field.onChange(selected[0])
                         }}
@@ -120,7 +124,7 @@ const Filters: React.FC<Props> = ({ isOpen, onClose, data: defaultData }) => {
               {!watch('wilaya_id') && (
                 <View style={[styles.contentView]}>
                   <Typography.CaptionLight>
-                    Rayon de recherche (km)
+                    {t('common:search_radius')} ({t('common:km')})
                   </Typography.CaptionLight>
                   <Controller
                     name="range"
@@ -173,8 +177,12 @@ const Filters: React.FC<Props> = ({ isOpen, onClose, data: defaultData }) => {
                         items={categories.data!}
                         selectedItems={value}
                         uniqueKey="id"
-                        selectText="Selectionner une categorie"
-                        searchInputPlaceholderText="Rechercher une category..."
+                        submitButtonText={t('common:submit')}
+                        selectedText={t('common:selected')}
+                        selectText={t('common:select_a_category')}
+                        searchInputPlaceholderText={`${t(
+                          'common:search_a_category'
+                        )}...`}
                         onSelectedItemsChange={field.onChange}
                       />
                     </View>
@@ -190,13 +198,13 @@ const Filters: React.FC<Props> = ({ isOpen, onClose, data: defaultData }) => {
             containerStyle={{ marginBottom: 15 }}
             onPress={handleSubmit(onSubmit as any)}
           >
-            Appliquer les filtres
+            {t('common:apply_filters')}
           </Button>
           <Button
             color={AppTheme.colors.error_default}
             onPress={() => reset(formInitializedData)}
           >
-            Renitialiser
+            {t('common:reset')}
           </Button>
         </View>
       </Card>

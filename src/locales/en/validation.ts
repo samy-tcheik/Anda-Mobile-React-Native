@@ -9,4 +9,7 @@ export default {
   password_max_32: 'Password must be at most 32 charachters',
   exactly_4: 'Must be exactly 4 digits',
   only_digits: 'Must be only digits',
+  rating_required: 'The field rating is required',
+  comment_required: 'Rating is required',
+  comment_min_100: 'Comment must be at least 100 charachters',
 }

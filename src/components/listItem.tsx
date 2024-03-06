@@ -6,6 +6,7 @@ import Typography from './text'
 import Icon from './icon'
 import { memo } from 'react'
 import { Rating } from 'react-native-ratings'
+import { useTranslation } from 'react-i18next'
 
 interface ItemProps {
   data: IPlace
@@ -13,6 +14,7 @@ interface ItemProps {
 }
 
 const ListItem: React.FC<ItemProps> = ({ data, onPress }) => {
+  const { t } = useTranslation()
   return (
     <TouchableOpacity activeOpacity={0.9} onPress={onPress}>
       <Card
@@ -64,7 +66,7 @@ const ListItem: React.FC<ItemProps> = ({ data, onPress }) => {
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Icon size={17} name="map-marker-distance" />
               <Typography.CaptionLight>
-                {data.distance} km
+                {data.distance} {t('common:km')}
               </Typography.CaptionLight>
             </View>
           </View>

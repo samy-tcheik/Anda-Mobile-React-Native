@@ -136,7 +136,7 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
                       }}
                     />
                     <Typography.DescriptionLight>
-                      {data?.review_count} Avis
+                      {data?.review_count} {t('common:reviews')}
                     </Typography.DescriptionLight>
                   </View>
                   <View style={styles.placeInfoItem}>

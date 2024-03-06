@@ -8,13 +8,16 @@ import { IReview, LikeType } from '../../types'
 import { showMessage } from 'react-native-flash-message'
 import moment from 'moment'
 import { Rating } from 'react-native-ratings'
-
+import { useTranslation } from 'react-i18next'
+import 'moment/min/locales'
 interface Props {
   data: IReview
   onLike: (id: string) => void
 }
 
 const ReviewItem: React.FC<Props> = ({ data, onLike }) => {
+  const { i18n } = useTranslation()
+  moment.locale(i18n.language)
   return (
     <View style={styles.commentContainer}>
       <Divider />

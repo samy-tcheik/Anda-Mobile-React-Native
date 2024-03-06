@@ -20,12 +20,13 @@ const Drawer = createDrawerNavigator()
 
 const CustomDrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
   const logout = useLogout()
+  const { t } = useTranslation()
   return (
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />
       <DrawerItem
         icon={() => <Icon name="logout" />}
-        label="logout"
+        label={t('common:logout')}
         onPress={logout}
       />
     </DrawerContentScrollView>
