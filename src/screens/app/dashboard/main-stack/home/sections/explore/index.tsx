@@ -18,13 +18,14 @@ const ExploreSection: React.FC<IExploreSectionProps> = ({
 }) => {
   const { t } = useTranslation()
   const [index, setIndex] = useState(0)
+  console.log('explore data', data)
   return (
     <View>
-      <View style={{ paddingHorizontal: 15 }}>
-        <Typography.SubheaderHeavy>
+      {/* <View style={{ paddingHorizontal: 15 }}> */}
+      {/* <Typography.SubheaderHeavy>
           {t('home:explore_places')}
-        </Typography.SubheaderHeavy>
-        <Tab
+        </Typography.SubheaderHeavy> */}
+      {/* <Tab
           value={index}
           dense
           onChange={(e) => setIndex(e)}
@@ -36,10 +37,24 @@ const ExploreSection: React.FC<IExploreSectionProps> = ({
           {Object.keys(data).map((attribute) => (
             <Tab.Item key={attribute} title={t(`home:${attribute}`)} />
           ))}
-        </Tab>
-      </View>
-      <View style={{ height: 330 }}>
-        <TabView disableSwipe value={index} onChange={setIndex}>
+        </Tab> */}
+      {/* </View> */}
+      {Object.keys(data).map((key) => (
+        <View key={key}>
+          <Typography.SubheaderHeavy style={{ marginHorizontal: 20 }}>
+            {t(`home:${key}`)}
+          </Typography.SubheaderHeavy>
+          <View style={{ height: 330 }}>
+            <PlacesCarousel
+              key={key}
+              data={data[key as keyof typeof data]}
+              navigation={navigation}
+            />
+          </View>
+        </View>
+      ))}
+      {/* <View style={{ height: 330 }}>
+         <TabView disableSwipe value={index} onChange={setIndex}>
           {Object.keys(data).map((attribute) => (
             <TabView.Item key={attribute} style={{ width: '100%' }}>
               <PlacesCarousel
@@ -48,8 +63,8 @@ const ExploreSection: React.FC<IExploreSectionProps> = ({
               />
             </TabView.Item>
           ))}
-        </TabView>
-      </View>
+        </TabView> 
+      </View> */}
     </View>
   )
 }
