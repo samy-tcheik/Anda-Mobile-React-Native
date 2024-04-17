@@ -1,4 +1,4 @@
-import { TouchableOpacity, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { IPlace } from '../screens/app/types'
 import { Card, Image } from '@rneui/base'
 import AppTheme from '../styles'
@@ -17,17 +17,7 @@ const ListItem: React.FC<ItemProps> = ({ data, onPress }) => {
   const { t } = useTranslation()
   return (
     <TouchableOpacity activeOpacity={0.9} onPress={onPress}>
-      <Card
-        containerStyle={{
-          ...AppTheme.elevation_light,
-          height: 145,
-          borderRadius: 13,
-        }}
-        wrapperStyle={{
-          width: '100%',
-          flexDirection: 'row',
-        }}
-      >
+      <View style={styles.card}>
         <Image
           containerStyle={{
             aspectRatio: 1,
@@ -71,9 +61,18 @@ const ListItem: React.FC<ItemProps> = ({ data, onPress }) => {
             </View>
           </View>
         </View>
-      </Card>
+      </View>
     </TouchableOpacity>
   )
 }
 
 export default memo(ListItem)
+
+export const styles = StyleSheet.create({
+  card: {
+    flexDirection: 'row',
+    height: 145,
+    borderRadius: 13,
+    padding: 20,
+  },
+})
