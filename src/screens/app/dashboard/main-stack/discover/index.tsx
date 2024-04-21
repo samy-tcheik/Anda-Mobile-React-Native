@@ -20,6 +20,7 @@ import AppTheme from '../../../../../styles'
 import Loader from '../../../../../components/loader'
 import { useDebounce } from '../../../../../hooks/useDebounce'
 import { t } from 'i18next'
+import EmptyList from '../../../../../components/empty-list'
 
 interface IDiscoverScreenProps {
   navigation?: NavigationProp<any>
@@ -114,6 +115,7 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({
           <FlatList
             contentContainerStyle={{
               paddingBottom: 100,
+              flex: 1,
             }}
             refreshControl={
               <RefreshControl refreshing={isRefetching} onRefresh={refetch} />
@@ -131,6 +133,9 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({
                 }
               />
             )}
+            ListEmptyComponent={
+              <EmptyList message={t('message:no_search_result_message')} />
+            }
           />
         </View>
       )}

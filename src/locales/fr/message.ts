@@ -36,4 +36,10 @@ export default {
   intro_slider_3_title: 'Expérience\nNaturel\nBeauté',
   intro_slider_3_text:
     "Plongez dans la splendeur naturelle de l'Algérie. Des falaises escarpées de la côte méditerranéenne aux oasis tranquilles du Sahara, découvrez la beauté à couper le souffle des divers paysages algériens.",
+  no_search_result_message:
+    "Aucune donnée trouvée, vérifiez l'orthographe ou essayez avec d'autres mots.",
+  no_result_message: 'Aucune donnée trouvée.',
+  empty_liked_list_message:
+    'Votre liste de lieux appréciés est actuellement vide.',
+  empty_history_list_message: "Votre liste d'historique est actuellement vide.",
 }

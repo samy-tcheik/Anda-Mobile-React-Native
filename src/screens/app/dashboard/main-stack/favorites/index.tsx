@@ -5,6 +5,8 @@ import { useLikes } from './queries'
 import { RefreshControl } from 'react-native'
 import ListItem from '../../../../../components/listItem'
 import Loader from '../../../../../components/loader'
+import EmptyList from '../../../../../components/empty-list'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   navigation: BottomTabNavigationProp<any>
@@ -19,6 +21,8 @@ const FavoriteScreen: React.FC<Props> = ({ navigation }) => {
         }
       },
     })
+
+  const { t } = useTranslation()
 
   const handleLoadMore = () => {
     console.log('handle load more')
@@ -35,6 +39,7 @@ const FavoriteScreen: React.FC<Props> = ({ navigation }) => {
           <FlatList
             contentContainerStyle={{
               paddingBottom: 100,
+              flex: 1,
             }}
             refreshControl={
               <RefreshControl refreshing={isRefetching} onRefresh={refetch} />
@@ -52,6 +57,9 @@ const FavoriteScreen: React.FC<Props> = ({ navigation }) => {
                 }
               />
             )}
+            ListEmptyComponent={
+              <EmptyList message={t('message:empty_liked_list_message')} />
+            }
           />
         </View>
       )}
