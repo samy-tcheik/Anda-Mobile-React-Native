@@ -59,4 +59,7 @@ export default {
   apply_filters: 'ضع مرشحات',
   selected: 'اختيار',
   submit: 'أرسل',
+  discover: 'اكتشف',
+  favorites: 'المفضلة',
+  detail: 'التفاصيل',
 }

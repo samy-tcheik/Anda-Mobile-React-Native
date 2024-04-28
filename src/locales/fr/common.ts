@@ -59,4 +59,7 @@ export default {
   apply_filters: 'Appliquer les filtres',
   selected: 'Sélectionnés',
   submit: 'Soumettre',
+  discover: 'Découvrir',
+  favorites: 'Favoris',
+  detail: 'Detail',
 }

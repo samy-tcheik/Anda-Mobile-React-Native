@@ -3,6 +3,10 @@ export interface LoginResponse {
   user: IUser
 }
 
+export interface IProfileResponse {
+  user: IUser
+}
+
 export enum AuthDriver {
   FACEBOOK = 'facebook',
   GOOGLE = 'google',

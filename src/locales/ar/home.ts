@@ -6,4 +6,5 @@ export default {
   most_rated: 'الأكثر تقييما',
   nearby: 'الاماكن المجاورة',
   see_more: 'شاهد المزيد',
+  welcome: 'مرحباً',
 }

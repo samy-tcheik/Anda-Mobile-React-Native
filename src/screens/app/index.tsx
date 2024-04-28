@@ -7,14 +7,15 @@ import {
   createDrawerNavigator,
 } from '@react-navigation/drawer'
 import Icon from '../../components/icon'
-import { useLogout } from '../../providers/auth/hooks'
+import { useLogout, useProfile } from '../../providers/auth/hooks'
 import { useTranslation } from 'react-i18next'
 import SettingsStackScreen from './settings'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import i18n from '../../service/i18n'
 import { useQueryClient } from '@tanstack/react-query'
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import HistoryStack from './history'
+import { AuthContext, useAuth } from '../../providers/auth'
 
 const Drawer = createDrawerNavigator()
 
@@ -35,6 +36,11 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
 
 const AppStackScreen: React.FC = () => {
   const queryClient = useQueryClient()
+  const authContext = useContext(AuthContext)
+  const {} = useProfile({
+    //to prevent calls when first login
+    enabled: !authContext?.state.user,
+  })
   useEffect(() => {
     AsyncStorage.setItem('language', i18n.language)
     queryClient.resetQueries()

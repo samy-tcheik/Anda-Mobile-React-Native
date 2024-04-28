@@ -78,6 +78,7 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
         )
       }
       onRightContentClick={handleLikeClick}
+      title={t('common:detail')}
       backButton
       navigation={navigation}
     >

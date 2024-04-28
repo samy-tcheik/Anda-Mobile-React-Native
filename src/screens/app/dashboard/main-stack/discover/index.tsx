@@ -70,7 +70,7 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({
     handleSearch(value)
   }
   return (
-    <AppLayout backButton navigation={navigation}>
+    <AppLayout title={t('common:discover')} backButton navigation={navigation}>
       <SearchBar
         onClear={() => handleSearchChange('')}
         value={search}

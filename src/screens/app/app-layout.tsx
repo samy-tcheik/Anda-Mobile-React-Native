@@ -9,6 +9,8 @@ interface IAppLayoutProps {
   rightContent?: React.ReactNode
   onRightContentClick?: () => void
   title?: string
+  showUser?: boolean
+  showWelcome?: boolean
 }
 const AppLayout: React.FC<IAppLayoutProps> = ({
   navigation,
@@ -17,10 +19,14 @@ const AppLayout: React.FC<IAppLayoutProps> = ({
   title,
   rightContent,
   onRightContentClick,
+  showUser = false,
+  showWelcome = false,
 }) => {
   return (
     <Background>
       <Header
+        showUser={showUser}
+        showWelcome={showWelcome}
         rightContent={rightContent}
         backButton={backButton}
         onLeftClick={backButton ? navigation.goBack : navigation.openDrawer}

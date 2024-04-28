@@ -1,4 +1,9 @@
-import { MutationOptions, useMutation } from '@tanstack/react-query'
+import {
+  MutationOptions,
+  UseQueryOptions,
+  useMutation,
+  useQuery,
+} from '@tanstack/react-query'
 import { useContext } from 'react'
 import { AuthContext } from '.'
 import {
@@ -7,7 +12,7 @@ import {
   ILoginForm,
 } from '../../screens/auth/login/type'
 import api from '../../service/api'
-import { AuthDriver, LoginResponse } from './type'
+import { AuthDriver, IProfileResponse, LoginResponse } from './type'
 import { dispatchLoggedInEvent, dispatchLoggedOutEvent } from './utils'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
 
@@ -53,6 +58,16 @@ export function useGoogleLogin(
     },
     meta: { handleError: false },
     ...config,
+  })
+}
+
+export function useProfile(config?: UseQueryOptions<IProfileResponse>) {
+  const authContext = useContext(AuthContext)
+  return useQuery<IProfileResponse>(['auth', 'profile'], {
+    ...config,
+    onSuccess(response) {
+      authContext?.retrieveUserInfo((response as any).data)
+    },
   })
 }
 

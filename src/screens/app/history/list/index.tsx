@@ -28,7 +28,7 @@ const HistoryScreen: React.FC<IHistoryScreenProps> = ({ navigation }) => {
     }
   }
   return (
-    <AppLayout navigation={navigation}>
+    <AppLayout title={t('common:history')} navigation={navigation}>
       {isLoading ? (
         <Loader />
       ) : (

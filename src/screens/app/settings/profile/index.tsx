@@ -26,7 +26,6 @@ const ProfileScreen: React.FC<ISettingsScreenProps> = ({ navigation }) => {
   const confirmDeleteDialog = usePopup()
   const form = useUserForm(data)
   const {
-    handleSubmit,
     control,
     formState: { errors },
   } = form

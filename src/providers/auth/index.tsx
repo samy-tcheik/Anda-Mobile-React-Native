@@ -6,18 +6,19 @@ import AppStackScreen from '../../screens/app'
 import AuthStackScreen from '../../screens/auth'
 import QueryProvider from '../query'
 import { dispatchLoggedInEvent, dispatchLoggedOutEvent } from './utils'
-import { IUser, LoginResponse } from './type'
+import { IProfileResponse, IUser, LoginResponse } from './type'
 import { NavigationContainer } from '@react-navigation/native'
 
 interface AuthContextProps {
   login: (data: LoginResponse) => void
   logout: () => void
+  retrieveUserInfo: (data: IProfileResponse) => void
   state: AuthState
 }
 
 interface AuthState {
   bearer: string
-  user: IUser
+  user?: IUser
 }
 
 export const AuthContext = createContext<AuthContextProps | undefined>(
@@ -56,6 +57,12 @@ const AuthProvider: React.FC = () => {
           user: action.user,
           isLoading: false,
         }
+      case 'RETRIEVE_USER_INFO':
+        return {
+          ...prevState,
+          user: action.data,
+          isLoading: false,
+        }
     }
   }
 
@@ -86,6 +93,9 @@ const AuthProvider: React.FC = () => {
       logout: () => {
         dispatchLoggedOutEvent()
         dispatch({ type: 'LOGOUT' })
+      },
+      retrieveUserInfo: (data: IProfileResponse) => {
+        dispatch({ type: 'RETRIEVE_USER_INFO', data })
       },
     }),
     []

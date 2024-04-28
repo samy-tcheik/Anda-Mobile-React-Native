@@ -31,7 +31,7 @@ const FavoriteScreen: React.FC<Props> = ({ navigation }) => {
     }
   }
   return (
-    <AppLayout backButton navigation={navigation}>
+    <AppLayout title={t('common:favorites')} backButton navigation={navigation}>
       {isLoading ? (
         <Loader />
       ) : (

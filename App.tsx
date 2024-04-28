@@ -11,7 +11,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import i18n from './src/service/i18n'
 import { getLocales } from 'react-native-localize'
-import { focusManager } from '@tanstack/react-query'
+import { focusManager, useQueryClient } from '@tanstack/react-query'
 import { AppState, AppStateStatus } from 'react-native'
 import AuthProvider from './src/providers/auth'
 
@@ -36,7 +36,6 @@ const App: React.FC = () => {
     setDefaultLanguage()
   }, [])
 
-  i18n.on('languageChanged', (lang) => {})
   return (
     <SafeAreaProvider>
       <AuthProvider />

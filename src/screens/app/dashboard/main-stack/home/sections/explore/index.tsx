@@ -18,7 +18,6 @@ const ExploreSection: React.FC<IExploreSectionProps> = ({
 }) => {
   const { t } = useTranslation()
   const [index, setIndex] = useState(0)
-  console.log('explore data', data)
   return (
     <View>
       {/* <View style={{ paddingHorizontal: 15 }}> */}
