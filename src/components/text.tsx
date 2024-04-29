@@ -59,7 +59,6 @@ const SubheaderHeavy: React.FC<Typography> = ({
   style,
   ...props
 }) => {
-  console.log(style)
   return (
     <BaseText style={{ ...styles.subheaderHeavy, ...style }} {...props}>
       {children}

@@ -1,6 +1,7 @@
-import Carousel from 'react-native-reanimated-carousel'
 import PlaceItem from '../../../../../components/placeItem'
 import { NavigationProp } from '@react-navigation/native'
+import { memo } from 'react'
+import { FlatList } from 'react-native'
 interface IPlacesCarouselProps {
   data: any[]
   navigation: NavigationProp<any>
@@ -10,25 +11,31 @@ const PlacesCarousel: React.FC<IPlacesCarouselProps> = ({
   navigation,
 }) => {
   return (
-    <Carousel
-      width={300}
-      height={380}
-      panGestureHandlerProps={{
-        activeOffsetX: [-10, 10],
-      }}
-      loop={false}
-      style={{ width: '100%' }}
+    <FlatList
       data={data}
-      scrollAnimationDuration={1000}
-      renderItem={({ item, index }) => (
+      showsHorizontalScrollIndicator={false}
+      removeClippedSubviews
+      maxToRenderPerBatch={2}
+      horizontal
+      getItemLayout={(data, index) => ({
+        length: 250,
+        offset: 250 * index,
+        index,
+      })}
+      initialNumToRender={3}
+      renderItem={({ item }) => (
         <PlaceItem
-          key={index}
           data={item}
-          onPress={() => navigation.navigate('place_detail', item)}
+          onPress={() =>
+            navigation?.navigate('place_detail', {
+              screen: 'show_place',
+              params: item,
+            })
+          }
         />
       )}
     />
   )
 }
 
-export default PlacesCarousel
+export default memo(PlacesCarousel)

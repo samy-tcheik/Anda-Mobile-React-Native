@@ -2,9 +2,10 @@ import { FlatList, RefreshControl, Text, View } from 'react-native'
 import { DrawerNavigationProp } from '@react-navigation/drawer'
 import { useHistory } from '../queries'
 import AppLayout from '../../app-layout'
-import Typography from '../../../../components/text'
 import ListItem from '../../../../components/listItem'
 import Loader from '../../../../components/loader'
+import EmptyList from '../../../../components/empty-list'
+import { t } from 'i18next'
 
 interface IHistoryScreenProps {
   navigation: DrawerNavigationProp<any>
@@ -27,7 +28,7 @@ const HistoryScreen: React.FC<IHistoryScreenProps> = ({ navigation }) => {
     }
   }
   return (
-    <AppLayout navigation={navigation}>
+    <AppLayout title={t('common:history')} navigation={navigation}>
       {isLoading ? (
         <Loader />
       ) : (
@@ -35,6 +36,7 @@ const HistoryScreen: React.FC<IHistoryScreenProps> = ({ navigation }) => {
           <FlatList
             contentContainerStyle={{
               paddingBottom: 100,
+              flex: 1,
             }}
             refreshControl={
               <RefreshControl refreshing={isRefetching} onRefresh={refetch} />
@@ -45,10 +47,16 @@ const HistoryScreen: React.FC<IHistoryScreenProps> = ({ navigation }) => {
               <ListItem
                 data={item.place}
                 onPress={() =>
-                  navigation.navigate('history_detail', item.place)
+                  navigation.navigate('place_detail', {
+                    screen: 'show_place',
+                    params: item.place,
+                  })
                 }
               />
             )}
+            ListEmptyComponent={
+              <EmptyList message={t('message:empty_history_list_message')} />
+            }
           />
         </View>
       )}

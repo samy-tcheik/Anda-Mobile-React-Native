@@ -20,7 +20,7 @@ import Loader from '../../../../components/loader'
 
 interface Props {
   route: RouteProp<any>
-  navigation: NavigationProp<any>
+  navigation: any
 }
 
 const CreateReviewScreen: React.FC<Props> = ({ navigation, route }) => {
@@ -47,7 +47,7 @@ const CreateReviewScreen: React.FC<Props> = ({ navigation, route }) => {
 
   const {
     control,
-    formState: { errors },
+    formState: { errors, isDirty },
     handleSubmit,
     reset,
     watch,
@@ -58,13 +58,13 @@ const CreateReviewScreen: React.FC<Props> = ({ navigation, route }) => {
     if (route.params?.reviewed) {
       updateReview.mutate(data, {
         onSuccess() {
-          navigation.navigate('review-success', route.params)
+          navigation.replace('review-success', route.params)
         },
       })
     } else {
       createReview.mutate(data, {
         onSuccess() {
-          navigation.navigate('review-success', route.params)
+          navigation.replace('review-success', route.params)
         },
       })
     }
@@ -77,14 +77,14 @@ const CreateReviewScreen: React.FC<Props> = ({ navigation, route }) => {
       ) : (
         <CustomeScrollView>
           <View style={styles.container}>
-            <Typography.HeadlineHeavy style={{ textAlign: 'center' }}>
+            {/* <Typography.HeadlineHeavy style={{ textAlign: 'center' }}>
               {t('message:create_review_title')}
-            </Typography.HeadlineHeavy>
-            <Typography.CaptionLight style={styles.description}>
+            </Typography.HeadlineHeavy> */}
+            <Typography.TitleHeavy style={styles.description}>
               {t('message:create_review_message')}
-            </Typography.CaptionLight>
+            </Typography.TitleHeavy>
             <View style={styles.formControl}>
-              <Typography.BodyHeavy>
+              <Typography.BodyHeavy style={{ marginTop: 20 }}>
                 {t('message:rating_input_label')}
               </Typography.BodyHeavy>
               <Controller

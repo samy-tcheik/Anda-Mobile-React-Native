@@ -9,8 +9,8 @@ export interface IResetPasswordRequest extends IResetPasswordForm {
 export function useResetPassword(
   config?: UseMutationOptions<unknown, unknown, IResetPasswordRequest>
 ) {
-  return useMutation<unknown, unknown, IResetPasswordRequest>(
-    (data) => api.post('auth/reset-password', data),
-    config
-  )
+  return useMutation<unknown, unknown, IResetPasswordRequest>({
+    mutationFn: (data) => api.post('auth/reset-password', data),
+    ...config,
+  })
 }

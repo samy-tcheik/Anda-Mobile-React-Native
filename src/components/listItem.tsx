@@ -1,9 +1,12 @@
-import { TouchableOpacity, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { IPlace } from '../screens/app/types'
 import { Card, Image } from '@rneui/base'
 import AppTheme from '../styles'
 import Typography from './text'
 import Icon from './icon'
+import { memo } from 'react'
+import { Rating } from 'react-native-ratings'
+import { useTranslation } from 'react-i18next'
 
 interface ItemProps {
   data: IPlace
@@ -11,42 +14,33 @@ interface ItemProps {
 }
 
 const ListItem: React.FC<ItemProps> = ({ data, onPress }) => {
+  const { t } = useTranslation()
   return (
-    <TouchableOpacity onPress={onPress}>
-      <Card
-        containerStyle={{
-          ...AppTheme.elevation,
-          height: 145,
-          borderRadius: 13,
-        }}
-        wrapperStyle={{
-          width: '100%',
-          flexDirection: 'row',
-        }}
-      >
+    <TouchableOpacity activeOpacity={0.9} onPress={onPress}>
+      <View style={styles.card}>
         <Image
           containerStyle={{
             aspectRatio: 1,
             width: 110,
             marginRight: 10,
             borderRadius: 13,
-            ...AppTheme.elevation,
           }}
           source={{
-            uri: data.media[0],
-            // uri: `https://source.unsplash.com/random?sig=${1}`,
+            uri: data.media,
           }}
         />
-        <View>
-          <View
+        <View style={{ flex: 1 }}>
+          <Typography.BodyHeavy>{data.name}</Typography.BodyHeavy>
+          <Rating
+            readonly
+            imageSize={15}
+            startingValue={data?.rating}
             style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
+              width: 70,
+              marginVertical: 4,
+              marginRight: 10,
             }}
-          >
-            <Typography.BodyHeavy>{data.name}</Typography.BodyHeavy>
-            {/* <Text>{data.review}</Text> */}
-          </View>
+          />
           <View
             style={{
               marginTop: 7,
@@ -62,14 +56,23 @@ const ListItem: React.FC<ItemProps> = ({ data, onPress }) => {
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Icon size={17} name="map-marker-distance" />
               <Typography.CaptionLight>
-                {data.distance} km
+                {data.distance} {t('common:km')}
               </Typography.CaptionLight>
             </View>
           </View>
         </View>
-      </Card>
+      </View>
     </TouchableOpacity>
   )
 }
 
-export default ListItem
+export default memo(ListItem)
+
+export const styles = StyleSheet.create({
+  card: {
+    flexDirection: 'row',
+    height: 145,
+    borderRadius: 13,
+    padding: 20,
+  },
+})

@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native'
-import { NavigationProp } from '@react-navigation/native'
+import { NavigationProp, RouteProp } from '@react-navigation/native'
 import { Avatar, Divider, ListItem } from '@rneui/base'
 import { useTransitionProgress } from 'react-native-screens'
 import { useTranslation } from 'react-i18next'
@@ -14,13 +14,21 @@ import Loader from '../../../../components/loader'
 
 interface ISettingsScreenProps {
   navigation: NavigationProp<any>
+  route: RouteProp<any>
 }
 
-const SettingsScreen: React.FC<ISettingsScreenProps> = ({ navigation }) => {
+const SettingsScreen: React.FC<ISettingsScreenProps> = ({
+  navigation,
+  route,
+}) => {
   const { t } = useTranslation()
   const user = useAuthUser()
   return (
-    <AppLayout title={t('common:settings')} navigation={navigation}>
+    <AppLayout
+      backButton={route.params?.goback}
+      title={t('common:settings')}
+      navigation={navigation}
+    >
       {user.isLoading ? (
         <Loader />
       ) : (
@@ -32,7 +40,22 @@ const SettingsScreen: React.FC<ISettingsScreenProps> = ({ navigation }) => {
             onPress={() => navigation.navigate('profile')}
             containerStyle={styles.profileItemContainer}
           >
-            <Avatar rounded size={80} source={{ uri: user.data?.avatar }} />
+            <Avatar
+              rounded
+              size={80}
+              title={!user.data!.avatar ? user.data?.name.charAt(0) : undefined}
+              containerStyle={
+                !user.data!.avatar
+                  ? {
+                      backgroundColor: '#3d4db7',
+                      borderRadius: 150,
+                    }
+                  : undefined
+              }
+              source={
+                user.data!.avatar ? { uri: user.data!.avatar } : undefined
+              }
+            />
             <ListItem.Content>
               <ListItem.Title style={{ fontWeight: 'bold' }}>
                 {user.data?.name}

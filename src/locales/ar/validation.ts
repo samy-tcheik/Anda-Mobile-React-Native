@@ -9,4 +9,7 @@ export default {
   password_max_32: 'يجب أن تتكون كلمة المرور من 32 حرفًا على الأكثر',
   exactly_4: 'يجب أن يكون بالضبط 4 أرقام',
   only_digits: 'يجب أن تكون أرقامًا فقط',
+  rating_required: 'مطلوب إشعار',
+  comment_required: 'مجال التعليقات مطلوب',
+  comment_min_100: 'التعليق لا يقل عن 100 حرف',
 }

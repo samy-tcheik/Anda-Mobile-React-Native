@@ -17,7 +17,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <BaseButton
-      color={AppTheme.colors.blue_b200}
+      color={color}
       buttonStyle={{
         ...styles.button,
       }}

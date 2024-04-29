@@ -27,10 +27,10 @@ export function useReviews(
   modelId: string,
   config?: UseInfiniteQueryOptions<IUseReviewsResponse>
 ) {
-  return useInfiniteQuery<IUseReviewsResponse>(
-    ['reviews', model, modelId],
-    config
-  )
+  return useInfiniteQuery<IUseReviewsResponse>({
+    queryKey: ['reviews', model, modelId],
+    ...config,
+  })
 }
 
 export function useUserReview(
@@ -38,7 +38,8 @@ export function useUserReview(
   modelId: string,
   config?: UseQueryOptions<IReview>
 ) {
-  return useQuery<IReview>(['reviews', 'user', model, modelId], {
+  return useQuery<IReview>({
+    queryKey: ['reviews', 'user', model, modelId],
     ...config,
     select(res: any) {
       return res.data
@@ -52,16 +53,14 @@ export function useCreateUserReview(
   config?: UseMutationOptions<unknown, unknown, IReviewForm>
 ) {
   const queryClient = useQueryClient()
-  return useMutation<unknown, unknown, IReviewForm>(
-    (data) => api.post(`reviews/user/${model}/${modelId}`, data),
-    {
-      ...config,
-      onSuccess() {
-        queryClient.invalidateQueries(['reviews'])
-        queryClient.invalidateQueries(['places', modelId])
-      },
-    }
-  )
+  return useMutation<unknown, unknown, IReviewForm>({
+    mutationFn: (data) => api.post(`reviews/user/${model}/${modelId}`, data),
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: ['places'] })
+      queryClient.invalidateQueries({ queryKey: ['reviews'] })
+    },
+    ...config,
+  })
 }
 
 export function useUpdateUserReview(
@@ -70,14 +69,12 @@ export function useUpdateUserReview(
   config?: UseMutationOptions<unknown, unknown, IReviewForm>
 ) {
   const queryClient = useQueryClient()
-  return useMutation<unknown, unknown, IReviewForm>(
-    (data) => api.put(`reviews/user/${model}/${modelId}`, data),
-    {
-      ...config,
-      onSuccess() {
-        queryClient.invalidateQueries(['reviews'])
-        queryClient.invalidateQueries(['places', modelId])
-      },
-    }
-  )
+  return useMutation<unknown, unknown, IReviewForm>({
+    mutationFn: (data) => api.put(`reviews/user/${model}/${modelId}`, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['places'] })
+      queryClient.invalidateQueries({ queryKey: ['reviews'] })
+    },
+    ...config,
+  })
 }

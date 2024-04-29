@@ -15,24 +15,23 @@ export function useUpdateAvatar(
   config?: UseMutationOptions<any, any, FormData>
 ) {
   const queryClient = useQueryClient()
-  return useMutation<any, any, FormData>(
-    (data) =>
+  return useMutation<any, any, FormData>({
+    mutationFn: (data) =>
       api.post('user/update-avatar', data, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       }),
-    {
-      ...config,
-      onSuccess() {
-        queryClient.invalidateQueries(['user'])
-      },
-    }
-  )
+    ...config,
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: ['user'] })
+    },
+  })
 }
 
 export function useAuthUser(config?: UseQueryOptions<IUser>) {
-  return useQuery<IUser>(['user'], {
+  return useQuery<IUser>({
+    queryKey: ['user'],
     ...config,
     select(data: any) {
       return data.data
@@ -42,7 +41,8 @@ export function useAuthUser(config?: UseQueryOptions<IUser>) {
 
 export function useDeleteUser(config?: UseMutationOptions) {
   const { logout }: any = useContext(AuthContext)
-  return useMutation(() => api.delete('/user'), {
+  return useMutation({
+    mutationFn: () => api.delete('/user'),
     ...config,
     onSuccess() {
       logout()

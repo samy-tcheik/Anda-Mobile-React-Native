@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     marginRight: 15,
-    ...AppTheme.elevation,
+    // ...AppTheme.elevation_light,
   },
   languageButtonContainer: {
     marginVertical: 10,

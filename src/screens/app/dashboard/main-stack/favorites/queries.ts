@@ -14,5 +14,8 @@ interface IUseLikeResponse {
 }
 
 export function useLikes(config?: UseInfiniteQueryOptions<IUseLikeResponse>) {
-  return useInfiniteQuery<IUseLikeResponse>(['likes'], config)
+  return useInfiniteQuery<IUseLikeResponse>({
+    queryKey: ['likes'],
+    ...config,
+  } as any)
 }

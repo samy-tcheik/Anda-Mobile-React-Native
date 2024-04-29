@@ -10,4 +10,7 @@ export default {
   password_max_32: 'Le mot de passe doit contenir au maximum 32 caractères',
   exactly_4: 'Doit contenir exactement 4 chiffres',
   only_digits: 'Il ne doit y avoir que des chiffres',
+  rating_required: 'Un avis est requis',
+  comment_required: 'Le champ commentaire est requis',
+  comment_min_100: 'Le commentaire est contenir au moins 100 caractères',
 }

@@ -16,6 +16,7 @@ import Header from '../../../components/header'
 import LanguageChooser from '../languageChooser'
 import { LoginManager } from 'react-native-fbsdk-next'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
+import CustomeScrollView from '../../../components/custom-scrollview'
 interface Props {
   navigation: NavigationProp<any>
 }
@@ -83,7 +84,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
   }
 
   return (
-    <ScrollView>
+    <CustomeScrollView>
       <Background>
         <Header leftComponent={<></>} rightComponent={<LanguageChooser />} />
         <View style={styles.container}>
@@ -194,7 +195,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
           </View>
         </View>
       </Background>
-    </ScrollView>
+    </CustomeScrollView>
   )
 }
 
@@ -202,14 +203,13 @@ export default LoginScreen
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 50,
+    paddingVertical: 30,
     paddingHorizontal: 20,
   },
   logoContainer: {
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 50,
   },
   loginButton: {
     padding: 15,
@@ -218,14 +218,7 @@ const styles = StyleSheet.create({
   loginButtonContainer: {
     borderRadius: 50,
     marginVertical: 5,
-    shadowColor: AppTheme.colors.blue_b300,
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-    elevation: 6,
+    ...AppTheme.elevation_light,
   },
 
   socialLoginButton: {
@@ -236,14 +229,6 @@ const styles = StyleSheet.create({
   socialLoginButtonContainer: {
     borderRadius: 50,
     marginVertical: 5,
-
-    shadowColor: AppTheme.colors.neutral_n500,
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-    elevation: 6,
+    ...AppTheme.elevation_light,
   },
 })

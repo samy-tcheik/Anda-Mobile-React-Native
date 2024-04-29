@@ -39,6 +39,10 @@ export interface IPlace {
   liked: boolean
   latitude: string
   longitude: string
+  media: string
+}
+
+export interface IPlaceDetail extends Omit<IPlace, 'media'> {
   media: string[]
 }
 

@@ -19,6 +19,8 @@ import { IFiltersForm } from './filters/useForm'
 import AppTheme from '../../../../../styles'
 import Loader from '../../../../../components/loader'
 import { useDebounce } from '../../../../../hooks/useDebounce'
+import { t } from 'i18next'
+import EmptyList from '../../../../../components/empty-list'
 
 interface IDiscoverScreenProps {
   navigation?: NavigationProp<any>
@@ -68,7 +70,7 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({
     handleSearch(value)
   }
   return (
-    <AppLayout backButton navigation={navigation}>
+    <AppLayout title={t('common:discover')} backButton navigation={navigation}>
       <SearchBar
         onClear={() => handleSearchChange('')}
         value={search}
@@ -82,8 +84,8 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({
         }}
       >
         <Typography.CaptionLight>
-          Showin {data?.pages[data.pages?.length - 1].meta.to} of{' '}
-          {data?.pages[0].meta.total} results
+          {data?.pages[data.pages?.length - 1].meta.to} /
+          {data?.pages[0].meta.total} {t('common:results')}
         </Typography.CaptionLight>
         <TouchableOpacity
           onPress={(event) => {
@@ -92,7 +94,9 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({
           }}
           style={{ flexDirection: 'row' }}
         >
-          <Typography.CaptionLight>Filter & sort</Typography.CaptionLight>
+          <Typography.CaptionLight>
+            {t('common:filters')}
+          </Typography.CaptionLight>
           {filtersModal.data?.active ? (
             <Icon
               name="filter-check"
@@ -111,6 +115,7 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({
           <FlatList
             contentContainerStyle={{
               paddingBottom: 100,
+              flex: 1,
             }}
             refreshControl={
               <RefreshControl refreshing={isRefetching} onRefresh={refetch} />
@@ -120,9 +125,17 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({
             renderItem={({ item }) => (
               <ListItem
                 data={item}
-                onPress={() => navigation?.navigate('place_detail', item)}
+                onPress={() =>
+                  navigation?.navigate('place_detail', {
+                    screen: 'show_place',
+                    params: item,
+                  })
+                }
               />
             )}
+            ListEmptyComponent={
+              <EmptyList message={t('message:no_search_result_message')} />
+            }
           />
         </View>
       )}

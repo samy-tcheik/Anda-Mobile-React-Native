@@ -35,4 +35,9 @@ export default {
   intro_slider_3_title: 'Experience\nNatural\nBeauty',
   intro_slider_3_text:
     "Immerse yourself in Algeria's natural splendor. From the rugged cliffs of the Mediterranean coastline to the tranquil oases of the Sahara, experience the breathtaking beauty of Algeria's diverse landscapes.",
+  no_search_result_message:
+    'No data found, check for spelling or try with other words.',
+  no_result_message: 'No data found.',
+  empty_liked_list_message: 'Your liked places list is currently empty.',
+  empty_history_list_message: 'Your history list is currently empty.',
 }

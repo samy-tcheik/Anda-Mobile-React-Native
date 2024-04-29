@@ -6,4 +6,5 @@ export default {
   most_rated: 'Mieux notés',
   nearby: 'Les lieux proche',
   see_more: 'Voir plus',
+  welcome: 'Bienvenue',
 }

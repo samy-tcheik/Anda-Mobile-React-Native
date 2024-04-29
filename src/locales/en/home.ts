@@ -6,4 +6,5 @@ export default {
   most_rated: 'Most rated',
   nearby: 'Nearby',
   see_more: 'See more',
+  welcome: 'Welcome',
 }

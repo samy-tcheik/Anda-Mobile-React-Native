@@ -16,5 +16,8 @@ interface IUseHistoryResponse {
 export function useHistory(
   config?: UseInfiniteQueryOptions<IUseHistoryResponse>
 ) {
-  return useInfiniteQuery<IUseHistoryResponse>(['history'], config)
+  return useInfiniteQuery<IUseHistoryResponse>({
+    queryKey: ['history'],
+    ...config,
+  })
 }

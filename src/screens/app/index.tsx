@@ -7,25 +7,76 @@ import {
   createDrawerNavigator,
 } from '@react-navigation/drawer'
 import Icon from '../../components/icon'
-import { useLogout } from '../../providers/auth/hooks'
+import { useLogout, useProfile } from '../../providers/auth/hooks'
 import { useTranslation } from 'react-i18next'
 import SettingsStackScreen from './settings'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import i18n from '../../service/i18n'
 import { useQueryClient } from '@tanstack/react-query'
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import HistoryStack from './history'
+import { AuthContext, useAuth } from '../../providers/auth'
+import { View } from 'react-native'
+import { Avatar } from '@rneui/base'
+import Typography from '../../components/text'
 
 const Drawer = createDrawerNavigator()
 
 const CustomDrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
   const logout = useLogout()
+  const { t } = useTranslation()
+  const authContext = useContext(AuthContext)
+
   return (
     <DrawerContentScrollView {...props}>
+      <View
+        style={{
+          flexDirection: 'row',
+          paddingHorizontal: 10,
+          alignItems: 'center',
+          width: '100%',
+          height: 100,
+        }}
+      >
+        <Avatar
+          size={70}
+          // onPress={() =>
+          //   (navigation as any).navigate('settings', { screen: 'profile' })
+          // }
+          rounded
+          title={
+            !authContext?.state.user?.avatar
+              ? authContext?.state?.user?.name.charAt(0)
+              : undefined
+          }
+          containerStyle={
+            !authContext?.state.user?.avatar
+              ? {
+                  backgroundColor: '#3d4db7',
+                  borderRadius: 150,
+                  marginRight: 20,
+                }
+              : undefined
+          }
+          source={
+            authContext?.state.user?.avatar
+              ? { uri: authContext.state.user.avatar }
+              : undefined
+          }
+        />
+        <View>
+          <Typography.BodyHeavy>
+            {authContext?.state.user?.name}
+          </Typography.BodyHeavy>
+          <Typography.CaptionLight>
+            {authContext?.state.user?.email}
+          </Typography.CaptionLight>
+        </View>
+      </View>
       <DrawerItemList {...props} />
       <DrawerItem
         icon={() => <Icon name="logout" />}
-        label="logout"
+        label={t('common:logout')}
         onPress={logout}
       />
     </DrawerContentScrollView>
@@ -34,12 +85,17 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
 
 const AppStackScreen: React.FC = () => {
   const queryClient = useQueryClient()
+  const authContext = useContext(AuthContext)
+  const {} = useProfile({
+    //to prevent calls when first login
+    enabled: !authContext?.state.user,
+  })
   useEffect(() => {
     AsyncStorage.setItem('language', i18n.language)
     queryClient.resetQueries()
   }, [i18n.language])
-
   const { t } = useTranslation()
+
   return (
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawerContent {...props} />}

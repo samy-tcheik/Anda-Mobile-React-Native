@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: 2,
   },
-  label: { width: '20%' },
+  label: { width: '25%' },
   progressBarContainer: { display: 'flex', flex: 1 },
   count: { marginLeft: 10 },
 })

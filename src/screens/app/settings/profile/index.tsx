@@ -26,7 +26,6 @@ const ProfileScreen: React.FC<ISettingsScreenProps> = ({ navigation }) => {
   const confirmDeleteDialog = usePopup()
   const form = useUserForm(data)
   const {
-    handleSubmit,
     control,
     formState: { errors },
   } = form
@@ -83,9 +82,16 @@ const ProfileScreen: React.FC<ISettingsScreenProps> = ({ navigation }) => {
             <Avatar
               size={150}
               rounded
-              source={{
-                uri: data?.avatar,
-              }}
+              title={!data?.avatar ? data?.name.charAt(0) : undefined}
+              containerStyle={
+                !data!.avatar
+                  ? {
+                      backgroundColor: '#3d4db7',
+                      borderRadius: 150,
+                    }
+                  : undefined
+              }
+              source={data!.avatar ? { uri: data!.avatar } : undefined}
             >
               <Avatar.Accessory
                 size={40}
