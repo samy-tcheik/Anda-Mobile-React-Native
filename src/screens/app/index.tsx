@@ -16,14 +16,63 @@ import { useQueryClient } from '@tanstack/react-query'
 import { useContext, useEffect } from 'react'
 import HistoryStack from './history'
 import { AuthContext, useAuth } from '../../providers/auth'
+import { View } from 'react-native'
+import { Avatar } from '@rneui/base'
+import Typography from '../../components/text'
 
 const Drawer = createDrawerNavigator()
 
 const CustomDrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
   const logout = useLogout()
   const { t } = useTranslation()
+  const authContext = useContext(AuthContext)
+
   return (
     <DrawerContentScrollView {...props}>
+      <View
+        style={{
+          flexDirection: 'row',
+          paddingHorizontal: 10,
+          alignItems: 'center',
+          width: '100%',
+          height: 100,
+        }}
+      >
+        <Avatar
+          size={70}
+          // onPress={() =>
+          //   (navigation as any).navigate('settings', { screen: 'profile' })
+          // }
+          rounded
+          title={
+            !authContext?.state.user?.avatar
+              ? authContext?.state?.user?.name.charAt(0)
+              : undefined
+          }
+          containerStyle={
+            !authContext?.state.user?.avatar
+              ? {
+                  backgroundColor: '#3d4db7',
+                  borderRadius: 150,
+                  marginRight: 20,
+                }
+              : undefined
+          }
+          source={
+            authContext?.state.user?.avatar
+              ? { uri: authContext.state.user.avatar }
+              : undefined
+          }
+        />
+        <View>
+          <Typography.BodyHeavy>
+            {authContext?.state.user?.name}
+          </Typography.BodyHeavy>
+          <Typography.CaptionLight>
+            {authContext?.state.user?.email}
+          </Typography.CaptionLight>
+        </View>
+      </View>
       <DrawerItemList {...props} />
       <DrawerItem
         icon={() => <Icon name="logout" />}
@@ -45,8 +94,8 @@ const AppStackScreen: React.FC = () => {
     AsyncStorage.setItem('language', i18n.language)
     queryClient.resetQueries()
   }, [i18n.language])
-
   const { t } = useTranslation()
+
   return (
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawerContent {...props} />}
