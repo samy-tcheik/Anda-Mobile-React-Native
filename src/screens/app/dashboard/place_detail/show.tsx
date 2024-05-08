@@ -18,6 +18,7 @@ import ReadMoreWrapper from '../../../../components/description'
 import { useTranslation } from 'react-i18next'
 import ReviewItem from '../../shared/review/review-item'
 import ReviewsViewer from '../../../../components/reviews-viewer'
+import { showLocation } from 'react-native-map-link'
 interface IPlaceDetailScreenProps {
   route: RouteProp<any>
   navigation: NavigationProp<any>
@@ -43,6 +44,12 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
   const openMapOnLocation = () => {
     GetLocation.getCurrentPosition()
       .then(({ latitude, longitude }) => {
+        showLocation({
+          latitude: data?.latitude!,
+          longitude: data?.longitude!,
+          sourceLatitude: latitude, // optionally specify starting location for directions
+          sourceLongitude: longitude,
+        })
         // getDirections({
         //   source: {
         //     latitude: latitude,
