@@ -47,25 +47,9 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
         showLocation({
           latitude: data?.latitude!,
           longitude: data?.longitude!,
-          sourceLatitude: latitude, // optionally specify starting location for directions
+          sourceLatitude: latitude,
           sourceLongitude: longitude,
         })
-        // getDirections({
-        //   source: {
-        //     latitude: latitude,
-        //     longitude: longitude,
-        //   },
-        //   destination: {
-        //     latitude: data?.latitude,
-        //     longitude: data?.longitude,
-        //   },
-        //   params: [
-        //     {
-        //       key: 'dir_action',
-        //       value: 'navigate', // this instantly initializes navigation using the given travel mode
-        //     },
-        //   ],
-        // })
       })
       .catch((error) => console.log('error', error))
     // getDirections({})
