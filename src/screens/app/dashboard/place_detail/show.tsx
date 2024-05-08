@@ -10,7 +10,6 @@ import { useAddLike, usePlace } from '../../queries'
 import { usePopup } from '../../../../hooks/usePopup'
 import { LikeType } from '../../types'
 import Button from '../../../../components/button'
-import getDirections from 'react-native-google-maps-directions'
 import GetLocation from 'react-native-get-location'
 import ImageView from 'react-native-image-viewing'
 import Loader from '../../../../components/loader'
@@ -19,6 +18,7 @@ import ReadMoreWrapper from '../../../../components/description'
 import { useTranslation } from 'react-i18next'
 import ReviewItem from '../../shared/review/review-item'
 import ReviewsViewer from '../../../../components/reviews-viewer'
+import { showLocation } from 'react-native-map-link'
 interface IPlaceDetailScreenProps {
   route: RouteProp<any>
   navigation: NavigationProp<any>
@@ -44,21 +44,11 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
   const openMapOnLocation = () => {
     GetLocation.getCurrentPosition()
       .then(({ latitude, longitude }) => {
-        getDirections({
-          source: {
-            latitude: latitude,
-            longitude: longitude,
-          },
-          destination: {
-            latitude: data?.latitude,
-            longitude: data?.longitude,
-          },
-          params: [
-            {
-              key: 'dir_action',
-              value: 'navigate', // this instantly initializes navigation using the given travel mode
-            },
-          ],
+        showLocation({
+          latitude: data?.latitude!,
+          longitude: data?.longitude!,
+          sourceLatitude: latitude,
+          sourceLongitude: longitude,
         })
       })
       .catch((error) => console.log('error', error))
