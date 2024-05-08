@@ -7,6 +7,7 @@ import { usePopup } from '../../../../hooks/usePopup'
 import AppTheme from '../../../../styles'
 import Typography from '../../../../components/text'
 import Icon from '../../../../components/icon'
+import RNRestart from 'react-native-restart'
 
 type ILanguageState = 'fr' | 'en' | 'ar'
 
@@ -39,6 +40,7 @@ const LanguageItem: React.FC = () => {
   const handlePress = (lang: ILanguageState) => {
     setLanguageState(lang)
     i18n.changeLanguage(lang)
+    RNRestart.restart()
   }
   return (
     <>
