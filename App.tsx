@@ -23,7 +23,6 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const subscription = AppState.addEventListener('change', onAppStateChange)
-
     return () => subscription.remove()
   }, [])
 
