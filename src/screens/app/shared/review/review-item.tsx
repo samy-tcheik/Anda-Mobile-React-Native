@@ -12,11 +12,14 @@ import { useTranslation } from 'react-i18next'
 import 'moment/min/locales'
 interface Props {
   data: IReview
-  onLike: (id: string) => void
 }
 
-const ReviewItem: React.FC<Props> = ({ data, onLike }) => {
+const ReviewItem: React.FC<Props> = ({ data }) => {
   const { i18n } = useTranslation()
+  const addReviewLike = useAddLike(LikeType.REVIEW)
+  const handleReviewLike = () => {
+    addReviewLike.mutate(data.id)
+  }
   moment.locale(i18n.language)
   return (
     <View style={styles.commentContainer}>
@@ -50,7 +53,7 @@ const ReviewItem: React.FC<Props> = ({ data, onLike }) => {
             </View>
             {/* <Icon name="dots-horizontal" /> */}
             <TouchableOpacity
-              onPress={() => onLike(data.id)}
+              onPress={handleReviewLike}
               style={styles.likeContainer}
             >
               {data.liked ? (

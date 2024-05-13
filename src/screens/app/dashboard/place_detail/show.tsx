@@ -33,7 +33,6 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
   const imageView = usePopup()
   const { data, isLoading } = usePlace(route.params?.id)
   const addPlaceLike = useAddLike(LikeType.PLACE)
-  const addReviewLIke = useAddLike(LikeType.REVIEW)
 
   const handleLikeClick = () => {
     addPlaceLike.mutate(data?.id!)
@@ -53,9 +52,6 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
       })
       .catch((error) => console.log('error', error))
     // getDirections({})
-  }
-  const handleReviewLike = (id: string) => {
-    addReviewLIke.mutate(id)
   }
   return (
     <AppLayout
@@ -185,11 +181,7 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
             {data?.review_count! > 0 && (
               <View style={styles.commentsSection}>
                 {data?.reviews.map((review, index) => (
-                  <ReviewItem
-                    onLike={handleReviewLike}
-                    key={index}
-                    data={review}
-                  />
+                  <ReviewItem key={index} data={review} />
                 ))}
                 <Button
                   type="outline"
