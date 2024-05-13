@@ -115,7 +115,6 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({
           <FlatList
             contentContainerStyle={{
               paddingBottom: 100,
-              flex: 1,
             }}
             refreshControl={
               <RefreshControl refreshing={isRefetching} onRefresh={refetch} />
