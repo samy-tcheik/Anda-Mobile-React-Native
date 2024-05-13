@@ -78,8 +78,11 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
       await GoogleSignin.signIn()
       const { accessToken } = await GoogleSignin.getTokens()
       googleLogin.mutate({ token: accessToken })
-    } catch (error) {
-      console.log(error)
+    } catch (error: any) {
+      showMessage({
+        type: 'danger',
+        message: error.message,
+      })
     }
   }
 

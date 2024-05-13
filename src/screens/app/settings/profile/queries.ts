@@ -50,3 +50,18 @@ export function useDeleteUser(config?: UseMutationOptions) {
     },
   })
 }
+
+export function useUpdateUser(
+  config?: UseMutationOptions<unknown, unknown, IUserForm>
+) {
+  const queryClient = useQueryClient()
+  return useMutation<unknown, unknown, IUserForm>(
+    (data) => api.patch('user/update', data),
+    {
+      ...config,
+      onSuccess() {
+        queryClient.invalidateQueries(['user'])
+      },
+    }
+  )
+}

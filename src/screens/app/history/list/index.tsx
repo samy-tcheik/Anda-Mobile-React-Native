@@ -36,7 +36,6 @@ const HistoryScreen: React.FC<IHistoryScreenProps> = ({ navigation }) => {
           <FlatList
             contentContainerStyle={{
               paddingBottom: 100,
-              flex: 1,
             }}
             refreshControl={
               <RefreshControl refreshing={isRefetching} onRefresh={refetch} />

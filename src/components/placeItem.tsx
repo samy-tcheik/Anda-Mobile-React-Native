@@ -7,6 +7,7 @@ import { IPlace } from '../screens/app/types'
 import { Rating } from 'react-native-ratings'
 import { memo } from 'react'
 import Loader from './loader'
+import { useTranslation } from 'react-i18next'
 
 interface IPlaceItemProps extends CardProps {
   data: IPlace
@@ -14,6 +15,7 @@ interface IPlaceItemProps extends CardProps {
 }
 
 const PlaceItem: React.FC<IPlaceItemProps> = ({ data, onPress }) => {
+  const { t } = useTranslation()
   return (
     <TouchableOpacity activeOpacity={0.9} onPress={onPress}>
       <View style={styles.card}>
@@ -67,7 +69,7 @@ const PlaceItem: React.FC<IPlaceItemProps> = ({ data, onPress }) => {
               </Typography.SmallLight>
             </View>
             <Typography.SmallLight style={styles.distance}>
-              {data.distance} km
+              {data.distance} {t('common:km')}
             </Typography.SmallLight>
           </View>
         </View>
