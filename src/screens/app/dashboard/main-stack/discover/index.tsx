@@ -79,14 +79,10 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({
       <View
         style={{
           flexDirection: 'row',
-          justifyContent: 'space-between',
+          justifyContent: 'flex-end',
           padding: 20,
         }}
       >
-        <Typography.CaptionLight>
-          {data?.pages[data.pages?.length - 1].meta.to} /
-          {data?.pages[0].meta.total} {t('common:results')}
-        </Typography.CaptionLight>
         <TouchableOpacity
           onPress={(event) => {
             event.persist()
