@@ -39,8 +39,7 @@ const LanguageItem: React.FC = () => {
   const bottomSheet = usePopup()
   const handlePress = (lang: ILanguageState) => {
     setLanguageState(lang)
-    i18n.changeLanguage(lang)
-    RNRestart.restart()
+    i18n.changeLanguage(lang).then(() => RNRestart.restart())
   }
   return (
     <>
