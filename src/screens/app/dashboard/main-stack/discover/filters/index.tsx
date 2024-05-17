@@ -3,14 +3,16 @@ import { StyleSheet, View } from 'react-native'
 import Typography from '../../../../../../components/text'
 import Icon from '../../../../../../components/icon'
 import { IFiltersForm, useFiltersForm } from './useForm'
-import { Controller, set } from 'react-hook-form'
+import { Controller } from 'react-hook-form'
 import MultiSelect from 'react-native-multiple-select'
 import Button from '../../../../../../components/button'
 import { useCategories, useTowns, useWilayas } from '../../../../queries'
 import AppTheme from '../../../../../../styles'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import { t } from 'i18next'
-import Modal from 'react-native-modal'
+import AppLayout from '../../../../app-layout'
+import { NavigationProp, RouteProp } from '@react-navigation/native'
+import { FiltersContext } from '..'
 
 const formInitializedData = {
   category_id: [],
@@ -21,57 +23,35 @@ const formInitializedData = {
 }
 
 interface Props {
-  open: (data?: IFiltersForm) => void
-  onClose: (data?: IFiltersForm) => void
-  isOpen: boolean
-  data?: IFiltersForm
+  navigation: NavigationProp<any>
+  route: RouteProp<any>
 }
 
-const Filters: React.FC<Props> = ({ isOpen, onClose, data: defaultData }) => {
-  const [key, setKey] = useState(0)
+const FiltersScreen: React.FC<Props> = ({ navigation }) => {
+  const { state, setFilters, resetFilters } = useContext(FiltersContext)
   const wilayas = useWilayas()
-  const {
-    control,
-    watch,
-    handleSubmit,
-    resetField,
-    formState: { isDirty },
-    reset,
-  } = useFiltersForm(formInitializedData)
+  const { control, watch, handleSubmit, resetField, reset } =
+    useFiltersForm(formInitializedData)
   const categories = useCategories()
   const towns = useTowns(watch('wilaya_id')!, {
     enabled: !!watch('wilaya_id'),
   })
   const onSubmit = (data: IFiltersForm) => {
-    onClose({ ...data, active: isDirty })
-  }
-  const handleBackButton = () => {
-    onClose()
+    setFilters(data)
+    navigation.goBack()
   }
   useEffect(() => {
-    if (defaultData) {
-      reset(defaultData)
-    }
-  }, [defaultData])
+    reset(state.filters)
+  }, [state])
+
+  const handleResetFilters = () => {
+    reset(formInitializedData)
+    resetFilters()
+  }
   return (
-    <Modal
-      style={{ margin: 0 }}
-      onBackButtonPress={handleBackButton}
-      onDismiss={() => setKey(key + 1)}
-      isVisible={isOpen}
-    >
-      <Card key={key} containerStyle={styles.card}>
+    <AppLayout title={t('common:filters')} backButton navigation={navigation}>
+      <Card containerStyle={styles.card}>
         <View>
-          <View style={styles.head}>
-            <Typography.BodyHeavy>{t('common:filters')}</Typography.BodyHeavy>
-            <Icon
-              size={35}
-              name="close"
-              onPress={() => {
-                onClose({ ...formInitializedData })
-              }}
-            />
-          </View>
           <View style={styles.container}>
             <View>
               {!watch('range') && (
@@ -211,17 +191,17 @@ const Filters: React.FC<Props> = ({ isOpen, onClose, data: defaultData }) => {
           </Button>
           <Button
             color={AppTheme.colors.error_default}
-            onPress={() => reset(formInitializedData)}
+            onPress={handleResetFilters}
           >
             {t('common:reset')}
           </Button>
         </View>
       </Card>
-    </Modal>
+    </AppLayout>
   )
 }
 
-export default Filters
+export default FiltersScreen
 
 const styles = StyleSheet.create({
   card: {

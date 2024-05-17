@@ -1,4 +1,4 @@
-import { ScrollView, Text, View } from 'react-native'
+import { ScrollView } from 'react-native'
 import { DrawerScreenProps } from '@react-navigation/drawer'
 import ExploreSection from './sections/explore'
 import NearbySection from './sections/nearby'
@@ -23,7 +23,11 @@ const HomeScreen: React.FC<IHomeScreenProps> = ({ navigation }) => {
             onChangeText={setSearch}
             value={search}
             onSubmitEditing={() =>
-              navigation.navigate('discover', { name: search })
+              navigation.navigate('discover', {
+                search: {
+                  name: search,
+                },
+              })
             }
           />
           <ExploreSection
