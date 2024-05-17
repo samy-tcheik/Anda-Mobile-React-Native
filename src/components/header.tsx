@@ -17,12 +17,10 @@ interface IHeaderProps extends HeaderProps {
   showWelcome: boolean
   title?: string
   rightContent?: React.ReactNode
-  showUser: boolean
 }
 
 const Header: React.FC<IHeaderProps> = ({
   notification = false,
-  showUser,
   showWelcome = false,
   title,
   onLeftClick,
@@ -32,7 +30,6 @@ const Header: React.FC<IHeaderProps> = ({
   ...props
 }) => {
   const authContext = useContext(AuthContext)
-  const navigation = useNavigation()
   const { t } = useTranslation()
   return (
     <BaseHeader
@@ -77,34 +74,7 @@ const Header: React.FC<IHeaderProps> = ({
             justifyContent: 'center',
           }}
         >
-          {showUser ? (
-            <Avatar
-              size={40}
-              onPress={() =>
-                (navigation as any).navigate('settings', { screen: 'profile' })
-              }
-              rounded
-              title={
-                !authContext?.state.user?.avatar
-                  ? authContext?.state?.user?.name.charAt(0)
-                  : undefined
-              }
-              containerStyle={
-                !authContext?.state.user?.avatar
-                  ? {
-                      backgroundColor: '#3d4db7',
-                      borderRadius: 150,
-                      marginRight: 10,
-                    }
-                  : undefined
-              }
-              source={
-                authContext?.state.user?.avatar
-                  ? { uri: authContext.state.user.avatar }
-                  : undefined
-              }
-            />
-          ) : notification ? (
+          {notification ? (
             <Button
               onPress={onRightClick}
               color="error"

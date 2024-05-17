@@ -14,7 +14,7 @@ const HomeScreen: React.FC<IHomeScreenProps> = ({ navigation }) => {
   const { data, isLoading } = useHome()
   const [search, setSearch] = useState<string>('')
   return (
-    <AppLayout showWelcome showUser navigation={navigation}>
+    <AppLayout showWelcome navigation={navigation}>
       {isLoading ? (
         <Loader />
       ) : (
