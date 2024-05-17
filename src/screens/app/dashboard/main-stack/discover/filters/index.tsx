@@ -1,5 +1,5 @@
 import { Card, Slider } from '@rneui/base'
-import { Modal, StyleSheet, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import Typography from '../../../../../../components/text'
 import Icon from '../../../../../../components/icon'
 import { IFiltersForm, useFiltersForm } from './useForm'
@@ -10,6 +10,7 @@ import { useCategories, useTowns, useWilayas } from '../../../../queries'
 import AppTheme from '../../../../../../styles'
 import { useEffect, useState } from 'react'
 import { t } from 'i18next'
+import Modal from 'react-native-modal'
 
 const formInitializedData = {
   category_id: [],
@@ -44,13 +45,21 @@ const Filters: React.FC<Props> = ({ isOpen, onClose, data: defaultData }) => {
   const onSubmit = (data: IFiltersForm) => {
     onClose({ ...data, active: isDirty })
   }
+  const handleBackButton = () => {
+    onClose()
+  }
   useEffect(() => {
     if (defaultData) {
       reset(defaultData)
     }
   }, [defaultData])
   return (
-    <Modal onRequestClose={() => setKey(key + 1)} visible={isOpen}>
+    <Modal
+      style={{ margin: 0 }}
+      onBackButtonPress={handleBackButton}
+      onDismiss={() => setKey(key + 1)}
+      isVisible={isOpen}
+    >
       <Card key={key} containerStyle={styles.card}>
         <View>
           <View style={styles.head}>
