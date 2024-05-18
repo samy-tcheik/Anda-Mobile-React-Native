@@ -4,7 +4,7 @@ export default {
   most_viewed: 'الأكثر مشاهدة',
   most_liked: 'الأكثر إعجابا',
   most_rated: 'الأكثر تقييما',
-  nearby: 'الاماكن المجاورة',
+  nearby_places: 'الاماكن المجاورة',
   see_more: 'شاهد المزيد',
   welcome: 'مرحباً',
 }

@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import ProfileScreen from './profile'
 import SettingsScreen from './main'
-import { NavigationProp, RouteProp } from '@react-navigation/native'
+import { RouteProp } from '@react-navigation/native'
 
 interface Props {
   route: RouteProp<any>

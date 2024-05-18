@@ -4,7 +4,7 @@ export default {
   most_viewed: 'Plus vu',
   most_liked: 'plus liké',
   most_rated: 'Mieux notés',
-  nearby: 'Lieux proches',
+  nearby_places: 'Lieux proches',
   see_more: 'Voir plus',
   welcome: 'Bienvenue',
 }

@@ -14,19 +14,55 @@ interface Props {
 const slides = [
   {
     key: 1,
-    image: require('../../../assets/images/santa-cruz.jpg'),
+    image: require('../../../assets/images/coast_1.webp'),
     title: 'message:intro_slider_1_title',
     text: 'message:intro_slider_1_text',
   },
   {
     key: 2,
-    image: require('../../../assets/images/mountains.jpg'),
+    image: require('../../../assets/images/desert_1.webp'),
     title: 'message:intro_slider_2_title',
     text: 'message:intro_slider_2_text',
   },
   {
     key: 3,
-    image: require('../../../assets/images/desert.jpg'),
+    image: require('../../../assets/images/forest_1.webp'),
+    title: 'message:intro_slider_3_title',
+    text: 'message:intro_slider_3_text',
+  },
+  {
+    key: 4,
+    image: require('../../../assets/images/coast_2.webp'),
+    title: 'message:intro_slider_1_title',
+    text: 'message:intro_slider_1_text',
+  },
+  {
+    key: 5,
+    image: require('../../../assets/images/desert_2.webp'),
+    title: 'message:intro_slider_2_title',
+    text: 'message:intro_slider_2_text',
+  },
+  {
+    key: 6,
+    image: require('../../../assets/images/forest_2.webp'),
+    title: 'message:intro_slider_3_title',
+    text: 'message:intro_slider_3_text',
+  },
+  {
+    key: 7,
+    image: require('../../../assets/images/coast_3.webp'),
+    title: 'message:intro_slider_1_title',
+    text: 'message:intro_slider_1_text',
+  },
+  {
+    key: 8,
+    image: require('../../../assets/images/desert_3.webp'),
+    title: 'message:intro_slider_2_title',
+    text: 'message:intro_slider_2_text',
+  },
+  {
+    key: 9,
+    image: require('../../../assets/images/forest_3.webp'),
     title: 'message:intro_slider_3_title',
     text: 'message:intro_slider_3_text',
   },

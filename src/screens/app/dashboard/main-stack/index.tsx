@@ -1,9 +1,9 @@
 import HomeScreen from './home'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import FavoriteScreen from './favorites'
-import DiscoverScreen from './discover'
 import Icon from '../../../../components/icon'
 import SettingsStackScreen from '../../settings'
+import DiscoverStackScreen from './discover'
 
 const BottomTabs = createBottomTabNavigator()
 
@@ -36,7 +36,7 @@ const MainStackScreen: React.FC = () => {
             focused ? <Icon name="compass" /> : <Icon name="compass-outline" />,
         }}
         name="discover"
-        component={DiscoverScreen}
+        component={DiscoverStackScreen}
       />
       <BottomTabs.Screen
         options={{

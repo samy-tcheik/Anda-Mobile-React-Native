@@ -1,7 +1,5 @@
 import { View } from 'react-native'
-import { Tab, TabView } from '@rneui/base'
 import PlacesCarousel from '../../../components/places-carousel'
-import { useState } from 'react'
 import Typography from '../../../../../../../components/text'
 import { NavigationProp } from '@react-navigation/native'
 import { IExploreData } from '../../type'
@@ -17,7 +15,6 @@ const ExploreSection: React.FC<IExploreSectionProps> = ({
   data,
 }) => {
   const { t } = useTranslation()
-  const [index, setIndex] = useState(0)
   return (
     <View>
       {/* <View style={{ paddingHorizontal: 15 }}> */}
@@ -40,9 +37,11 @@ const ExploreSection: React.FC<IExploreSectionProps> = ({
       {/* </View> */}
       {Object.keys(data).map((key) => (
         <View key={key}>
-          <Typography.SubheaderHeavy style={{ marginHorizontal: 20 }}>
-            {t(`home:${key}`)}
-          </Typography.SubheaderHeavy>
+          <View style={{ alignItems: 'flex-start' }}>
+            <Typography.SubheaderHeavy style={{ marginHorizontal: 20 }}>
+              {t(`home:${key}`)}
+            </Typography.SubheaderHeavy>
+          </View>
           <View style={{ height: 330 }}>
             <PlacesCarousel
               key={key}

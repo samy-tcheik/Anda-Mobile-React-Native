@@ -83,8 +83,10 @@ const NearbySection: React.FC<INearbySectionProps> = ({ navigation, data }) => {
               <Typography.BodyLight
                 onPress={() =>
                   navigation.navigate('discover', {
-                    category_id: [item.id],
-                    range: 30,
+                    filters: {
+                      category_id: [item.id],
+                      range: 30,
+                    },
                   })
                 }
                 style={styles.seeMore}

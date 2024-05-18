@@ -9,7 +9,6 @@ interface IAppLayoutProps {
   rightContent?: React.ReactNode
   onRightContentClick?: () => void
   title?: string
-  showUser?: boolean
   showWelcome?: boolean
 }
 const AppLayout: React.FC<IAppLayoutProps> = ({
@@ -19,13 +18,11 @@ const AppLayout: React.FC<IAppLayoutProps> = ({
   title,
   rightContent,
   onRightContentClick,
-  showUser = false,
   showWelcome = false,
 }) => {
   return (
     <Background>
       <Header
-        showUser={showUser}
         showWelcome={showWelcome}
         rightContent={rightContent}
         backButton={backButton}
