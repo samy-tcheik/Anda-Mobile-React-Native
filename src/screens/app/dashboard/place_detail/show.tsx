@@ -25,6 +25,7 @@ import ReviewItem from '../../shared/review/review-item'
 import ReviewsViewer from '../../../../components/reviews-viewer'
 import { showLocation } from 'react-native-map-link'
 import ImageViewer from 'react-native-image-zoom-viewer'
+import { showMessage } from 'react-native-flash-message'
 interface IPlaceDetailScreenProps {
   route: RouteProp<any>
   navigation: NavigationProp<any>
@@ -49,12 +50,19 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
   const openMapOnLocation = () => {
     GetLocation.getCurrentPosition()
       .then(({ latitude, longitude }) => {
-        showLocation({
-          latitude: data?.latitude!,
-          longitude: data?.longitude!,
-          sourceLatitude: latitude,
-          sourceLongitude: longitude,
-        })
+        try {
+          showLocation({
+            latitude: data?.latitude!,
+            longitude: data?.longitude!,
+            sourceLatitude: latitude,
+            sourceLongitude: longitude,
+          })
+        } catch (error: any) {
+          showMessage({
+            type: 'danger',
+            message: error.message,
+          })
+        }
       })
       .catch((error) => console.log('error', error))
     // getDirections({})
