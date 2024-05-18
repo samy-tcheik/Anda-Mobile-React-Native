@@ -34,13 +34,17 @@ api.interceptors.request.use(
   async (config) => {
     const accessToken = await AsyncStorage.getItem('user_token')
     const language = await AsyncStorage.getItem('language')
-    // const position = await GetLocation.getCurrentPosition()
+    const position = await GetLocation.getCurrentPosition()
+    console.log('Position', position)
     config.headers = {
       ...config.headers,
       'Accept-Language': language,
       Authorization: `Bearer ${accessToken}`,
-      'Location-latitude': 36.74529209631143,
-      'Location-longitude': 3.052477133545479,
+      'Location-latitude': position.latitude,
+      'Location-longitude': position.longitude,
+      //for testing
+      // 'Location-latitude': 36.74529209631143,
+      // 'Location-longitude': 3.052477133545479,
     } as any
     return config
   },
