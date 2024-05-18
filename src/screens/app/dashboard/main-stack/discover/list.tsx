@@ -68,7 +68,7 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({
           <Typography.CaptionLight>
             {t('common:filters')}
           </Typography.CaptionLight>
-          {Object.keys(state.filters).length > 0 ? (
+          {state.activeFilters ? (
             <Icon
               name="filter-check"
               color={AppTheme.colors.blue_b400}

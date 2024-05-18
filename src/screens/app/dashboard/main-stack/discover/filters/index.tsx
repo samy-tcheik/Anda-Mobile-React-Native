@@ -13,6 +13,7 @@ import { t } from 'i18next'
 import AppLayout from '../../../../app-layout'
 import { NavigationProp, RouteProp } from '@react-navigation/native'
 import { FiltersContext } from '..'
+import Loader from '../../../../../../components/loader'
 
 const formInitializedData = {
   category_id: [],
@@ -50,153 +51,160 @@ const FiltersScreen: React.FC<Props> = ({ navigation }) => {
   }
   return (
     <AppLayout title={t('common:filters')} backButton navigation={navigation}>
-      <Card containerStyle={styles.card}>
-        <View>
-          <View style={styles.container}>
+      {wilayas.isLoading ? (
+        <Loader />
+      ) : (
+        <View style={styles.container}>
+          <>
             <View>
-              {!watch('range') && (
-                <Controller
-                  name="wilaya_id"
-                  control={control}
-                  render={({ field }) => {
-                    return (
-                      <View style={{ width: '100%' }}>
-                        <MultiSelect
-                          single
-                          items={wilayas.data!}
-                          selectedItems={[field.value]}
-                          uniqueKey="id"
-                          selectText={t('common:select_a_wilaya')}
-                          searchInputPlaceholderText={`${t(
-                            'common:search_a_wilaya'
-                          )}...`}
-                          onSelectedItemsChange={(selected) => {
-                            resetField('town_id')
-                            field.onChange(selected[0])
-                          }}
-                          styleListContainer={{
-                            maxHeight: 300,
-                          }}
-                        />
-                      </View>
-                    )
-                  }}
-                />
-              )}
+              <View style={styles.container}>
+                <View>
+                  {!watch('range') && (
+                    <Controller
+                      name="wilaya_id"
+                      control={control}
+                      render={({ field }) => {
+                        return (
+                          <View style={{ width: '100%' }}>
+                            <MultiSelect
+                              single
+                              items={wilayas.data!}
+                              selectedItems={[field.value]}
+                              uniqueKey="id"
+                              selectText={t('common:select_a_wilaya')}
+                              searchInputPlaceholderText={`${t(
+                                'common:search_a_wilaya'
+                              )}...`}
+                              onSelectedItemsChange={(selected) => {
+                                resetField('town_id')
+                                field.onChange(selected[0])
+                              }}
+                              styleListContainer={{
+                                maxHeight: 300,
+                              }}
+                            />
+                          </View>
+                        )
+                      }}
+                    />
+                  )}
 
-              {towns.isFetched && !watch('range') ? (
-                <Controller
-                  name="town_id"
-                  control={control}
-                  render={({ field }) => (
-                    <View style={{ width: '100%' }}>
-                      <MultiSelect
-                        single
-                        items={towns.data!}
-                        selectedItems={[field.value]}
-                        uniqueKey="id"
-                        selectText={t('common:select_a_town')}
-                        searchInputPlaceholderText={`${t(
-                          'common:search_a_town'
-                        )}...`}
-                        onSelectedItemsChange={(selected) => {
-                          field.onChange(selected[0])
-                        }}
-                        styleListContainer={{
-                          maxHeight: 300,
+                  {towns.isFetched && !watch('range') ? (
+                    <Controller
+                      name="town_id"
+                      control={control}
+                      render={({ field }) => (
+                        <View style={{ width: '100%' }}>
+                          <MultiSelect
+                            single
+                            items={towns.data!}
+                            selectedItems={[field.value]}
+                            uniqueKey="id"
+                            selectText={t('common:select_a_town')}
+                            searchInputPlaceholderText={`${t(
+                              'common:search_a_town'
+                            )}...`}
+                            onSelectedItemsChange={(selected) => {
+                              field.onChange(selected[0])
+                            }}
+                            styleListContainer={{
+                              maxHeight: 300,
+                            }}
+                          />
+                        </View>
+                      )}
+                    />
+                  ) : null}
+                  {!watch('wilaya_id') && (
+                    <View style={[styles.contentView]}>
+                      <Typography.CaptionLight>
+                        {t('common:search_radius')} ({t('common:km')})
+                      </Typography.CaptionLight>
+                      <Controller
+                        name="range"
+                        control={control}
+                        render={({ field }) => {
+                          return (
+                            <Slider
+                              value={field.value}
+                              onValueChange={(range) => {
+                                resetField('wilaya_id')
+                                resetField('town_id')
+                                field.onChange(range)
+                              }}
+                              maximumValue={300}
+                              minimumValue={5}
+                              step={5}
+                              allowTouchTrack
+                              trackStyle={{
+                                height: 5,
+                                backgroundColor: 'transparent',
+                              }}
+                              thumbStyle={{
+                                height: 30,
+                                width: 30,
+                                backgroundColor: 'transparent',
+                              }}
+                              thumbProps={{
+                                children: <Icon name="map-marker" />,
+                              }}
+                            />
+                          )
                         }}
                       />
+                      <Typography.BodyHeavy>
+                        {watch('range')}
+                      </Typography.BodyHeavy>
                     </View>
                   )}
-                />
-              ) : null}
-              {!watch('wilaya_id') && (
-                <View style={[styles.contentView]}>
-                  <Typography.CaptionLight>
-                    {t('common:search_radius')} ({t('common:km')})
-                  </Typography.CaptionLight>
+
                   <Controller
-                    name="range"
+                    name="category_id"
                     control={control}
                     render={({ field }) => {
+                      // react form hook set field value to string if value null
+                      // this behavior caused a type checking problem with Multiselect
+                      const value =
+                        typeof field.value === 'string' ? [] : field.value
                       return (
-                        <Slider
-                          value={field.value}
-                          onValueChange={(range) => {
-                            resetField('wilaya_id')
-                            resetField('town_id')
-                            field.onChange(range)
-                          }}
-                          maximumValue={300}
-                          minimumValue={5}
-                          step={5}
-                          allowTouchTrack
-                          trackStyle={{
-                            height: 5,
-                            backgroundColor: 'transparent',
-                          }}
-                          thumbStyle={{
-                            height: 30,
-                            width: 30,
-                            backgroundColor: 'transparent',
-                          }}
-                          thumbProps={{
-                            children: <Icon name="map-marker" />,
-                          }}
-                        />
+                        <View style={{ width: '100%' }}>
+                          <MultiSelect
+                            single={false}
+                            items={categories.data!}
+                            selectedItems={value}
+                            uniqueKey="id"
+                            submitButtonText={t('common:submit')}
+                            selectedText={t('common:selected')}
+                            selectText={t('common:select_a_category')}
+                            searchInputPlaceholderText={`${t(
+                              'common:search_a_category'
+                            )}...`}
+                            onSelectedItemsChange={field.onChange}
+                          />
+                        </View>
                       )
                     }}
                   />
-                  <Typography.BodyHeavy>{watch('range')}</Typography.BodyHeavy>
                 </View>
-              )}
-
-              <Controller
-                name="category_id"
-                control={control}
-                render={({ field }) => {
-                  // react form hook set field value to string if value null
-                  // this behavior caused a type checking problem with Multiselect
-                  const value =
-                    typeof field.value === 'string' ? [] : field.value
-                  return (
-                    <View style={{ width: '100%' }}>
-                      <MultiSelect
-                        single={false}
-                        items={categories.data!}
-                        selectedItems={value}
-                        uniqueKey="id"
-                        submitButtonText={t('common:submit')}
-                        selectedText={t('common:selected')}
-                        selectText={t('common:select_a_category')}
-                        searchInputPlaceholderText={`${t(
-                          'common:search_a_category'
-                        )}...`}
-                        onSelectedItemsChange={field.onChange}
-                      />
-                    </View>
-                  )
-                }}
-              />
+              </View>
             </View>
-          </View>
+            <View style={styles.buttonsContainer}>
+              <Button
+                containerStyle={{ marginBottom: 15 }}
+                onPress={handleSubmit(onSubmit as any)}
+              >
+                {t('common:apply_filters')}
+              </Button>
+              <Button
+                color={AppTheme.colors.error_default}
+                onPress={handleResetFilters}
+              >
+                {t('common:reset')}
+              </Button>
+            </View>
+          </>
         </View>
-
-        <View style={styles.buttonsContainer}>
-          <Button
-            containerStyle={{ marginBottom: 15 }}
-            onPress={handleSubmit(onSubmit as any)}
-          >
-            {t('common:apply_filters')}
-          </Button>
-          <Button
-            color={AppTheme.colors.error_default}
-            onPress={handleResetFilters}
-          >
-            {t('common:reset')}
-          </Button>
-        </View>
-      </Card>
+      )}
     </AppLayout>
   )
 }
@@ -204,18 +212,13 @@ const FiltersScreen: React.FC<Props> = ({ navigation }) => {
 export default FiltersScreen
 
 const styles = StyleSheet.create({
-  card: {
-    flex: 1,
-    paddingHorizontal: 20,
-    paddingVertical: 20,
+  container: {
+    paddingHorizontal: 10,
+    paddingVertical: 10,
     margin: 0,
   },
   buttonsContainer: {
     marginTop: 30,
-  },
-  container: {
-    // alignItems: 'center',
-    // width: '100%',
   },
   head: { flexDirection: 'row', justifyContent: 'space-between' },
   contentView: {

@@ -35,7 +35,6 @@ api.interceptors.request.use(
     const accessToken = await AsyncStorage.getItem('user_token')
     const language = await AsyncStorage.getItem('language')
     const position = await GetLocation.getCurrentPosition()
-    console.log('Position', position)
     config.headers = {
       ...config.headers,
       'Accept-Language': language,

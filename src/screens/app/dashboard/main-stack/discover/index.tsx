@@ -17,6 +17,7 @@ interface IDiscoverScreenProps {
 
 interface FiltersState {
   filters: object
+  activeFilters: boolean
   search: string
 }
 
@@ -33,6 +34,7 @@ export const FiltersContext = createContext<FiltersContextProps>(
 
 const initialState = {
   filters: {},
+  activeFilters: false,
   search: '',
 }
 
@@ -44,11 +46,13 @@ const DiscoverStackScreen: React.FC<IDiscoverScreenProps> = ({ route }) => {
       case filtersAction.SET_FILTERS:
         return {
           ...prevState,
-          filters: { ...prevState, ...action.filters },
+          activeFilters: !!action.filters,
+          filters: { ...prevState.filters, ...action.filters },
         }
       case filtersAction.RESET_FILTERS:
         return {
           ...prevState,
+          activeFilters: false,
           filters: initialState.filters,
         }
       case filtersAction.SET_SEARCH:
@@ -58,10 +62,11 @@ const DiscoverStackScreen: React.FC<IDiscoverScreenProps> = ({ route }) => {
         }
     }
   }
-
+  console.log('route.params', !!(route?.params as any)?.filters)
   const [state, dispatch] = useReducer(filtersReducer, {
     ...initialState,
     filters: (route?.params as any)?.filters,
+    activeFilters: !!(route?.params as any)?.filters,
     search: (route?.params as any)?.search,
   })
 
@@ -80,7 +85,7 @@ const DiscoverStackScreen: React.FC<IDiscoverScreenProps> = ({ route }) => {
     filtersContext.setFilters((route?.params as any)?.filters)
     filtersContext.setSearch((route?.params as any)?.search)
   }, [route?.params])
-
+  console.log(state)
   return (
     <FiltersContext.Provider value={{ ...filtersContext, state }}>
       <DiscoverStack.Navigator screenOptions={{ headerShown: false }}>
