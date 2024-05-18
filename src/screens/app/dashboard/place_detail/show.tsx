@@ -1,4 +1,10 @@
-import { ScrollView, StyleSheet, View, useWindowDimensions } from 'react-native'
+import {
+  Modal,
+  ScrollView,
+  StyleSheet,
+  View,
+  useWindowDimensions,
+} from 'react-native'
 import AppLayout from '../../app-layout'
 import { NavigationProp, RouteProp } from '@react-navigation/native'
 import Carousel from 'react-native-reanimated-carousel'
@@ -11,7 +17,6 @@ import { usePopup } from '../../../../hooks/usePopup'
 import { LikeType } from '../../types'
 import Button from '../../../../components/button'
 import GetLocation from 'react-native-get-location'
-import ImageView from 'react-native-image-viewing'
 import Loader from '../../../../components/loader'
 import { Rating } from 'react-native-ratings'
 import ReadMoreWrapper from '../../../../components/description'
@@ -19,6 +24,7 @@ import { useTranslation } from 'react-i18next'
 import ReviewItem from '../../shared/review/review-item'
 import ReviewsViewer from '../../../../components/reviews-viewer'
 import { showLocation } from 'react-native-map-link'
+import ImageViewer from 'react-native-image-zoom-viewer'
 interface IPlaceDetailScreenProps {
   route: RouteProp<any>
   navigation: NavigationProp<any>
@@ -193,13 +199,17 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
               </View>
             )}
           </View>
-
-          <ImageView
-            imageIndex={0}
-            images={data?.media.map((item) => ({ uri: item }))!}
+          <Modal
             visible={imageView.isOpen}
             onRequestClose={imageView.onClose}
-          />
+            transparent={true}
+          >
+            <ImageViewer
+              imageUrls={data?.media.map((item) => ({
+                url: item,
+              }))}
+            />
+          </Modal>
         </ScrollView>
       )}
     </AppLayout>
