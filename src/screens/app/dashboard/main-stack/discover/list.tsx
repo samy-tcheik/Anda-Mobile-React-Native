@@ -21,10 +21,7 @@ interface IDiscoverScreenProps {
   route?: RouteProp<{ params: IFiltersForm }>
 }
 
-const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({
-  navigation,
-  route,
-}) => {
+const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({ navigation }) => {
   const { state, setSearch } = useContext(FiltersContext)
   const { data, hasNextPage, fetchNextPage, isRefetching, isLoading, refetch } =
     usePlaces(undefined, state.filters, {

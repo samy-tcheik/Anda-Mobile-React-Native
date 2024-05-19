@@ -6,7 +6,6 @@ export function useHome(config?: UseQueryOptions<IHomeResponse>) {
     queryKey: ['places', 'home'],
     ...config,
     select(res: any) {
-      console.log('========================================Refetchg')
       return res.data
     },
   })

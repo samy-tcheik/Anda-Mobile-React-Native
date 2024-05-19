@@ -1,4 +1,4 @@
-import { Card, Slider } from '@rneui/base'
+import { Slider } from '@rneui/base'
 import { StyleSheet, View } from 'react-native'
 import Typography from '../../../../../../components/text'
 import Icon from '../../../../../../components/icon'

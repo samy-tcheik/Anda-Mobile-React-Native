@@ -33,7 +33,6 @@ const queryClient = (authContext: any) =>
       },
       onError(error: any, __, ___, mutation) {
         const meta = mutation.options.meta
-
         switch (true) {
           case meta?.handleError !== false && error.response.status !== 422:
             showMessage({
@@ -71,7 +70,7 @@ const queryClient = (authContext: any) =>
             .then((res) => res.data)
         },
         retry: (failures, error: any) => {
-          error.response.status === 404 && false
+          error.response?.status === 404 && false
           return failures <= 3
         },
         onError(error: any) {

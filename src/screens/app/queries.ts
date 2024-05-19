@@ -15,7 +15,6 @@ import {
   IWilaya,
   LikeType,
 } from './types'
-import { IFilter } from '../../hooks/useFilters'
 import api from '../../service/api'
 
 export function useWilayas(config?: UseQueryOptions<IWilaya[]>) {
@@ -76,19 +75,12 @@ interface IUsePlacesResponse {
 
 export function usePlaces(
   count?: number,
-  filters?: IFilter,
+  filters?: any,
   config?: UseInfiniteQueryOptions<IUsePlacesResponse>
 ) {
   const params = {
     count: count,
-    filter: {
-      ...filters,
-      range: {
-        range: filters?.range || '',
-        latitude: 36.74529209631143,
-        longitude: 3.052477133545479,
-      },
-    },
+    filter: filters,
   }
   return useInfiniteQuery<IUsePlacesResponse>({
     queryKey: ['places', params],
