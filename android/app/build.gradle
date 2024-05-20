@@ -77,8 +77,8 @@ android {
         applicationId "com.anda.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 10
-        versionName "0.43.2"
+        versionCode 11
+        versionName "0.43.3"
     }
     signingConfigs {
         debug {
