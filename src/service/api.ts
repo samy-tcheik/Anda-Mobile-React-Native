@@ -18,12 +18,15 @@ const api = Axios.create({
 
 api.interceptors.response.use(
   function (response) {
+    // console.log('RESPONSE ==============>', response)
     if (response.config.method?.toLowerCase() !== 'get') {
       return response.data
     }
     return response
   },
   function (error) {
+    // console.log('RESPONSE ERROR ==============>', error)
+
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
     return Promise.reject(error)
@@ -48,6 +51,8 @@ api.interceptors.request.use(
     return config
   },
   function (error) {
+    // console.log('REQUEST ==============>', error)
+
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
     console.log(error)

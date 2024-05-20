@@ -12,10 +12,9 @@ import { useTranslation } from 'react-i18next'
 import SettingsStackScreen from './settings'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import i18n from '../../service/i18n'
-import { useQueryClient } from '@tanstack/react-query'
 import { useContext, useEffect } from 'react'
 import HistoryStack from './history'
-import { AuthContext, useAuth } from '../../providers/auth'
+import { AuthContext } from '../../providers/auth'
 import { View } from 'react-native'
 import { Avatar } from '@rneui/base'
 import Typography from '../../components/text'
@@ -84,7 +83,6 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
 }
 
 const AppStackScreen: React.FC = () => {
-  const queryClient = useQueryClient()
   const authContext = useContext(AuthContext)
   const {} = useProfile({
     //to prevent calls when first login
@@ -92,7 +90,6 @@ const AppStackScreen: React.FC = () => {
   })
   useEffect(() => {
     AsyncStorage.setItem('language', i18n.language)
-    queryClient.resetQueries()
   }, [i18n.language])
   const { t } = useTranslation()
 

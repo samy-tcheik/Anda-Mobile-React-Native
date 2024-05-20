@@ -35,7 +35,7 @@ const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({ navigation }) => {
   //Search logic
   const [searchInput, setSearchInput] = useState(state.search)
   useEffect(() => {
-    setSearch(state.search)
+    setSearchInput(state.search)
   }, [state.search])
   const handleSearch = useDebounce<string>((term) => {
     setSearch(term)
