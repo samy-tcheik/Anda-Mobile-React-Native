@@ -76,11 +76,12 @@ interface IUsePlacesResponse {
 export function usePlaces(
   count?: number,
   filters?: any,
+  search?: string,
   config?: UseInfiniteQueryOptions<IUsePlacesResponse>
 ) {
   const params = {
     count: count,
-    filter: filters,
+    filter: { ...filters, name: search },
   }
   return useInfiniteQuery<IUsePlacesResponse>({
     queryKey: ['places', params],

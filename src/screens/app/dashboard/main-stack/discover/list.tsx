@@ -5,7 +5,7 @@ import AppLayout from '../../../app-layout'
 import SearchBar from '../../../../../components/searchBar'
 import Typography from '../../../../../components/text'
 import Icon from '../../../../../components/icon'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { usePlaces } from '../../../queries'
 import ListItem from '../../../../../components/listItem'
 import { IFiltersForm } from './filters/useForm'
@@ -23,29 +23,39 @@ interface IDiscoverScreenProps {
 
 const DiscoverScreen: React.FC<IDiscoverScreenProps> = ({ navigation }) => {
   const { state, setSearch } = useContext(FiltersContext)
+
   const { data, hasNextPage, fetchNextPage, isRefetching, isLoading, refetch } =
-    usePlaces(undefined, state.filters, {
+    usePlaces(undefined, state.filters, state.search, {
       getNextPageParam: (nextPage) => {
         if (nextPage.meta.current_page !== nextPage.meta.last_page) {
           return nextPage.meta.current_page + 1
         }
       },
     })
+  //Search logic
+  const [searchInput, setSearchInput] = useState(state.search)
+  useEffect(() => {
+    setSearch(state.search)
+  }, [state.search])
+  const handleSearch = useDebounce<string>((term) => {
+    setSearch(term)
+  }, 500)
+  const handleSearchChange = (value: string) => {
+    setSearchInput(value)
+    handleSearch(value)
+  }
+
   const handleLoadMore = () => {
     if (hasNextPage) {
       fetchNextPage()
     }
   }
-  const handleSearch = useDebounce<string>((term) => {}, 500)
-  const handleSearchChange = (value: string) => {
-    setSearch(value)
-    handleSearch(value)
-  }
+
   return (
     <AppLayout title={t('common:discover')} backButton navigation={navigation}>
       <SearchBar
         onClear={() => handleSearchChange('')}
-        value={state.search}
+        value={searchInput}
         onChangeText={handleSearchChange}
       />
       <View

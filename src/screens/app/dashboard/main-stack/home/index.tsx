@@ -22,13 +22,12 @@ const HomeScreen: React.FC<IHomeScreenProps> = ({ navigation }) => {
           <SearchBar
             onChangeText={setSearch}
             value={search}
-            onSubmitEditing={() =>
+            onSubmitEditing={() => {
               navigation.navigate('discover', {
-                search: {
-                  name: search,
-                },
+                search: search,
               })
-            }
+            }}
+            onClear={() => setSearch('')}
           />
           <ExploreSection
             data={data?.explore!}
