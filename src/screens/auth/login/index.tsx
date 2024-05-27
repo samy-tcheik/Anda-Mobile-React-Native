@@ -6,7 +6,7 @@ import { useLoginForm } from './use-form'
 import Typography from '../../../components/text'
 import Input from '../../../components/input'
 import Icon from '../../../components/icon'
-import { Button, Image } from '@rneui/base'
+import { Image, Button as BaseButton } from '@rneui/base'
 import { StyleSheet, View } from 'react-native'
 import AppTheme from '../../../styles'
 import { NavigationProp } from '@react-navigation/native'
@@ -14,9 +14,10 @@ import { showMessage } from 'react-native-flash-message'
 import { useTranslation } from 'react-i18next'
 import Header from '../../../components/header'
 import LanguageChooser from '../languageChooser'
-import { LoginManager } from 'react-native-fbsdk-next'
+// import { LoginManager } from 'react-native-fbsdk-next'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
 import CustomeScrollView from '../../../components/custom-scrollview'
+import Button from '../../../components/button'
 interface Props {
   navigation: NavigationProp<any>
 }
@@ -48,29 +49,29 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
     })
   }
 
-  const onFacebookLogin = () => {
-    LoginManager.logInWithPermissions(['public_profile', 'email']).then(
-      (result) => {
-        if (result.isCancelled) {
-          console.log('login canceled')
-        } else {
-          console.log(result.grantedPermissions?.toString())
-        }
-      }
-    )
-    // facebookLogin.mutate(data, {
-    //   onError(error) {
-    //     console.log('error', error)
-    //     showMessage({
-    //       message: error.response.data.message,
-    //       type: 'danger',
-    //       icon: (props: any) => (
-    //         <Icon name="alert-circle" color="white" size={20} {...props} />
-    //       ),
-    //     } as any)
-    //   },
-    // })
-  }
+  // const onFacebookLogin = () => {
+  //   LoginManager.logInWithPermissions(['public_profile', 'email']).then(
+  //     (result) => {
+  //       if (result.isCancelled) {
+  //         console.log('login canceled')
+  //       } else {
+  //         console.log(result.grantedPermissions?.toString())
+  //       }
+  //     }
+  //   )
+  //   facebookLogin.mutate(data, {
+  //     onError(error) {
+  //       console.log('error', error)
+  //       showMessage({
+  //         message: error.response.data.message,
+  //         type: 'danger',
+  //         icon: (props: any) => (
+  //           <Icon name="alert-circle" color="white" size={20} {...props} />
+  //         ),
+  //       } as any)
+  //     },
+  //   })
+  // }
 
   const onGoogleSignin = async () => {
     try {
@@ -94,8 +95,8 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
           <View style={styles.logoContainer}>
             <Image
               resizeMode="contain"
-              source={require('../../../assets/logo.jpg')}
-              style={{ height: 150, width: 150 }}
+              source={require('../../../assets/logo.png')}
+              style={{ height: 250, width: 250 }}
             />
           </View>
           <Input
@@ -125,20 +126,19 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
           <View style={{ alignItems: 'center', marginBottom: 30 }}>
             <Typography.BodyLight
               onPress={() => navigation.navigate('forget-password-stack')}
-              style={{ color: AppTheme.colors.blue_b300 }}
+              style={{ color: AppTheme.colors.primary }}
             >
               {t('common:forgot_password')}
             </Typography.BodyLight>
           </View>
           <Button
             containerStyle={styles.loginButtonContainer}
-            buttonStyle={styles.loginButton}
             loading={isLoading}
             onPress={handleSubmit(onSubmit)}
           >
             {t('common:login')}
           </Button>
-          <Button
+          <BaseButton
             containerStyle={styles.socialLoginButtonContainer}
             buttonStyle={styles.socialLoginButton}
             titleStyle={{ color: AppTheme.colors.neutral_n300 }}
@@ -157,8 +157,8 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
             onPress={onGoogleSignin}
           >
             {t('common:continue_with_google')}
-          </Button>
-          <Button
+          </BaseButton>
+          {/* <Button
             containerStyle={styles.socialLoginButtonContainer}
             buttonStyle={styles.socialLoginButton}
             titleStyle={{ color: AppTheme.colors.neutral_n300 }}
@@ -177,7 +177,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
             onPress={onFacebookLogin}
           >
             {t('common:continue_with_facebook')}
-          </Button>
+          </Button> */}
 
           <View
             style={{
@@ -191,7 +191,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
             </Typography.CaptionLight>
             <Typography.CaptionLight
               onPress={() => navigation.navigate('register')}
-              style={{ color: AppTheme.colors.blue_b300 }}
+              style={{ color: AppTheme.colors.primary }}
             >
               {t('common:register')}
             </Typography.CaptionLight>
@@ -206,7 +206,6 @@ export default LoginScreen
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 30,
     paddingHorizontal: 20,
   },
   logoContainer: {
@@ -214,14 +213,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  loginButton: {
-    padding: 15,
-    backgroundColor: AppTheme.colors.blue_b200,
-  },
   loginButtonContainer: {
-    borderRadius: 50,
     marginVertical: 5,
-    ...AppTheme.elevation_light,
   },
 
   socialLoginButton: {

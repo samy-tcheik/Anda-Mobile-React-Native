@@ -47,7 +47,7 @@ const SettingsScreen: React.FC<ISettingsScreenProps> = ({
               containerStyle={
                 !user.data!.avatar
                   ? {
-                      backgroundColor: '#3d4db7',
+                      backgroundColor: AppTheme.colors.primary_light,
                       borderRadius: 150,
                     }
                   : undefined

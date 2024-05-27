@@ -11,7 +11,7 @@ interface ButtonProps extends BaseButtonProps {
 
 const Button: React.FC<ButtonProps> = ({
   children,
-  color = AppTheme.colors.blue_b200,
+  color = AppTheme.colors.primary,
   containerStyle,
   ...props
 }) => {

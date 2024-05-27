@@ -1,7 +1,7 @@
-import { ActivityIndicator, View } from 'react-native'
+import { ActivityIndicator, ActivityIndicatorProps, View } from 'react-native'
 import AppTheme from '../styles'
 
-const Loader: React.FC = () => {
+const Loader: React.FC<ActivityIndicatorProps> = ({ size = 50 }) => {
   return (
     <View
       style={{
@@ -9,7 +9,7 @@ const Loader: React.FC = () => {
         justifyContent: 'center',
       }}
     >
-      <ActivityIndicator color={AppTheme.colors.blue_b400} size={50} />
+      <ActivityIndicator color={AppTheme.colors.primary} size={size} />
     </View>
   )
 }

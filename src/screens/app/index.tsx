@@ -18,6 +18,7 @@ import { AuthContext } from '../../providers/auth'
 import { View } from 'react-native'
 import { Avatar } from '@rneui/base'
 import Typography from '../../components/text'
+import AppTheme from '../../styles'
 
 const Drawer = createDrawerNavigator()
 
@@ -51,7 +52,7 @@ const CustomDrawerContent: React.FC<DrawerContentComponentProps> = (props) => {
           containerStyle={
             !authContext?.state.user?.avatar
               ? {
-                  backgroundColor: '#3d4db7',
+                  backgroundColor: AppTheme.colors.primary_light,
                   borderRadius: 150,
                   marginRight: 20,
                 }

@@ -62,4 +62,5 @@ export default {
   discover: 'اكتشف',
   favorites: 'المفضلة',
   detail: 'التفاصيل',
+  delete: 'حذف',
 }

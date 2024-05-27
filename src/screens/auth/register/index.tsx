@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet, View } from 'react-native'
 import Background from '../../../components/background'
-import { Button, Image } from '@rneui/base'
+import { Image } from '@rneui/base'
 import Header from '../../../components/header'
 import { NavigationProp } from '@react-navigation/native'
 import Input from '../../../components/input'
@@ -13,6 +13,7 @@ import { showMessage } from 'react-native-flash-message'
 import { useTranslation } from 'react-i18next'
 import LanguageChooser from '../languageChooser'
 import i18n from '../../../service/i18n'
+import Button from '../../../components/button'
 
 interface Props {
   navigation: NavigationProp<any>
@@ -29,7 +30,7 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
   const { mutate, isLoading } = useRegister()
   const onSubmit = (data: IRegisterForm) => {
     mutate(
-      { ...data, language: i18n.language },
+      { ...data },
       {
         onError(error: any) {
           showMessage({
@@ -61,8 +62,8 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
           <View style={styles.logoContainer}>
             <Image
               resizeMode="contain"
-              source={require('../../../assets/logo.jpg')}
-              style={{ height: 150, width: 150 }}
+              source={require('../../../assets/logo.png')}
+              style={{ height: 250, width: 250 }}
             />
           </View>
           <Input
@@ -108,12 +109,7 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
             secureTextEntry
           />
 
-          <Button
-            containerStyle={styles.loginButtonContainer}
-            buttonStyle={styles.loginButton}
-            loading={isLoading}
-            onPress={handleSubmit(onSubmit)}
-          >
+          <Button loading={isLoading} onPress={handleSubmit(onSubmit)}>
             {t('common:register')}
           </Button>
         </View>
@@ -132,22 +128,5 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 50,
-  },
-  loginButton: {
-    padding: 15,
-    backgroundColor: AppTheme.colors.blue_b200,
-  },
-  loginButtonContainer: {
-    borderRadius: 50,
-
-    shadowColor: AppTheme.colors.blue_b300,
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-    elevation: 6,
   },
 })

@@ -82,10 +82,10 @@ const DiscoverStackScreen: React.FC<IDiscoverScreenProps> = ({ route }) => {
   )
 
   useEffect(() => {
+    filtersContext.resetFilters()
     filtersContext.setFilters((route?.params as any)?.filters)
     filtersContext.setSearch((route?.params as any)?.search)
   }, [route?.params])
-  console.log(state)
   return (
     <FiltersContext.Provider value={{ ...filtersContext, state }}>
       <DiscoverStack.Navigator screenOptions={{ headerShown: false }}>

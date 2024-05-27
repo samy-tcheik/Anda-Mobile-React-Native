@@ -8,6 +8,7 @@ import QueryProvider from '../query'
 import { dispatchLoggedInEvent, dispatchLoggedOutEvent } from './utils'
 import { IProfileResponse, IUser, LoginResponse } from './type'
 import { NavigationContainer } from '@react-navigation/native'
+import SplashScreen from 'react-native-splash-screen'
 
 interface AuthContextProps {
   login: (data: LoginResponse) => void
@@ -100,6 +101,10 @@ const AuthProvider: React.FC = () => {
     }),
     []
   )
+
+  useEffect(() => {
+    SplashScreen.hide()
+  }, [])
   return (
     <AuthContext.Provider value={{ ...authContext, state: loginState }}>
       <QueryProvider authContext={authContext}>

@@ -78,3 +78,17 @@ export function useUpdateUserReview(
     ...config,
   })
 }
+
+export function useDeleteReview(
+  config?: UseMutationOptions<unknown, unknown, string>
+) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (id) => api.delete(`reviews/user/${id}`),
+    ...config,
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: ['places'] })
+      queryClient.invalidateQueries({ queryKey: ['reviews'] })
+    },
+  })
+}
