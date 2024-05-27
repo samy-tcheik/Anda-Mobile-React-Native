@@ -51,6 +51,7 @@ export interface IReview {
   rating: number
   comment: string
   user: IUser
+  owner: boolean
   created_at: string
   likes_count: string
   liked: boolean

@@ -97,7 +97,7 @@ const ProfileScreen: React.FC<ISettingsScreenProps> = ({ navigation }) => {
                 containerStyle={
                   !data!.avatar
                     ? {
-                        backgroundColor: '#3d4db7',
+                        backgroundColor: AppTheme.colors.primary_light,
                         borderRadius: 150,
                       }
                     : undefined
@@ -128,6 +128,10 @@ const ProfileScreen: React.FC<ISettingsScreenProps> = ({ navigation }) => {
             />
             <View style={styles.buttonContainer}>
               <Button
+                buttonStyle={{
+                  backgroundColor: AppTheme.colors.primary,
+                  padding: 15,
+                }}
                 loading={updateUserProfile.isLoading}
                 onPress={handleSubmit(onSubmit)}
               >

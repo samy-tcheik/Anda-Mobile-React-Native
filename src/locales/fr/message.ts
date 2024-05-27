@@ -18,8 +18,7 @@ export default {
   password_reset_success_message:
     'Votre mot de passe a été réinitialisé avec succès. Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.',
   create_review_title: 'Faites connaître votre avis sur ce lieu!',
-  create_review_message:
-    "Laissez-nous un avis et partagez vos réflexions ! Merci d'avoir fait partie de notre communauté.",
+  create_review_message: 'Faites connaître votre avis sur ce lieu!',
   create_review_warning_message:
     "l'espace commentaires a été conçue de manière a apporter des informations supplémentaires sur le lieux, nous nous réservons ainsi le droit de supprimer tout commentaires hors sujet voire de bannir tout utilisateurs publiant un commentaires déplacé ou insultant",
   rating_input_label: 'Quelle note donneriez-vous à votre expérience ?',
@@ -27,13 +26,13 @@ export default {
   review_success_title: "Merci d'avoir partagé votre expérience!",
   review_success_message:
     "Votre commentaire a été publié avec succès. N'hésitez pas à en publier davantage sur les lieux que vous avez déjà visités pour informer les autres utilisateurs",
-  intro_slider_1_title: 'Bienvenue en\nAlgérie',
+  intro_slider_1_title: 'Exploration',
   intro_slider_1_text:
-    "Avec Anda, l'Algérie vous révélera tous ses trésors, des lieux les plus connus à ceux dont vous ne soupçonniez même pas l'existence",
-  intro_slider_2_title: 'Explorez des trésors\nanciens\n',
+    'Découvrez des destinations uniques, préparez vos aventures et créez des souvenirs inoubliables',
+  intro_slider_2_title: 'Communauté',
   intro_slider_2_text:
-    "Organisez vos sorties avec une sélection personnalisée de lieux d'interêt grâce à la section Favoris",
-  intro_slider_3_title: 'Expérience\nNaturel\nBeauté',
+    'Accédez aux avis des utilisateurs et à des itinéraires personnalisés pour des voyages sans stress',
+  intro_slider_3_title: 'Accessibilité',
   intro_slider_3_text:
     'Notre application est entièrement traduisable en langue française, anglaise et arabe',
   no_search_result_message:

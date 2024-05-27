@@ -62,4 +62,5 @@ export default {
   discover: 'Découvrir',
   favorites: 'Favoris',
   detail: 'Detail',
+  delete: 'Supprimer',
 }

@@ -26,6 +26,8 @@ import ReviewsViewer from '../../../../components/reviews-viewer'
 import { showLocation } from 'react-native-map-link'
 import ImageViewer from 'react-native-image-zoom-viewer'
 import { showMessage } from 'react-native-flash-message'
+import ReviewActionModal from '../../shared/review/actions'
+import { useDeleteReview } from '../../shared/review/queries'
 interface IPlaceDetailScreenProps {
   route: RouteProp<any>
   navigation: NavigationProp<any>
@@ -38,8 +40,10 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
   const { t } = useTranslation()
   const { width } = useWindowDimensions()
   const imageView = usePopup()
+  const reviewActionModal = usePopup<string>()
   const { data, isLoading } = usePlace(route.params?.id)
   const addPlaceLike = useAddLike(LikeType.PLACE)
+  const deleteReview = useDeleteReview({})
 
   const handleLikeClick = () => {
     addPlaceLike.mutate(data?.id!)
@@ -47,6 +51,15 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
   const handleReadAllReviews = () => {
     navigation.navigate('review', { screen: 'review-list', params: data })
   }
+
+  const handleDeleteReview = (id: string) => {
+    deleteReview.mutate(id, {
+      onSuccess() {
+        reviewActionModal.onClose()
+      },
+    })
+  }
+
   const openMapOnLocation = () => {
     GetLocation.getCurrentPosition()
       .then(({ latitude, longitude }) => {
@@ -120,9 +133,7 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
           <View style={styles.mainContent}>
             <View style={styles.placeInfoContainer}>
               <View>
-                <Typography.SubheaderHeavy
-                  onPress={() => navigation.navigate('test-screen')}
-                >
+                <Typography.SubheaderHeavy>
                   {data?.name}
                 </Typography.SubheaderHeavy>
 
@@ -168,6 +179,8 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
             </View>
             <View>
               <Button
+                color={AppTheme.colors.primary}
+                titleStyle={{ color: AppTheme.colors.primary }}
                 type="outline"
                 onPress={() =>
                   navigation.navigate('review', {
@@ -195,11 +208,16 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
             {data?.review_count! > 0 && (
               <View style={styles.commentsSection}>
                 {data?.reviews.map((review, index) => (
-                  <ReviewItem key={index} data={review} />
+                  <ReviewItem
+                    openActionModal={reviewActionModal.open}
+                    key={index}
+                    data={review}
+                  />
                 ))}
                 <Button
                   type="outline"
                   containerStyle={styles.showAllReviewsButton}
+                  titleStyle={{ color: AppTheme.colors.primary }}
                   onPress={handleReadAllReviews}
                 >
                   {t('common:show_all_reviews', { entity: data?.review_count })}
@@ -207,6 +225,11 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
               </View>
             )}
           </View>
+          <ReviewActionModal
+            {...reviewActionModal}
+            handleDeleteReview={handleDeleteReview}
+            isDeleteLoading={deleteReview.isLoading}
+          />
           <Modal
             visible={imageView.isOpen}
             onRequestClose={imageView.onClose}
@@ -254,7 +277,7 @@ const styles = StyleSheet.create({
     width: 100,
   },
 
-  addReview: { color: AppTheme.colors.blue_b400 },
+  addReview: { color: AppTheme.colors.primary },
   commentSection: {
     borderRadius: 13,
     padding: 5,

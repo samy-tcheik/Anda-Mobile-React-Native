@@ -35,6 +35,7 @@ const ReviewsViewer: React.FC<Props> = ({ data, rating, reviewCount }) => {
         <View style={styles.progressBarContainer}>
           <ProgressBar
             unfilledColor={AppTheme.colors.neutral_n10}
+            color={AppTheme.colors.primary}
             borderWidth={0}
             height={10}
             width={null}
@@ -52,6 +53,7 @@ const ReviewsViewer: React.FC<Props> = ({ data, rating, reviewCount }) => {
         <View style={styles.progressBarContainer}>
           <ProgressBar
             unfilledColor={AppTheme.colors.neutral_n10}
+            color={AppTheme.colors.primary}
             borderWidth={0}
             height={10}
             width={null}
@@ -69,6 +71,7 @@ const ReviewsViewer: React.FC<Props> = ({ data, rating, reviewCount }) => {
         <View style={styles.progressBarContainer}>
           <ProgressBar
             unfilledColor={AppTheme.colors.neutral_n10}
+            color={AppTheme.colors.primary}
             borderWidth={0}
             height={10}
             width={null}
@@ -86,6 +89,7 @@ const ReviewsViewer: React.FC<Props> = ({ data, rating, reviewCount }) => {
         <View style={styles.progressBarContainer}>
           <ProgressBar
             unfilledColor={AppTheme.colors.neutral_n10}
+            color={AppTheme.colors.primary}
             borderWidth={0}
             height={10}
             width={null}
@@ -103,6 +107,7 @@ const ReviewsViewer: React.FC<Props> = ({ data, rating, reviewCount }) => {
         <View style={styles.progressBarContainer}>
           <ProgressBar
             unfilledColor={AppTheme.colors.neutral_n10}
+            color={AppTheme.colors.primary}
             borderWidth={0}
             height={10}
             width={null}

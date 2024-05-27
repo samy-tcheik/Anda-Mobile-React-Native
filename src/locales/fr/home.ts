@@ -1,10 +1,10 @@
 export default {
   explore_places: 'Explorer les lieux',
-  most_popular: 'Plus populaire',
-  most_viewed: 'Plus vu',
+  most_popular: 'Plus populaires',
+  most_viewed: 'Plus vus',
   most_liked: 'plus liké',
   most_rated: 'Mieux notés',
-  nearby_places: 'Lieux proches',
+  nearby: 'À proximité',
   see_more: 'Voir plus',
   welcome: 'Bienvenue',
 }

@@ -14,7 +14,7 @@ interface IHeaderProps extends HeaderProps {
   onRightClick?: () => void
   backButton?: boolean
   notification?: boolean
-  showWelcome: boolean
+  showWelcome?: boolean
   title?: string
   rightContent?: React.ReactNode
 }

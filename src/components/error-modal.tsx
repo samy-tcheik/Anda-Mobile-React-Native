@@ -29,7 +29,7 @@ const ErrorModal: React.FC<Partial<Props>> = ({
       onDismiss={onDismiss}
       onBackdropPress={onBackdropPress}
       isVisible={isOpen}
-      backdropOpacity={0.2}
+      backdropOpacity={0.4}
     >
       <Card containerStyle={styles.card}>
         <View style={styles.errorIconContainer}>
@@ -61,7 +61,7 @@ export default ErrorModal
 
 const styles = StyleSheet.create({
   card: {
-    borderRadius: 7,
+    borderRadius: AppTheme.borderRadius.light,
   },
   content: {
     justifyContent: 'center',

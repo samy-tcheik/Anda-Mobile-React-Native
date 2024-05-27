@@ -85,7 +85,6 @@ const NearbySection: React.FC<INearbySectionProps> = ({ navigation, data }) => {
                   navigation.navigate('discover', {
                     filters: {
                       category_id: [item.id],
-                      range: 30,
                     },
                   })
                 }

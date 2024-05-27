@@ -36,7 +36,6 @@ const ResetPasswordSuccess: React.FC<Props> = ({ navigation }) => {
       </View>
       <Button
         containerStyle={styles.buttonContainer}
-        buttonStyle={styles.button}
         onPress={handleButtonPress}
       >
         {t('common:continue')}
@@ -54,21 +53,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  button: {
-    padding: 15,
-    backgroundColor: AppTheme.colors.blue_b200,
-  },
   buttonContainer: {
-    borderRadius: 50,
     marginHorizontal: 20,
-    shadowColor: AppTheme.colors.blue_b300,
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-    elevation: 6,
   },
 
   messageContainer: {

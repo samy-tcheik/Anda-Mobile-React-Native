@@ -9,7 +9,6 @@ import Icon from '../../../../components/icon'
 import Button from '../../../../components/button'
 import { useTranslation } from 'react-i18next'
 import { useForgetPassword } from './query'
-import AppTheme from '../../../../styles'
 import Typography from '../../../../components/text'
 import CustomeScrollView from '../../../../components/custom-scrollview'
 import { usePopup } from '../../../../hooks/usePopup'
@@ -74,12 +73,7 @@ const ForgetPasswordScreen: React.FC<Props> = ({ navigation }) => {
             rightIcon={<Icon name="email-outline" />}
             containerStyle={{ marginBottom: 5 }}
           />
-          <Button
-            containerStyle={styles.loginButtonContainer}
-            buttonStyle={styles.loginButton}
-            loading={isLoading}
-            onPress={handleSubmit(onSubmit)}
-          >
+          <Button loading={isLoading} onPress={handleSubmit(onSubmit)}>
             {t('common:send')}
           </Button>
         </View>
@@ -99,22 +93,6 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  loginButton: {
-    padding: 15,
-    backgroundColor: AppTheme.colors.blue_b200,
-  },
-  loginButtonContainer: {
-    borderRadius: 50,
-
-    shadowColor: AppTheme.colors.blue_b300,
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-    elevation: 6,
   },
   messageContainer: {
     justifyContent: 'center',

@@ -41,7 +41,6 @@ const EmailSent: React.FC<Props> = ({ navigation, route }) => {
       </View>
       <Button
         containerStyle={styles.buttonContainer}
-        buttonStyle={styles.button}
         onPress={handleButtonPress}
       >
         {t('common:continue')}
@@ -50,7 +49,7 @@ const EmailSent: React.FC<Props> = ({ navigation, route }) => {
         {t('message:email_not_received')}{' '}
         <Typography.CaptionHeavy
           onPress={handleResend}
-          style={{ color: AppTheme.colors.blue_b200 }}
+          style={{ color: AppTheme.colors.primary }}
         >
           {t('common:resend')}
         </Typography.CaptionHeavy>{' '}
@@ -68,12 +67,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  button: {
-    padding: 15,
-    backgroundColor: AppTheme.colors.blue_b200,
-  },
   buttonContainer: {
-    borderRadius: 50,
     marginHorizontal: 20,
   },
 

@@ -98,18 +98,9 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     padding: 15,
-    backgroundColor: AppTheme.colors.blue_b200,
+    backgroundColor: AppTheme.colors.primary,
   },
   loginButtonContainer: {
     borderRadius: 50,
-
-    shadowColor: AppTheme.colors.blue_b300,
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-    elevation: 6,
   },
 })

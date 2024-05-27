@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     height: 50,
     paddingHorizontal: 30,
     justifyContent: 'space-between',
-    backgroundColor: AppTheme.colors.blue_b200,
+    backgroundColor: AppTheme.colors.primary,
   },
   languageButton: {
     height: 50,

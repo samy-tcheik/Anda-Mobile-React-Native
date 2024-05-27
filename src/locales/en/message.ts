@@ -17,8 +17,7 @@ export default {
   password_reset_success_message:
     'Your password has been successfully reset. You can now log in with your new password.',
   create_review_title: 'Make your opinion known about this place!',
-  create_review_message:
-    'Leave us a review and share your thoughts! Thank you for being a part of our community.',
+  create_review_message: 'Make your opinion known about this place!',
   create_review_warning_message:
     'the comments area has been designed to provide additional information about the location, we reserve the right to delete any off-topic comments or even to ban any users posting inappropriate or insulting comments.',
   rating_input_label: 'How would you rate your experience?',
@@ -26,13 +25,13 @@ export default {
   review_success_title: 'Thank you for sharing your experience!',
   review_success_message:
     "Your comment has been successfully published. Feel free to post more about places you've already visited to inform other users",
-  intro_slider_1_title: 'Welcome to\nAlgeria',
+  intro_slider_1_title: 'Exploration',
   intro_slider_1_text:
-    "With Anda, Algeria will reveal all its treasures to you, from the most well-known places to those you didn't even suspect existed",
-  intro_slider_2_title: 'Explore\nAncient\nTreasures',
+    'Discover unique destinations, plan your adventures and create unforgettable memories',
+  intro_slider_2_title: 'Community',
   intro_slider_2_text:
-    'Organize your outings with a personalized selection of places of interest using the Favorites section',
-  intro_slider_3_title: 'Experience\nNatural\nBeauty',
+    'Access user reviews and personalized itineraries for stress-free travel',
+  intro_slider_3_title: 'Accessibility',
   intro_slider_3_text:
     'Our application is fully translatable into French, English and Arabic',
   no_search_result_message:
