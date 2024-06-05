@@ -6,31 +6,56 @@ import { NavigationProp } from '@react-navigation/native'
 import AppIntroSlider from 'react-native-app-intro-slider'
 import { useTranslation } from 'react-i18next'
 import AppTheme from '../../../styles'
+import i18n from '../../../service/i18n'
 
 interface Props {
   navigation: NavigationProp<any>
 }
 
-const slides = [
-  {
-    key: 1,
-    image: require('../../../assets/images/coast.webp'),
-    title: 'message:intro_slider_1_title',
-    text: 'message:intro_slider_1_text',
-  },
-  {
-    key: 2,
-    image: require('../../../assets/images/desert.webp'),
-    title: 'message:intro_slider_2_title',
-    text: 'message:intro_slider_2_text',
-  },
-  {
-    key: 3,
-    image: require('../../../assets/images/forest.webp'),
-    title: 'message:intro_slider_3_title',
-    text: 'message:intro_slider_3_text',
-  },
-]
+const slides = {
+  fr: [
+    {
+      key: 1,
+      image: require('../../../assets/images/coast_fr.webp'),
+    },
+    {
+      key: 2,
+      image: require('../../../assets/images/desert_fr.webp'),
+    },
+    {
+      key: 3,
+      image: require('../../../assets/images/forest_fr.webp'),
+    },
+  ],
+  en: [
+    {
+      key: 1,
+      image: require('../../../assets/images/coast_en.webp'),
+    },
+    {
+      key: 2,
+      image: require('../../../assets/images/desert_en.webp'),
+    },
+    {
+      key: 3,
+      image: require('../../../assets/images/forest_en.webp'),
+    },
+  ],
+  ar: [
+    {
+      key: 1,
+      image: require('../../../assets/images/coast_ar.webp'),
+    },
+    {
+      key: 2,
+      image: require('../../../assets/images/desert_ar.webp'),
+    },
+    {
+      key: 3,
+      image: require('../../../assets/images/forest_ar.webp'),
+    },
+  ],
+}
 
 const IntroSlider: React.FC<Props> = ({ navigation }) => {
   const [isFirstLaunch, setIsFirstLaunch] = useState(true)
@@ -81,12 +106,11 @@ const IntroSlider: React.FC<Props> = ({ navigation }) => {
       </View>
     </ImageBackground>
   )
-
   return (
     <AppIntroSlider
       renderItem={renderItem}
       showSkipButton
-      data={slides}
+      data={(slides as any)[i18n.language]}
       nextLabel={t('common:next')}
       skipLabel={t('common:skip')}
       doneLabel={t('common:get_started')}

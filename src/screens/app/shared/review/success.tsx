@@ -26,7 +26,7 @@ const ReviewSuccess: React.FC<Props> = ({ navigation, route }) => {
       <View style={styles.imageContainer}>
         <Image
           resizeMode="contain"
-          source={require('../../../../assets/icons/nature-success.jpg')}
+          source={require('../../../../assets/icons/nature-success.png')}
           style={{ height: 350, width: 350 }}
         />
       </View>
@@ -40,7 +40,6 @@ const ReviewSuccess: React.FC<Props> = ({ navigation, route }) => {
       </View>
       <Button
         containerStyle={styles.buttonContainer}
-        buttonStyle={styles.button}
         onPress={handleButtonPress}
       >
         {t('common:continue')}
@@ -58,21 +57,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  button: {
-    padding: 15,
-    backgroundColor: AppTheme.colors.blue_b200,
-  },
   buttonContainer: {
-    borderRadius: 50,
     marginHorizontal: 20,
-    shadowColor: AppTheme.colors.blue_b300,
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-    elevation: 6,
   },
 
   messageContainer: {

@@ -90,7 +90,7 @@ const SettingsScreen: React.FC<ISettingsScreenProps> = ({
               <Icon name="lock-outline" />
               <ListItem.Content>
                 <ListItem.Title style={{ fontWeight: 'bold' }}>
-                  {t('common:privecy')}
+                  {t('common:privacy')}
                 </ListItem.Title>
               </ListItem.Content>
               <ListItem.Chevron

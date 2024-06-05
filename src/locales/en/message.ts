@@ -25,15 +25,6 @@ export default {
   review_success_title: 'Thank you for sharing your experience!',
   review_success_message:
     "Your comment has been successfully published. Feel free to post more about places you've already visited to inform other users",
-  intro_slider_1_title: 'Exploration',
-  intro_slider_1_text:
-    'Discover unique destinations, plan your adventures and create unforgettable memories',
-  intro_slider_2_title: 'Community',
-  intro_slider_2_text:
-    'Access user reviews and personalized itineraries for stress-free travel',
-  intro_slider_3_title: 'Accessibility',
-  intro_slider_3_text:
-    'Our application is fully translatable into French, English and Arabic',
   no_search_result_message:
     'No data found, check for spelling or try with other words.',
   no_result_message: 'No data found.',

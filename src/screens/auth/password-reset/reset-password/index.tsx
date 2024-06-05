@@ -48,7 +48,7 @@ const ResetPasswordScreen: React.FC<Props> = ({ navigation, route }) => {
           <View style={styles.logoContainer}>
             <Image
               resizeMode="contain"
-              source={require('../../../../assets/icons/forget-password.jpg')}
+              source={require('../../../../assets/icons/forget-password.png')}
               style={{ height: 350, width: 350 }}
             />
           </View>

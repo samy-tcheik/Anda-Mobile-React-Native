@@ -26,15 +26,6 @@ export default {
   review_success_title: "Merci d'avoir partagé votre expérience!",
   review_success_message:
     "Votre commentaire a été publié avec succès. N'hésitez pas à en publier davantage sur les lieux que vous avez déjà visités pour informer les autres utilisateurs",
-  intro_slider_1_title: 'Exploration',
-  intro_slider_1_text:
-    'Découvrez des destinations uniques, préparez vos aventures et créez des souvenirs inoubliables',
-  intro_slider_2_title: 'Communauté',
-  intro_slider_2_text:
-    'Accédez aux avis des utilisateurs et à des itinéraires personnalisés pour des voyages sans stress',
-  intro_slider_3_title: 'Accessibilité',
-  intro_slider_3_text:
-    'Notre application est entièrement traduisable en langue française, anglaise et arabe',
   no_search_result_message:
     "Aucune donnée trouvée, vérifiez l'orthographe ou essayez avec d'autres mots.",
   no_result_message: 'Aucune donnée trouvée.',

@@ -27,7 +27,7 @@ const EmailSent: React.FC<Props> = ({ navigation, route }) => {
       <View style={styles.imageContainer}>
         <Image
           resizeMode="contain"
-          source={require('../../../assets/icons/email-sent.jpg')}
+          source={require('../../../assets/icons/email-sent.png')}
           style={{ height: 300, width: 300 }}
         />
       </View>

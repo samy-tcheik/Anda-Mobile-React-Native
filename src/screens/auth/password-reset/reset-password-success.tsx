@@ -22,7 +22,7 @@ const ResetPasswordSuccess: React.FC<Props> = ({ navigation }) => {
       <View style={styles.imageContainer}>
         <Image
           resizeMode="contain"
-          source={require('../../../assets/icons/nature-success.jpg')}
+          source={require('../../../assets/icons/nature-success.png')}
           style={{ height: 350, width: 350 }}
         />
       </View>

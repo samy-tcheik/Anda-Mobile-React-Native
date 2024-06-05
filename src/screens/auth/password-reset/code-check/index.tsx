@@ -18,6 +18,7 @@ import { useEffect, useState } from 'react'
 import { usePopup } from '../../../../hooks/usePopup'
 import ErrorModal from '../../../../components/error-modal'
 import Typography from '../../../../components/text'
+import CustomeScrollView from '../../../../components/custom-scrollview'
 
 interface Props {
   navigation: NavigationProp<any>
@@ -61,53 +62,55 @@ const CodeCheckScreen: React.FC<Props> = ({ navigation }) => {
     setFormValue('code', value)
   }, [value])
   return (
-    <Background>
-      <Header backButton={true} onLeftClick={() => navigation.goBack()} />
+    <CustomeScrollView>
+      <Background>
+        <Header backButton={true} onLeftClick={() => navigation.goBack()} />
 
-      <View style={styles.container}>
-        <View style={styles.imageContainer}>
-          <Image
-            resizeMode="contain"
-            source={require('../../../../assets/icons/forget-password.jpg')}
-            style={{ height: 300, width: 300 }}
+        <View style={styles.container}>
+          <View style={styles.imageContainer}>
+            <Image
+              resizeMode="contain"
+              source={require('../../../../assets/icons/forget-password.png')}
+              style={{ height: 300, width: 300 }}
+            />
+          </View>
+          <View style={styles.messageContainer}>
+            <Typography.TitleHeavy style={{ textAlign: 'center' }}>
+              {t('message:code_check_title')}
+            </Typography.TitleHeavy>
+            <Typography.CaptionLight style={{ textAlign: 'center' }}>
+              {t('message:code_check_message')}
+            </Typography.CaptionLight>
+          </View>
+          <CodeField
+            ref={ref}
+            {...props}
+            value={value}
+            onChangeText={setValue}
+            cellCount={CELL_COUNT}
+            rootStyle={styles.codeFieldRoot}
+            keyboardType="number-pad"
+            textContentType="oneTimeCode"
+            renderCell={({ index, symbol, isFocused }) => (
+              <Text
+                key={index}
+                style={[styles.cell, isFocused && styles.focusCell]}
+                onLayout={getCellOnLayoutHandler(index)}
+              >
+                {symbol || (isFocused ? <Cursor /> : null)}
+              </Text>
+            )}
           />
         </View>
-        <View style={styles.messageContainer}>
-          <Typography.TitleHeavy style={{ textAlign: 'center' }}>
-            {t('message:code_check_title')}
-          </Typography.TitleHeavy>
-          <Typography.CaptionLight style={{ textAlign: 'center' }}>
-            {t('message:code_check_message')}
-          </Typography.CaptionLight>
-        </View>
-        <CodeField
-          ref={ref}
-          {...props}
-          value={value}
-          onChangeText={setValue}
-          cellCount={CELL_COUNT}
-          rootStyle={styles.codeFieldRoot}
-          keyboardType="number-pad"
-          textContentType="oneTimeCode"
-          renderCell={({ index, symbol, isFocused }) => (
-            <Text
-              key={index}
-              style={[styles.cell, isFocused && styles.focusCell]}
-              onLayout={getCellOnLayoutHandler(index)}
-            >
-              {symbol || (isFocused ? <Cursor /> : null)}
-            </Text>
-          )}
-        />
-      </View>
-      <Button
-        containerStyle={styles.buttonContainer}
-        onPress={handleSubmit(onSubmit)}
-      >
-        {t('common:continue')}
-      </Button>
-      <ErrorModal {...errorModal} />
-    </Background>
+        <Button
+          containerStyle={styles.buttonContainer}
+          onPress={handleSubmit(onSubmit)}
+        >
+          {t('common:continue')}
+        </Button>
+        <ErrorModal {...errorModal} />
+      </Background>
+    </CustomeScrollView>
   )
 }
 
