@@ -1,5 +1,5 @@
-// export const API_URL = 'http://10.0.2.2:8000/api'
-export const API_URL = 'https://8a0f-105-111-176-151.ngrok-free.app/v1'
+// export const API_URL = 'https://14d6-41-104-253-23.ngrok-free.app/v1'
+export const API_URL = 'https://api.andatravels.com/v1'
 
 //dev
 // export const GOOGLE_CLIENT_ID =

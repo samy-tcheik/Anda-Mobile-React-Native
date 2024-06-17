@@ -1,9 +1,7 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { NavigationProp, RouteProp } from '@react-navigation/native'
-import { Avatar, Divider, ListItem } from '@rneui/base'
-import { useTransitionProgress } from 'react-native-screens'
+import { Avatar, ListItem } from '@rneui/base'
 import { useTranslation } from 'react-i18next'
-import { LinearProgress } from '@rneui/themed'
 import { useAuthUser } from '../profile/queries'
 import AppLayout from '../../app-layout'
 import Typography from '../../../../components/text'
@@ -72,7 +70,7 @@ const SettingsScreen: React.FC<ISettingsScreenProps> = ({
             <Typography.SubheaderHeavy style={{ marginVertical: 5 }}>
               {t('common:settings')}
             </Typography.SubheaderHeavy>
-            <ListItem containerStyle={styles.itemContainer}>
+            {/* <ListItem containerStyle={styles.itemContainer}>
               <Icon name="bell-outline" />
               <ListItem.Content>
                 <ListItem.Title style={{ fontWeight: 'bold' }}>
@@ -84,9 +82,12 @@ const SettingsScreen: React.FC<ISettingsScreenProps> = ({
                 name="chevron-right"
                 size={30}
               />
-            </ListItem>
+            </ListItem> */}
             <LanguageItem />
-            <ListItem containerStyle={styles.itemContainer}>
+            <ListItem
+              onPress={() => navigation.navigate('privacy')}
+              containerStyle={styles.itemContainer}
+            >
               <Icon name="lock-outline" />
               <ListItem.Content>
                 <ListItem.Title style={{ fontWeight: 'bold' }}>
@@ -99,7 +100,7 @@ const SettingsScreen: React.FC<ISettingsScreenProps> = ({
                 size={30}
               />
             </ListItem>
-            <ListItem containerStyle={styles.itemContainer}>
+            {/* <ListItem containerStyle={styles.itemContainer}>
               <Icon name="help-circle-outline" />
               <ListItem.Content>
                 <ListItem.Title style={{ fontWeight: 'bold' }}>
@@ -111,8 +112,11 @@ const SettingsScreen: React.FC<ISettingsScreenProps> = ({
                 name="chevron-right"
                 size={30}
               />
-            </ListItem>
-            <ListItem containerStyle={styles.itemContainer}>
+            </ListItem> */}
+            <ListItem
+              onPress={() => navigation.navigate('contact-us')}
+              containerStyle={styles.itemContainer}
+            >
               <Icon name="information-outline" />
               <ListItem.Content>
                 <ListItem.Title style={{ fontWeight: 'bold' }}>

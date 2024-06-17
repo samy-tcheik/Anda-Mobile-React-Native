@@ -16,11 +16,11 @@ const slides = {
   fr: [
     {
       key: 1,
-      image: require('../../../assets/images/coast_fr.webp'),
+      image: require('../../../assets/images/desert_fr.webp'),
     },
     {
       key: 2,
-      image: require('../../../assets/images/desert_fr.webp'),
+      image: require('../../../assets/images/coast_fr.webp'),
     },
     {
       key: 3,
@@ -30,11 +30,11 @@ const slides = {
   en: [
     {
       key: 1,
-      image: require('../../../assets/images/coast_en.webp'),
+      image: require('../../../assets/images/desert_en.webp'),
     },
     {
       key: 2,
-      image: require('../../../assets/images/desert_en.webp'),
+      image: require('../../../assets/images/coast_en.webp'),
     },
     {
       key: 3,
@@ -44,11 +44,11 @@ const slides = {
   ar: [
     {
       key: 1,
-      image: require('../../../assets/images/coast_ar.webp'),
+      image: require('../../../assets/images/desert_ar.webp'),
     },
     {
       key: 2,
-      image: require('../../../assets/images/desert_ar.webp'),
+      image: require('../../../assets/images/coast_ar.webp'),
     },
     {
       key: 3,
