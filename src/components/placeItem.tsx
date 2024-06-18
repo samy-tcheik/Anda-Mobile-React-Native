@@ -61,10 +61,12 @@ const PlaceItem: React.FC<IPlaceItemProps> = ({ data, onPress }) => {
                 name="map-marker-outline"
               />
               <Typography.SmallLight style={styles.wilaya}>
-                {data.wilaya.name},
+                {data.wilaya.name}
+              </Typography.SmallLight>
+              <Typography.SmallLight style={styles.separation}>
+                ,
               </Typography.SmallLight>
               <Typography.SmallLight style={styles.wilaya}>
-                {' '}
                 {data.town.name}
               </Typography.SmallLight>
             </View>
@@ -104,6 +106,9 @@ const styles = StyleSheet.create({
   },
   distance: {
     color: AppTheme.colors.neutral_n300,
+  },
+  separation: {
+    marginHorizontal: 2,
   },
 })
 

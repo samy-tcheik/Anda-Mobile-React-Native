@@ -91,7 +91,7 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
         )
       }
       onRightContentClick={handleLikeClick}
-      title={t('common:detail')}
+      title={t('common:details')}
       backButton
       navigation={navigation}
     >
@@ -153,10 +153,13 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
                   </View>
                   <View style={styles.placeInfoItem}>
                     <Icon name="map-marker-outline" size={20} />
+                    <Typography.DescriptionLight style={{ marginLeft: 5 }}>
+                      {data?.wilaya.name}
+                    </Typography.DescriptionLight>
                     <Typography.DescriptionLight
-                      style={{ marginHorizontal: 5 }}
+                      style={{ marginHorizontal: 2 }}
                     >
-                      {data?.wilaya.name},
+                      ,
                     </Typography.DescriptionLight>
                     <Typography.DescriptionLight>
                       {data?.town.name}{' '}

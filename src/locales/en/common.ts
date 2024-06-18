@@ -61,6 +61,6 @@ export default {
   submit: 'Submit',
   discover: 'Discover',
   favorites: 'Favorites',
-  detail: 'Detail',
+  details: 'Details',
   delete: 'Delete',
 }

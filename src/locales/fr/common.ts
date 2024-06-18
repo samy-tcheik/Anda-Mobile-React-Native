@@ -61,6 +61,6 @@ export default {
   submit: 'Soumettre',
   discover: 'Découvrir',
   favorites: 'Favoris',
-  detail: 'Detail',
+  details: 'Details',
   delete: 'Supprimer',
 }

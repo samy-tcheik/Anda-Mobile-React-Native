@@ -61,6 +61,6 @@ export default {
   submit: 'أرسل',
   discover: 'اكتشف',
   favorites: 'المفضلة',
-  detail: 'التفاصيل',
+  details: 'التفاصيل',
   delete: 'حذف',
 }
