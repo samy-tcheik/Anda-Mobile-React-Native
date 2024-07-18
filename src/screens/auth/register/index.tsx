@@ -76,6 +76,7 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
             autoCapitalize="none"
             rightIcon={<Icon name="account" />}
             containerStyle={{ marginBottom: 5 }}
+            id="name"
           />
           <Input
             control={control}
@@ -89,6 +90,7 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
             keyboardType="email-address"
             rightIcon={<Icon name="email-outline" />}
             containerStyle={{ marginBottom: 5 }}
+            id="email"
           />
           <Input
             control={control}

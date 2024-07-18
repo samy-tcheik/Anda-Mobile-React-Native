@@ -62,7 +62,6 @@ const DiscoverStackScreen: React.FC<IDiscoverScreenProps> = ({ route }) => {
         }
     }
   }
-  console.log('route.params', !!(route?.params as any)?.filters)
   const [state, dispatch] = useReducer(filtersReducer, {
     ...initialState,
     filters: (route?.params as any)?.filters,
