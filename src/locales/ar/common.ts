@@ -23,7 +23,7 @@ export default {
   privacy: 'الخصوصية',
   help_center: 'مركز المساعدة',
   about_us: 'معلومات عنا',
-  translation: 'ترجمة',
+  language: 'لغة',
   continue_with_google: 'واصل بجوجل',
   continue_with_facebook: 'واصل بالفيسبوك',
   continue: 'واصل',

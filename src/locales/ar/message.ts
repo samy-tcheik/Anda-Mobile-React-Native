@@ -29,4 +29,5 @@ export default {
   no_result_message: 'لم يتم العثور على بيانات',
   empty_liked_list_message: 'قائمة الأماكن المفضلة لديك فارغة حاليًا.',
   empty_history_list_message: 'قائمة السجل الخاص بك فارغة حاليا.',
+  activte_geolocation_message: 'يرجى تفعيل تحديد الموقع الجغرافي على جهازك',
 }

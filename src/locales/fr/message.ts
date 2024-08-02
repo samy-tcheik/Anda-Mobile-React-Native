@@ -32,4 +32,6 @@ export default {
   empty_liked_list_message:
     'Votre liste de lieux appréciés est actuellement vide.',
   empty_history_list_message: "Votre liste d'historique est actuellement vide.",
+  activte_geolocation_message:
+    'Veuillez activer la geolocalisation sur votre appareil.',
 }

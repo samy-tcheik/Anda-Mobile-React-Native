@@ -16,7 +16,6 @@ import { useAddLike, usePlace } from '../../queries'
 import { usePopup } from '../../../../hooks/usePopup'
 import { LikeType } from '../../types'
 import Button from '../../../../components/button'
-import GetLocation from 'react-native-get-location'
 import Loader from '../../../../components/loader'
 import { Rating } from 'react-native-ratings'
 import ReadMoreWrapper from '../../../../components/description'
@@ -28,6 +27,7 @@ import ImageViewer from 'react-native-image-zoom-viewer'
 import { showMessage } from 'react-native-flash-message'
 import ReviewActionModal from '../../shared/review/actions'
 import { useDeleteReview } from '../../shared/review/queries'
+import getUserLocation from '../../../../utils/getLocation'
 interface IPlaceDetailScreenProps {
   route: RouteProp<any>
   navigation: NavigationProp<any>
@@ -61,14 +61,15 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
   }
 
   const openMapOnLocation = () => {
-    GetLocation.getCurrentPosition()
-      .then(({ latitude, longitude }) => {
+    const location = getUserLocation()
+    location
+      .then((info) => {
         try {
           showLocation({
             latitude: data?.latitude!,
             longitude: data?.longitude!,
-            sourceLatitude: latitude,
-            sourceLongitude: longitude,
+            sourceLatitude: info.coords.latitude,
+            sourceLongitude: info.coords.longitude,
           })
         } catch (error: any) {
           showMessage({
@@ -77,8 +78,7 @@ const PlaceDetailScreen: React.FC<IPlaceDetailScreenProps> = ({
           })
         }
       })
-      .catch((error) => console.log('error', error))
-    // getDirections({})
+      .catch((err) => console.log('error', err))
   }
   return (
     <AppLayout

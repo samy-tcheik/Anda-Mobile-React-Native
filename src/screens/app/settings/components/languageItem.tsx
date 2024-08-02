@@ -50,7 +50,7 @@ const LanguageItem: React.FC = () => {
         <Icon name="translate" />
         <ListItem.Content>
           <ListItem.Title style={{ fontWeight: 'bold' }}>
-            {t('common:translation')}
+            {t('common:language')}
           </ListItem.Title>
         </ListItem.Content>
         <ListItem.Chevron
