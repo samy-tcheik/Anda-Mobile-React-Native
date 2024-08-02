@@ -21,7 +21,7 @@ export default {
   privacy: 'Privacy',
   help_center: 'Help center',
   about_us: 'About us',
-  translation: 'Translation',
+  translation: 'Language',
   continue_with_google: 'Continue with Google',
   continue_with_facebook: 'Continue with Facebook',
   send: 'Send',

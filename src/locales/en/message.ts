@@ -30,4 +30,5 @@ export default {
   no_result_message: 'No data found.',
   empty_liked_list_message: 'Your liked places list is currently empty.',
   empty_history_list_message: 'Your history list is currently empty.',
+  activte_geolocation_message: 'Please enable geolocation on your device',
 }

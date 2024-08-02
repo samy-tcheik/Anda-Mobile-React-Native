@@ -23,7 +23,7 @@ export default {
   privacy: 'Confidentialité',
   help_center: "Centre d'aide",
   about_us: 'À propos de nous',
-  translation: 'Traduction',
+  translation: 'Langue',
   continue_with_google: 'Continuer avec Google',
   continue_with_facebook: 'Continuer avec Facebook',
   continue: 'Continuer',

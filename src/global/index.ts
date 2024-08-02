@@ -1,4 +1,4 @@
-// export const API_URL = 'https://14d6-41-104-253-23.ngrok-free.app/v1'
+// export const API_URL = 'https://1dde-105-103-70-53.ngrok-free.app/v1'
 export const API_URL = 'https://api.andatravels.com/v1'
 
 //dev

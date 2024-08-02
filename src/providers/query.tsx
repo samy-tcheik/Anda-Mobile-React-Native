@@ -8,6 +8,7 @@ import { showMessage } from 'react-native-flash-message'
 import api from '../service/api'
 import { dispatchLoggedOutEvent } from './auth/utils'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { Alert } from 'react-native'
 
 const queryClient = (authContext: any) =>
   new QueryClient({
@@ -36,7 +37,7 @@ const queryClient = (authContext: any) =>
         switch (true) {
           case meta?.handleError !== false && error.response.status !== 422:
             showMessage({
-              message: 'unexpected error',
+              message: `unexpected error: ${error.response.message}`,
               type: 'danger',
               icon: (props: any) => (
                 <Icon name="alert-circle" color="white" size={20} {...props} />
@@ -46,6 +47,13 @@ const queryClient = (authContext: any) =>
           case error.response.status === 401:
             dispatchLoggedOutEvent()
             break
+          case error.response.status === 400:
+            Alert.alert('Error', 'Please enable geolocation on your device', [
+              {
+                text: 'Continue',
+                onPress: () => console.log('OK Pressed'),
+              },
+            ])
         }
       },
     }),
@@ -76,6 +84,14 @@ const queryClient = (authContext: any) =>
         onError(error: any) {
           if (error.response.status === 401) {
             authContext.logout()
+          }
+          if (error.response.status === 400) {
+            console.log('error 400')
+            Alert.alert(
+              'Error',
+              'Veuillez activer la geolocalisation sur votre appareil',
+              [{ text: 'OK', onPress: () => console.log('OK Pressed') }]
+            )
           }
         },
         useErrorBoundary: (error: any) => {
