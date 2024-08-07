@@ -12,7 +12,7 @@ export default function getUserLocation() {
         reject(error)
       },
       {
-        enableHighAccuracy: true,
+        enableHighAccuracy: false,
         timeout: 15000,
         maximumAge: 5,
       }
