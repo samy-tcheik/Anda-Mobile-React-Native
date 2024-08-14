@@ -13,8 +13,6 @@ export default function getUserLocation() {
       },
       {
         enableHighAccuracy: false,
-        timeout: 15000,
-        maximumAge: 5,
       }
     )
   })
